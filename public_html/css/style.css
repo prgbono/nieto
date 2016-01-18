@@ -1,0 +1,169 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}body{margin: 0; font: 1.2em/1.5 "Helvetica", sans-serif;}li{list-style: none;}a{display: block;text-decoration: none;}
+
+header .menu{
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    
+/*    Estilos de los botones*/
+    /*background-color: #337ab7;*/
+    border-bottom: 1px #fff;
+    color: #fff;
+/*    background-color: rgba(0,0,0,.4);
+    border-bottom: 1px solid rgba(0,0,0,.4); */
+    z-index: 10;
+}
+
+.buscadores{
+    position: fixed;
+    top: 50px;
+    width: 100%;
+    height: 35px;
+    /*    Estilos de los botones*/
+    background-color: rgba(51,122,183,.4);
+    /*border-bottom: 1px solid rgba(0,0,0,.4);*/ 
+    /*En la instrucción anterior el pixel no puede ser más delgado que uno por eso ponemos rgba (0,0,0,.4) y hacemos que visualmente sea más pequeño*/ 
+    z-index: 10;
+}
+
+/*clase para fuentes pequeñas*/
+.fuentesMin{
+    font-size: 0.6em;
+}
+
+.col{
+    float:left;
+    width: 12.5%;  //100 dividido entre el número de eltos del menú
+    text-align: center;
+    line-height: 50px;
+}
+
+.col:not(last-child){
+/*    border-right: 1px solid rgba(0,0,0,1);*/
+/*    border-right: 1px solid #094D89;*/
+    border-right: 1px solid #fff;
+}
+
+.activo{
+    box-shadow: inset 0 -3px #fff;
+/*    box-shadow: inset 0 -4px #094D89;*/
+/*    box-shadow: inset 0 -2px #222;*/
+    /*El inset es para hacer la sombra por dentro del elto*/
+}
+
+main{
+/*    top: 100px;*/
+    padding-top: 80px;
+    /*quitar el scroll para el contenedor de 800%*/
+    overflow-x: hidden;
+}
+
+.contenedor{
+    width: 800%;
+    position: relative; /*se puede usar absolute pero mejor relative*/
+    left: 0;    
+/*    -webkit-transition: .3s all; Para verlo en Android
+    transition: .3s all;*/
+}
+
+.page{
+    float: left;
+    width: 12.5%; /*DEl width del padre 'contenedor'. Error común poner aquí 100%*/
+    padding: 20px;
+}
+
+
+div.FixedHeader_Cloned table { margin: 0 !important }
+
+
+/*CABECERAS DE LAS TABLAS FIJAS*/
+.table{
+/*    Ver la sustitución de esta clase por 'cabecera'*/
+    font-size: 0.7em;
+    text-align: left;   
+}
+
+.cabecera{
+    font-size: 0.8em;
+    text-align: left;   
+}
+
+/*.table th{
+   text-align: center;   
+}
+.table td{
+   text-align: left;   
+}*/
+
+
+/*table .header-fixed {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  z-index: 1020;  10 less than .navbar-fixed to prevent any overlap 
+}*/
+thead {
+  background-color: rgba(0,0,0,.5); //#eaeaea;
+}
+
+tbody input{
+    width: 50px;
+}
+
+#input_trimestre{
+    width: 90px;
+}
+
+
+/*Form de agregar registros a la BBDD. Opción BBDD
+Ocultarlo mediante JS hasta que se pulse el botón Agregar
+Al pulsarlo desplazar la tabla hacia abajo y mostrar el formulario
+*/
+.form_addBBDD .form_addPerdida{
+    padding-top: 5px;
+}
+
+.altura {
+    max-height: 300px;
+    overflow: auto;
+}
+
+hr {
+    display: block;
+    border-top: 1px solid red;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.entreTrimestres{
+    padding-top: 10px;
+/*    background-color: pink;*/
+}
+
+#addCocheOculto, #addArticuloOculto{
+    display: none;
+}
+
+.header-fixed{
+    position: fixed; 
+    top: 85px; 
+    width: 100%;
+    display: none;
+    background-color: white;
+    font-size: 0.8em;
+    text-align: left;  
+}
+
+#newPed, #editAnul{
+    display: none;
+}
+
+#anulacion{
+    background-color: tomato;
+}
+
+#anulacion2{
+    background-color: burlywood;
+}
