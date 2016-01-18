@@ -56,6 +56,7 @@ function setEvents(){
     $("#guardar_cliente2").on("click", altaCliente);
     $("#btn_addBBDD").on("click", agregarBBDD);
 //    $("#buscador_cli").on("blur", buscador_clientes);
+    $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto(id_cliente));
     
 }
 
@@ -732,14 +733,14 @@ function altaCliente(){
         //Ajax para el envío de datos a actualizar
         var urlActualizarCliente = url.concat('actualizarCliente.php');
         $.ajax({
-        type: "POST",
-        url: urlActualizarCliente,
-        data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente, id_coches: id_coches, id_direcciones: id_direcciones },  
-        success: function(data)
-        {
-            alert ('Ajax enviado. Actualizar Cliente');    
-        }
-    }); 
+            type: "POST",
+            url: urlActualizarCliente,
+            data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente, id_coches: id_coches, id_direcciones: id_direcciones },  
+            success: function(data)
+            {
+                alert ('Ajax enviado. Actualizar Cliente');    
+            }
+        }); 
         
         //Vaciar las variables globales de cliente, coches y direcciones a actualizar
         id_cliente = 0;
@@ -793,8 +794,31 @@ function agregarBBDD(){
     });  
 }
 
+function insertar_nuevoPpto(id_cliente){
+    console.log('Insertar nPpto: '+id_cliente);
+    var urlNuevoPpto = url.concat('nuevoPpto.php');
+    $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
+        if(resp==-1){
+            //No se guarda el presupuesto pq no tiene articulos añadidos
+            alert("Incluye algún artículo al presupuesto");
+        }
+        else{
+            //Todas las tablas involucradas en la inserción OK
+            alert("Presupuesto dado de alta correctamente");
+        }
+    });
+    
+//    $.ajax({
+//        type: "POST",
+//        url: urlNuevoPpto,
+//        data: $("#form_newPpto").serialize(), 
+//        success: function(data)
+//        {
+//            alert ('Ajax enviado. Actualizar Cliente');    
+//        }
+//    });
 
-
+}
 
     
 
