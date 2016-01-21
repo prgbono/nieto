@@ -56,7 +56,7 @@ function setEvents(){
     $("#guardar_cliente2").on("click", altaCliente);
     $("#btn_addBBDD").on("click", agregarBBDD);
 //    $("#buscador_cli").on("blur", buscador_clientes);
-    $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto(id_cliente));
+    $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
     
 }
 
@@ -795,18 +795,26 @@ function agregarBBDD(){
 }
 
 function insertar_nuevoPpto(id_cliente){
-    console.log('Insertar nPpto: '+id_cliente);
-    var urlNuevoPpto = url.concat('nuevoPpto.php');
-    $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
-        if(resp==-1){
-            //No se guarda el presupuesto pq no tiene articulos añadidos
-            alert("Incluye algún artículo al presupuesto");
-        }
-        else{
-            //Todas las tablas involucradas en la inserción OK
-            alert("Presupuesto dado de alta correctamente");
-        }
-    });
+    //Campos obligatorios para insertar artículos: descripción y referencia. Miramos estos campos del primer input del id="articulos". Si están vacíos avisamos. IMPLEMENTARLO
+    if (1===0){
+        console.log("Inputs vacíos");
+    }
+    else{
+        var urlNuevoPpto = url.concat('nuevoPpto.php');
+        $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
+            if(resp==-1){
+                //No se guarda el presupuesto pq no tiene articulos añadidos
+                alert("Incluye algún artículo al presupuesto");
+            }
+            else{
+                //Todas las tablas involucradas en la inserción OK
+                alert('En new');
+                console.log(resp);
+            }
+        });
+    }
+    
+    
     
 //    $.ajax({
 //        type: "POST",
