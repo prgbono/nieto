@@ -796,12 +796,13 @@ function agregarBBDD(){
 
 function insertar_nuevoPpto(id_cliente){
     //Campos obligatorios para insertar artículos: descripción y referencia. Miramos estos campos del primer input del id="articulos". Si están vacíos avisamos. IMPLEMENTARLO
+    console.log('En nuevoPpto, id_cliente: ' +id_cliente);
     if (1===0){
         console.log("Inputs vacíos");
     }
     else{
         var urlNuevoPpto = url.concat('nuevoPpto.php');
-        $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
+        $.post(urlNuevoPpto, $("#form_newPpto").serialize(), id_cliente, function(resp){
             if(resp==-1){
                 //No se guarda el presupuesto pq no tiene articulos añadidos
                 alert("Incluye algún artículo al presupuesto");
