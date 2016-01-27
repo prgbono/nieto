@@ -796,36 +796,37 @@ function agregarBBDD(){
 
 function insertar_nuevoPpto(id_cliente){
     //Campos obligatorios para insertar artículos: descripción y referencia. Miramos estos campos del primer input del id="articulos". Si están vacíos avisamos. IMPLEMENTARLO
-    console.log('En nuevoPpto, id_cliente: ' +id_cliente);
-    if (1===0){
-        console.log("Inputs vacíos");
-    }
-    else{
+    
+//    if (1===0){
+//        Sin artículos!!
+//    }
+//    else{
         var urlNuevoPpto = url.concat('nuevoPpto.php');
-        $.post(urlNuevoPpto, $("#form_newPpto").serialize(), id_cliente, function(resp){
-            if(resp==-1){
-                //No se guarda el presupuesto pq no tiene articulos añadidos
-                alert("Incluye algún artículo al presupuesto");
-            }
-            else{
-                //Todas las tablas involucradas en la inserción OK
-                alert('En new');
-                console.log(resp);
+        //HAY Q PROBAR ESTA LLAMADA A AJAX!!!
+        $.ajax({
+            type: "POST",
+            url: urlNuevoPpto,
+            data: { form: $("#form_newPpto").serialize(), id_cliente: id_cliente },
+            success: function(resp)
+            {
+                alert(resp);
             }
         });
-    }
-    
-    
-    
-//    $.ajax({
-//        type: "POST",
-//        url: urlNuevoPpto,
-//        data: $("#form_newPpto").serialize(), 
-//        success: function(data)
-//        {
-//            alert ('Ajax enviado. Actualizar Cliente');    
-//        }
-//    });
+        
+//    }
+  
+//$.post(urlNuevoPpto, $("#form_newPpto").serialize(), id_cliente, function(resp){
+//              alert('resp: ', +resp);
+//            if(resp==-1){
+//                //No se guarda el presupuesto pq no tiene articulos añadidos
+//                alert("Incluye algún artículo al presupuesto");
+//            }
+//            else{
+//                //Todas las tablas involucradas en la inserción OK
+//                alert('Insertado en presupuestos');
+//                console.log(resp);
+//            }
+//        });
 
 }
 
