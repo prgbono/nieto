@@ -155,6 +155,7 @@ function nuevoCliente(){
 
 
 function nuevoPpto(cliente){
+    id_cliente = cliente;
     contenedor.style.left = "-300%";
     $(".buscadores").hide();
     submenu[0].className="col";
@@ -180,6 +181,9 @@ function nuevoPpto(cliente){
                 $('#cliente_newPpto').val(json.nombre);
                 $('#vehiculo_newPpto').val(json.modelo);
                 $('#bastidor_newPpto').val(json.bastidor);
+
+                /*id_cliente seleccionado para pasarlo a nuevo presupuesto. Btn '+'*/
+                $('#id_cliente').val(cliente);
             }
         });
     }
@@ -794,41 +798,48 @@ function agregarBBDD(){
     });  
 }
 
-function insertar_nuevoPpto(id_cliente){
+function insertar_nuevoPpto(){
     //Campos obligatorios para insertar artículos: descripción y referencia. Miramos estos campos del primer input del id="articulos". Si están vacíos avisamos. IMPLEMENTARLO
+    event.preventDefault();
     
-//    if (1===0){
-//        Sin artículos!!
-//    }
-//    else{
-        var urlNuevoPpto = url.concat('nuevoPpto.php');
-        //HAY Q PROBAR ESTA LLAMADA A AJAX!!!
-        $.ajax({
-            type: "POST",
-            url: urlNuevoPpto,
-            data: { form: $("#form_newPpto").serialize(), id_cliente: id_cliente },
-            success: function(resp)
-            {
-                alert(resp);
-            }
-        });
-        
-//    }
-  
-//$.post(urlNuevoPpto, $("#form_newPpto").serialize(), id_cliente, function(resp){
-//              alert('resp: ', +resp);
-//            if(resp==-1){
-//                //No se guarda el presupuesto pq no tiene articulos añadidos
-//                alert("Incluye algún artículo al presupuesto");
-//            }
-//            else{
-//                //Todas las tablas involucradas en la inserción OK
-//                alert('Insertado en presupuestos');
-//                console.log(resp);
-//            }
-//        });
+    
+    var urlNuevoPpto = url.concat('nuevoPpto.php');    
+    /*console.log('antes del ajax');
+    $.ajax({
+        type: "POST",
+        url: urlNuevoPpto,
+        data: { form: $("#form_newPpto").serialize(), id_cliente: id_cliente }, 
+        success: function(resp)
+        {
+            alert(resp);
+        }
+    });*/
 
+    $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
+        alert(resp);
+    });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 

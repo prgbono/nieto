@@ -362,6 +362,10 @@
                     <form class="form-horizontal" role="form" id="form_newPpto">
                         <fieldset>
                             <legend>Presupuesto</legend>
+
+                            <!-- Input oculto para pasar el id_cliente -->
+                            <input type="hidden" name="id_cliente" id="id_cliente">
+                            
                             <div class="form-group">
                                 <div class="col-xs-1">
                                     <label class="control-label">Fecha</label>
@@ -2077,7 +2081,8 @@
                   </div>
                 </div>
             </div>
-        </main>        
+        </main>  
+        
     </body>
     
     <script>
