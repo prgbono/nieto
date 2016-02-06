@@ -111,7 +111,7 @@ function cancelAddCoche(){
 }
 
 function addArticulo(){
-    $("#articulos").append('<div class="col-xs-3"><input type="text" class="form-control" placeholder="Descripcion"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Ref"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="check"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="UDS"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Precio"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Cambio"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="PVP"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="DTO"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Total"></div><div class="col-xs-1"><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div>');
+    $("#articulos").append('<div class="col-xs-3"><input type="text" class="form-control" placeholder="Descripcion"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Ref"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="check"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="UDS"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Precio"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Cambio"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="PVP"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="DTO"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Total"></div><div class="col-xs-1"><button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div>');
     $("#addArticuloOculto").hide();
 }
 
@@ -816,8 +816,15 @@ function insertar_nuevoPpto(){
     });*/
 
     $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
-        alert(resp);
+        if (resp == 'No iguales'){
+            alert('Informa adecuadamente los artículos');
+        }
+        else if (resp==1){
+            alert('Presupuesto creado');
+        }
+
     });
+        
 }
 
 
