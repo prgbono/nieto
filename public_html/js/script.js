@@ -828,6 +828,53 @@ function insertar_nuevoPpto(){
 }
 
 
+function getDescripciones (){
+    var min = 1; // min caracteres para buscar
+    urlDescripciones = url.concat('getDescripciones.php');
+    var keyword = $('.descripcion').val();
+    if (keyword.length >= min) {
+        $.ajax({
+            url: urlDescripciones,
+            type: 'POST',
+            data: {keyword: keyword},
+            dataType: 'json',
+            success:function(json){
+                var selectDescripciones = [];
+                $.each(json.Descripciones, function(i, descripcion){
+                    selectDescripciones.push(descripcion.sp_title);
+                });
+                $(".descripcion").autocomplete({
+                    source: selectDescripciones
+                });
+            }
+        });
+    }
+
+}
+
+
+function getRefPVP (des){
+    //var des = $('.descripcion').val();
+    /*console.log('Pierde el foco, des: ', des);*/
+    urlgetRefPvp = url.concat('getRefPvp.php');
+    if (des != '') {
+        $.ajax({
+            url: urlgetRefPvp,
+            type: 'POST',
+            data: {des: des},
+            dataType: 'json',
+            success:function(json){
+                $('.referencia').val(json.pruebasBBDD[0].part_number);
+                $('.precio').val(json.pruebasBBDD[0].gbp);
+            }
+        });    
+    }
+    
+}
+
+
+
+
 
 
 
