@@ -44,7 +44,7 @@ function setEvents(){
     $("#btn_cancelNewPed").on("click", cancelNewPed);
 //    $("#btn_limpiar").on("click", resetFormNuevoCliente);
     $(".btn_listadoPptosCliente").on("click", listadoPptos(id_cliente));
-    $(".btn_listadoPedCliente").on("click", listadoPed);
+    $(".btn_listadoPedCliente").on("click", listadoPed(id_cliente));
     $("#btn_cancelNewPpto").on("click", listadoPptos(id_cliente));
     $("#btn_editar_anul").on("click", editarAnul);
     $("#btn_cancelEditAnul").on("click", cancelEditAnul);
@@ -55,8 +55,8 @@ function setEvents(){
     $("#guardar_cliente1").on("click", altaCliente);
     $("#guardar_cliente2").on("click", altaCliente);
     $("#btn_addBBDD").on("click", agregarBBDD);
-//    $("#buscador_cli").on("blur", buscador_clientes);
-    $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
+    $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);    
+    //$(".descripcion").on("blur", getRefPVP);
     
 }
 
@@ -224,7 +224,7 @@ function listadoPptos(cliente){
     
 }
 
-function listadoPed(){
+function listadoPed(cliente){
     contenedor.style.left = "-400%";
     $(".buscadores").show();
     submenu[0].className="col";
@@ -236,7 +236,9 @@ function listadoPed(){
     submenu[6].className="col";
     submenu[7].className="col";
 //    ocultarNewPed();
-    listar_pedidos();
+    console.log('En listadoPed, cliente: ', cliente);
+
+    listar_pedidos(cliente);
 }
 
 function mostrarNewPed(){
@@ -289,7 +291,7 @@ function listar_clientes(){
     $.getJSON(urlListarClientes, function(json){
         $.each(json.Clientes, function(i, cliente){
         //Meter el JSON en la tabla de 'listado Clientes'
-           tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed()" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+           tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
         });
         $('#listadoClientes').html(tablaClientes);
     });  
@@ -387,7 +389,7 @@ function autocomplet() {
                         success:function(json){
                             var tablaClientes = '';
                             $.each(json.Clientes, function(i, cliente){
-                                tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed()" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                                tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
                                 });
                             $('#listadoClientes').html(tablaClientes);
                         }
@@ -507,7 +509,7 @@ function autocomplet() {
 }
 
 
-function listar_pedidos(){
+function listar_pedidos(cliente){
     var urlListarPedidos = url.concat('listarPedidos.php');
     var tablaPedidos1 = '';
     var tablaPedidos2 = '';
@@ -515,54 +517,64 @@ function listar_pedidos(){
     var tablaPedidos4 = '';
     var tablaPedTotal = '';
     var total=0;
+    console.log('En listar_pedidos');
     //total = parseInt(total);
-    $.getJSON(urlListarPedidos, function(json){
-        //PEDIDOS 1ER TRIMESTRE
-        $.each(json.Pedidos[0], function(i, ped){
-            //Meter el JSON en la tabla de 'listado Presupuestos'       
-            tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
-            total+=parseInt(ped.total);
-        });
-        $('#total_TRI1').text(total +' €');
-        $('#listadoPedidos1').html(tablaPedidos1);
-        
-        //PEDIDOS 2do TRIMESTRE
-        total=0;
-        $.each(json.Pedidos[1], function(i, ped){
-        //Meter el JSON en la tabla de 'listado Presupuestos'       
-            tablaPedidos2 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
-            total+=parseInt(ped.total);
-        });
-        $('#total_TRI2').text(total +' €');
-        $('#listadoPedidos2').html(tablaPedidos2);
-        
-        //PEDIDOS 3er TRIMESTRE
-        total=0;
-        $.each(json.Pedidos[2], function(i, ped){
-        //Meter el JSON en la tabla de 'listado Presupuestos'       
-            tablaPedidos3 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
-            total+=parseInt(ped.total);
-        });
-        $('#total_TRI3').text(total +' €');
-        $('#listadoPedidos3').html(tablaPedidos3);
-        
-        //PEDIDOS 4to TRIMESTRE
-        total=0;
-        $.each(json.Pedidos[3], function(i, ped){
-        //Meter el JSON en la tabla de 'listado Presupuestos'       
-            tablaPedidos4 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
-            total+=parseInt(ped.total);
-        });
-        $('#total_TRI4').text(total +' €');
-        $('#listadoPedidos4').html(tablaPedidos4);
-        
-        //PEDIDOS DE AÑOS NO EN CURSO
-        $.each(json.Pedidos[4], function(i, ped){
-        //Meter el JSON en la tabla de 'listado Presupuestos'       
-            tablaPedTotal += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
+    //id_cliente = cliente;
+    console.log(cliente);
+    $.ajax({
+        url: urlListarPedidos,
+        type: 'GET',
+        data: {cliente: cliente},
+        dataType: 'json',
+        success:function(json){
+            console.log(json);
+            //PEDIDOS 1ER TRIMESTRE
+            $.each(json.Pedidos[0], function(i, ped){
+                //Meter el JSON en la tabla de 'listado Presupuestos'       
+                tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
+                total+=parseInt(ped.total);
+            });
+            $('#total_TRI1').text(total +' €');
+            $('#listadoPedidos1').html(tablaPedidos1);
             
-        });
-        $('#listadoPedTotal').html(tablaPedTotal);
+            //PEDIDOS 2do TRIMESTRE
+            total=0;
+            $.each(json.Pedidos[1], function(i, ped){
+            //Meter el JSON en la tabla de 'listado Presupuestos'       
+                tablaPedidos2 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
+                total+=parseInt(ped.total);
+            });
+            $('#total_TRI2').text(total +' €');
+            $('#listadoPedidos2').html(tablaPedidos2);
+            
+            //PEDIDOS 3er TRIMESTRE
+            total=0;
+            $.each(json.Pedidos[2], function(i, ped){
+            //Meter el JSON en la tabla de 'listado Presupuestos'       
+                tablaPedidos3 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
+                total+=parseInt(ped.total);
+            });
+            $('#total_TRI3').text(total +' €');
+            $('#listadoPedidos3').html(tablaPedidos3);
+            
+            //PEDIDOS 4to TRIMESTRE
+            total=0;
+            $.each(json.Pedidos[3], function(i, ped){
+            //Meter el JSON en la tabla de 'listado Presupuestos'       
+                tablaPedidos4 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
+                total+=parseInt(ped.total);
+            });
+            $('#total_TRI4').text(total +' €');
+            $('#listadoPedidos4').html(tablaPedidos4);
+            
+            //PEDIDOS DE AÑOS NO EN CURSO
+            $.each(json.Pedidos[4], function(i, ped){
+            //Meter el JSON en la tabla de 'listado Presupuestos'       
+                tablaPedTotal += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
+                
+            });
+            $('#listadoPedTotal').html(tablaPedTotal);
+        }
     });  
 }
 
@@ -843,7 +855,7 @@ function getDescripciones (){
                 $.each(json.Descripciones, function(i, descripcion){
                     selectDescripciones.push(descripcion.sp_title);
                 });
-                $(".descripcion").autocomplete({
+                $('.descripcion').autocomplete({
                     source: selectDescripciones
                 });
             }
@@ -854,8 +866,6 @@ function getDescripciones (){
 
 
 function getRefPVP (des){
-    //var des = $('.descripcion').val();
-    /*console.log('Pierde el foco, des: ', des);*/
     urlgetRefPvp = url.concat('getRefPvp.php');
     if (des != '') {
         $.ajax({
@@ -871,6 +881,30 @@ function getRefPVP (des){
     }
     
 }
+
+/*CON ESTA FUNCIÓN HAY QUE PONER $(".descripcion").on("blur", getRefPVP); en el SET Events y quitar el onblur de los inputs descripción de nuevo_ppto
+function getRefPVP (){
+    console.log('Pierde el foco, des: ', this.name);
+    next  = $(this).next();
+    console.log('next: ', next);
+
+    urlgetRefPvp = url.concat('getRefPvp.php');
+    if (this.value != '') {
+        $.ajax({
+            url: urlgetRefPvp,
+            type: 'POST',
+            data: {des: this.value},
+            dataType: 'json',
+            success:function(json){
+                console.log ('Dentro del function, jason: ', json);
+                console.log ($(this.name));
+                $(this).next().val(json.pruebasBBDD[0].part_number);
+                
+            }
+        });    
+    }
+    
+}*/
 
 
 
