@@ -237,7 +237,7 @@ function listadoPed(cliente){
     submenu[6].className="col";
     submenu[7].className="col";
 //    ocultarNewPed();
-    console.log('En listadoPed, cliente: ', cliente);
+    //console.log('En listadoPed, cliente: ', cliente);
 
     listar_pedidos(cliente);
 }
@@ -489,7 +489,9 @@ function autocomplet() {
         case 6:
             break;
         case 7:
+            console.log('En apartado BBDD');
             urlPantalla = url.concat('bbdd.php');
+            
             if (keyword.length >= min) {
                 $.ajax({
                     url: urlPantalla,
@@ -520,17 +522,17 @@ function listar_pedidos(cliente){
     var tablaPedidos4 = '';
     var tablaPedTotal = '';
     var total=0;
-    console.log('En listar_pedidos');
+    //console.log('En listar_pedidos');
     //total = parseInt(total);
     //id_cliente = cliente;
-    console.log(cliente);
+    //console.log(cliente);
     $.ajax({
         url: urlListarPedidos,
         type: 'GET',
         data: {cliente: cliente},
         dataType: 'json',
         success:function(json){
-            console.log(json);
+            //console.log(json);
             //PEDIDOS 1ER TRIMESTRE
             $.each(json.Pedidos[0], function(i, ped){
                 //Meter el JSON en la tabla de 'listado Presupuestos'       
@@ -715,7 +717,7 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col activo";
         submenu[7].className="col";
-        listar_bbdd();
+                    
 //        ocultarNewPed();
     };
 //  Pérdidas    
@@ -953,8 +955,22 @@ function eliminarPed(id_ped, idCli){
     });
 }
 
+function eliminarBBDD(id){
+    var urlEliminarBBDD = url.concat('eliminarBBDD.php');
+    //Enviamos la id al PHP
+    $.post(urlEliminarBBDD,{"id_bbdd":id_bbdd}, function(resp){
+       if (resp == 1){
+           console.log('En eliminarBBDD Ok'); 
+           listar_bbdd();
+       }
+       else{
+           alert("Error al eliminar el artículo de la Base de Datos");
+       }
+    });    
+}
 
-function confirmar(cod,id, idCli) {
+
+function confirmar(cod, id, idCli) {
     /*console.log('En confirmar, desde: ', cli);*/
     /*console.log('id: ', id);
     console.log('cli: ', cod);*/
@@ -965,15 +981,15 @@ function confirmar(cod,id, idCli) {
       buttons: {
         "Eliminar": function() {
             /*lamar a php para eliminar, aquí un case distinguiendo lo que haya que eliminar, códigos:
-            *   eliminar cliente - código 1
-            *   eliminar presupuesto - código 2
-            *   Eliminar artículo de nuevo/editar ppto - código 3??
-            *   Eliminar pedido de listado de pedidos - código 4
-            *   Eliminar artículo de nuevo/editar pedido - código 5
-            *   eliminar pedidos anulacion - código 6
-            *   eliminar artículos de editar anulacion - código 7
-            *   eliminar producto base de datos - código 8
-            *   eliminar perdidas - código 9
+            *   1. eliminar cliente - código 1
+            *   2. eliminar presupuesto - código 2
+            *   3. Eliminar artículo de nuevo/editar ppto - código 3??
+            *   4. Eliminar pedido de listado de pedidos - código 4
+            *   5. Eliminar artículo de nuevo/editar pedido - código 5
+            *   6. eliminar pedidos anulacion - código 6
+            *   7. eliminar artículos de editar anulacion - código 7
+            *   8. eliminar producto base de datos - código 8
+            *   9. eliminar perdidas - código 9
             */
 
             switch (cod) {    
@@ -999,7 +1015,7 @@ function confirmar(cod,id, idCli) {
                 console.log('Confirmar cod: ', cod, id);
                 break;
             case 6:
-                //Eliminar anulación
+                //Eliminar anulación. No probado
                 console.log('Confirmar cod: ', cod, id);
                 break;
             case 7:
@@ -1009,6 +1025,7 @@ function confirmar(cod,id, idCli) {
             case 8:
                 //Elimar BBDD
                 console.log('Confirmar cod: ', cod, id);
+                eliminarBBDD(id);
                 break;
             case 9:
                 //Eliminar pérdida
