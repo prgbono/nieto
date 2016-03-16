@@ -221,6 +221,7 @@ function listadoPptos(cliente){
     submenu[7].className="col";
 //    ocultarNewPed();
     //alert('En listadoPptos. cliente: '+cliente);
+    console.log('valor del parámetro cliente en la f(x) listadoPptos: ', cliente);
     listar_pptos(cliente);
     
 }
@@ -597,7 +598,7 @@ function listar_bbdd(){
 }
 
 function listar_pptos(cliente){
-    //alert('En listar_pptos. cliente: '+cliente);
+    console.log('En listar_pptos. Parámetro cliente: ', cliente);
     var urlListarPptos = url.concat('listarPresupuestos.php');
     var tablaPptos = '';
     id_cliente = cliente;
@@ -664,6 +665,7 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=3;
         $('#client_id').val('');
+        console.log('id_cliente antes de la f(x) listadoPptos: ', id_cliente);
         listadoPptos(id_cliente);
     };
     submenu[3].onclick= function(){
