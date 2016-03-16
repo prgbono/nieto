@@ -717,6 +717,7 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col activo";
         submenu[7].className="col";
+        listar_bbdd();
                     
 //        ocultarNewPed();
     };
@@ -955,7 +956,7 @@ function eliminarPed(id_ped, idCli){
     });
 }
 
-function eliminarBBDD(id){
+function eliminarBBDD(id_bbdd){
     var urlEliminarBBDD = url.concat('eliminarBBDD.php');
     //Enviamos la id al PHP
     $.post(urlEliminarBBDD,{"id_bbdd":id_bbdd}, function(resp){
