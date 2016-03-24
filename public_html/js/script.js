@@ -598,7 +598,7 @@ function listar_bbdd(){
 }
 
 function listar_pptos(cliente){
-    console.log('En listar_pptos. Parámetro cliente: ', cliente);
+    //console.log('En listar_pptos. Parámetro cliente: ', cliente);
     var urlListarPptos = url.concat('listarPresupuestos.php');
     var tablaPptos = '';
     id_cliente = cliente;
@@ -665,7 +665,7 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=3;
         $('#client_id').val('');
-        console.log('id_cliente antes de la f(x) listadoPptos: ', id_cliente);
+        //console.log('id_cliente antes de la f(x) listadoPptos: ', id_cliente);
         listadoPptos(id_cliente);
     };
     submenu[3].onclick= function(){
@@ -914,6 +914,48 @@ function getRefPVP (){
     
 }*/
 
+function comboClientesPpto (){
+    var urlcomboCliente = url.concat('listarClientes.php');
+    $.ajax({
+        url: urlcomboCliente,
+        type: 'POST',
+        //data: {keyword: keyword},
+        dataType: 'json',
+        success:function(json){
+            var comboClientes = "<select id='cliSeleccionadoPpto' onchange='listadoPptos(this.value)'><option value='0'>Todos...</option>";
+            $.each(json.Clientes, function(i, cliente){
+                comboClientes += "<option value="+cliente.id_cliente+">"+cliente.nombre+"</option>";
+            });
+            comboClientes += "</select>";
+            $('#cliSeleccionadoPpto').html(comboClientes);
+        }
+    });
+}
+
+
+
+function comboClientesPed (){
+    var urlcomboCliente = url.concat('listarClientes.php');
+    $.ajax({
+        url: urlcomboCliente,
+        type: 'POST',
+        //data: {keyword: keyword},
+        dataType: 'json',
+        success:function(json){
+            var comboClientes = "<select id='cliSeleccionadoPed' onchange='listar_pedidos(this.value)'><option value='0'>Todos...</option>";
+            $.each(json.Clientes, function(i, cliente){
+                comboClientes += "<option value="+cliente.id_cliente+">"+cliente.nombre+"</option>";
+            });
+            comboClientes += "</select>";
+            $('#cliSeleccionadoPed').html(comboClientes);
+        }
+    });
+}
+
+         
+
+
+
 function eliminarCliente(id_cliente){
     var urlEliminarCliente = url.concat('eliminarCliente.php');
     //Enviamos la id al PHP
@@ -985,7 +1027,7 @@ function confirmar(cod, id, idCli) {
         "Eliminar": function() {
             /*lamar a php para eliminar, aquí un case distinguiendo lo que haya que eliminar, códigos:
             *   1. eliminar cliente - código 1
-            *   2. eliminar presupuesto - código 2
+            *   2. eliminar presupuesto de cliente específico- código 2
             *   3. Eliminar artículo de nuevo/editar ppto - código 3??
             *   4. Eliminar pedido de listado de pedidos - código 4
             *   5. Eliminar artículo de nuevo/editar pedido - código 5
@@ -993,6 +1035,7 @@ function confirmar(cod, id, idCli) {
             *   7. eliminar artículos de editar anulacion - código 7
             *   8. eliminar producto base de datos - código 8
             *   9. eliminar perdidas - código 9
+            *   10. eliminar presupuesto de listado general- código 10
             */
 
             switch (cod) {    
@@ -1001,7 +1044,7 @@ function confirmar(cod, id, idCli) {
                 eliminarCliente(id);
                 break;
             case 2:
-                //Eliminar ppto
+                //Eliminar ppto de cliente
                 eliminarPpto(id, idCli);
                 break;
             case 3:
@@ -1033,6 +1076,10 @@ function confirmar(cod, id, idCli) {
             case 9:
                 //Eliminar pérdida
                 console.log('Confirmar cod: ', cod);
+                break;
+            case 10:
+                //Eliminar ppto de listado general
+                //eliminarPpto(id, 0);
                 break;
             }
           $(this).dialog( "close" );

@@ -320,6 +320,13 @@
                 </div>
                 <div class="page">
 <!--                    Listado presupuestos-->
+                    <div>
+                        <label class="control-label">Presupuestos del cliente: </label>
+                            <select id="cliSeleccionadoPpto" onchange="listadoPptos(this.value)" onfocus="comboClientesPpto()">
+                            </select>
+                        
+                    </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-condensed table-bordered table-striped cabecera_fija">
                             <thead class='header'>
@@ -864,6 +871,13 @@
                     </form>
                 </div>
                 <div class="page">
+                    <div>
+                        <label class="control-label">Pedidos del cliente: </label>
+                            <select id="cliSeleccionadoPed" onchange="listar_pedidos(this.value)" onfocus="comboClientesPed()">
+                            </select>
+                        
+                    </div>
+
                     <div id="listPed">
                         <!--Listado pedidos-->
                         <!--1ºTRIMESTRE-->
