@@ -3,10 +3,10 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-//var url = "http://localhost:8888/nietoBack/";
+var url = "http://localhost:8888/nietoBack/";
 var pantalla = 1;
 //rios.esy.es
-var url = "http://www.rios.esy.es/nietoBack/";
+//var url = "http://www.rios.esy.es/nietoBack/";
 //
 //PRODUCCIÓN
 
@@ -238,8 +238,7 @@ function listadoPed(cliente){
     submenu[6].className="col";
     submenu[7].className="col";
 //    ocultarNewPed();
-    //console.log('En listadoPed, cliente: ', cliente);
-
+    console.log('En listadoPed, cliente: ', cliente);
     listar_pedidos(cliente);
 }
 
@@ -523,10 +522,10 @@ function listar_pedidos(cliente){
     var tablaPedidos4 = '';
     var tablaPedTotal = '';
     var total=0;
-    //console.log('En listar_pedidos');
+    console.log('En listar_pedidos');
     //total = parseInt(total);
     //id_cliente = cliente;
-    //console.log(cliente);
+    console.log('Cliente id: ',cliente);
     $.ajax({
         url: urlListarPedidos,
         type: 'GET',
@@ -681,7 +680,7 @@ function navegacion(){
         pantalla=5;
         $('#client_id').val('');
         
-        listadoPed();
+        listadoPed(id_cliente);
     };
 //  Pedidos anul.    
     submenu[5].onclick= function(){
@@ -748,7 +747,6 @@ function altaCliente(){
     //Comprobamos mediante el texto del botón si es update o nueva inserción
     if ($('#guardar_cliente1').text() === 'Actualizar'){ 
         //$.post(urlActualizarCliente, $("#form_nuevo_cliente").serialize(), function(resp){}
-        
         
         //Volver a poner el texto de los dos botones a 'Guardar';
         $('#guardar_cliente1').text('Guardar');
@@ -1016,9 +1014,8 @@ function eliminarBBDD(id_bbdd){
 
 
 function confirmar(cod, id, idCli) {
-    /*console.log('En confirmar, desde: ', cli);*/
-    /*console.log('id: ', id);
-    console.log('cli: ', cod);*/
+    console.log('En confirmar, desde (cod): ', cod);
+    console.log('id: ', id);
     $("#confirm2").dialog({
       resizable: false,
       height:170,
