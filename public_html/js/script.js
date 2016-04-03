@@ -221,7 +221,7 @@ function listadoPptos(cliente){
     submenu[7].className="col";
 //    ocultarNewPed();
     //alert('En listadoPptos. cliente: '+cliente);
-    console.log('valor del parámetro cliente en la f(x) listadoPptos: ', cliente);
+    //console.log('valor del parámetro cliente en la f(x) listadoPptos: ', cliente);
     listar_pptos(cliente);
     
 }
@@ -238,7 +238,7 @@ function listadoPed(cliente){
     submenu[6].className="col";
     submenu[7].className="col";
 //    ocultarNewPed();
-    console.log('En listadoPed, cliente: ', cliente);
+    //console.log('En listadoPed, cliente: ', cliente);
     listar_pedidos(cliente);
 }
 
@@ -409,6 +409,7 @@ function autocomplet() {
                     data: {keyword: keyword},
                     dataType: 'json',
                     success:function(json){
+                        console.log ('En el success del jason de listar Presupuestos, url', urlPantalla);
                         var tablaPptos = '';
                         $.each(json.Presupuestos, function(i, ppto){
                             tablaPptos += '<tr><td>'+ppto.id_ppto+'</td><td>'+ppto.fecha+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_cliente+'</td><td>'+ppto.total+'</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
@@ -438,7 +439,7 @@ function autocomplet() {
                         var tablaPedTotal = '';
                         var total=0;
                         $.each(json.Pedidos[0], function(i, ped){
-            //Meter el JSON en la tabla de 'listado Presupuestos'       
+            //Meter el JSON en la tabla de 'listado Pedidos'       
             tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label><input type="checkbox" value="'+ped.inter+'"></label></div></div><div class="col-xs-2"><input type="text" value="'+ped.inter+'"id="inter"></div><div class="col-xs-2"><input type="text" value="'+ped.recog+'" id="recog"></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio"></div><div class="col-xs-2"><input type="text" value="1" id="pe"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef"></div><div class="col-xs-2"><input type="text" value="'+ped.anul+'" id="anul"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" class="btn-primary btn-xs">APLICAR</button></div></div></div></div></td></tr>';
             total+=parseInt(ped.total);
         });
