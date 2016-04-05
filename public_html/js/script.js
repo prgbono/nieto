@@ -3,13 +3,13 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-var url = "http://localhost:8888/nietoBack/";
-var pantalla = 1;
+//var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
-//var url = "http://www.rios.esy.es/nietoBack/";
+var url = "http://www.rios.esy.es/nietoBack/";
 //
 //PRODUCCIÓN
 
+var pantalla = 1;
 var id_cliente = 0;
 var id_coches = [];
 var id_direcciones = [];
