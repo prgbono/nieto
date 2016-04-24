@@ -761,7 +761,8 @@ function altaCliente(){
             data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente, id_coches: id_coches, id_direcciones: id_direcciones },  
             success: function(data)
             {
-                alert ('Ajax enviado. Actualizar Cliente');    
+                alert ('Ajax enviado. Actualizar Cliente'); 
+                   
             }
         }); 
         
