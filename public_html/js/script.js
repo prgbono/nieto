@@ -320,6 +320,8 @@ function editarCliente (cliente){
             $('#input_variado').val(json.variado);
             $('#input_tlf1').val(json.tlf1);
             $('#input_email1').val(json.email);
+            $('#envio_nombre').val(json.nombre);
+            $('#fact_nombre').val(json.nombre);
             //meter el id_cliente (cliente) en vble global para pasarlo por ajax a actualizarCliente
         }
     });
@@ -749,31 +751,49 @@ function altaCliente(){
     if ($('#guardar_cliente1').text() === 'Actualizar'){ 
         //$.post(urlActualizarCliente, $("#form_nuevo_cliente").serialize(), function(resp){}
         
-        //Volver a poner el texto de los dos botones a 'Guardar';
-        $('#guardar_cliente1').text('Guardar');
-        $('#guardar_cliente2').text('Guardar');
-        
         //Ajax para el envío de datos a actualizar
         var urlActualizarCliente = url.concat('actualizarCliente.php');
         $.ajax({
             type: "POST",
             url: urlActualizarCliente,
-            data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente, id_coches: id_coches, id_direcciones: id_direcciones },  
+            /*data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente },  */
+            data: { id_cliente: id_cliente,
+                    input_nombre: $("#input_nombre").val(), 
+                    input_variado: $("#input_variado").val(),
+                    input_tlf1: $("#input_tlf1").val(),
+                    input_tlf2: $("#input_tlf2").val(),
+                    input_email1: $("#input_email1").val(),
+                    input_email2: $("#input_email2").val(),
+                    envio_nombre: $("#envio_nombre").val(),
+                    envio_calle: $("#envio_calle").val(),
+                    envioCP: $("#envioCP").val(),
+                    envio_ciudad: $("#envio_ciudad").val(),
+                    fact_nombre: $("#fact_nombre").val(),
+                    fact_calle: $("#fact_calle").val(),
+                    factCP: $("#factCP").val(),
+                    factNIF: $("#factNIF").val(),
+                    fact_ciudad: $("#fact_ciudad").val(),},  
             success: function(data)
             {
-                alert ('Ajax enviado. Actualizar Cliente'); 
+                console.log ('Ajax enviado. Actualizar Cliente. Query1: ', data); 
                    
             }
         }); 
+
+        //Volver a poner el texto de los dos botones a 'Guardar';
+        $('#guardar_cliente1').text('Guardar');
+        $('#guardar_cliente2').text('Guardar');
         
+        event.preventDefault();
+
         //Vaciar las variables globales de cliente, coches y direcciones a actualizar
-        id_cliente = 0;
+        /*id_cliente = 0;
         $.each (id_coches, function() {
             id_coches.pop();
         });
         $.each (id_direcciones, function() {
             id_direcciones.pop();
-        });
+        });*/
     }
     
     //Caso de nueva inserción
@@ -794,8 +814,6 @@ function altaCliente(){
             }
         });
     }
-    
-    
     
 }
 
