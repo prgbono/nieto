@@ -346,7 +346,6 @@ function editarCliente (cliente){
     });
     
     var urlDireccionesCliente = url.concat('direccionesCliente.php');
-    console.log('En direcciones cliente, cliente: ', cliente);
     $.ajax({
         url: urlDireccionesCliente,
         type: 'GET',
@@ -412,7 +411,6 @@ function autocomplet() {
                     data: {keyword: keyword},
                     dataType: 'json',
                     success:function(json){
-                        console.log ('En el success del jason de listar Presupuestos, url', urlPantalla);
                         var tablaPptos = '';
                         $.each(json.Presupuestos, function(i, ppto){
                             tablaPptos += '<tr><td>'+ppto.id_ppto+'</td><td>'+ppto.fecha+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_cliente+'</td><td>'+ppto.total+'</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
@@ -493,7 +491,6 @@ function autocomplet() {
         case 6:
             break;
         case 7:
-            console.log('En apartado BBDD');
             urlPantalla = url.concat('bbdd.php');
             
             if (keyword.length >= min) {
@@ -526,10 +523,8 @@ function listar_pedidos(cliente){
     var tablaPedidos4 = '';
     var tablaPedTotal = '';
     var total=0;
-    console.log('En listar_pedidos');
     //total = parseInt(total);
     //id_cliente = cliente;
-    console.log('Cliente id: ',cliente);
     $.ajax({
         url: urlListarPedidos,
         type: 'GET',
@@ -636,7 +631,6 @@ function navegacion(){
       var touch = event.targetTouches[0]; //array de 'dedos'. puede haber más de un dedo
       //2. Obtenemos su posicioón
       posXinicial = touch.pageX;
-      console.log(posXinicial);
     });
     
     //EVENTOS. (Ejemplos de funciones anónimas
@@ -997,10 +991,8 @@ function eliminarCliente(id_cliente){
 function eliminarPpto(id_ppto, idCli){
     var urlEliminarPpto = url.concat('eliminarPpto.php');
     //Enviamos la id al PHP
-    console.log('url ppto', urlEliminarPpto); 
     $.post(urlEliminarPpto,{"id_ppto":id_ppto}, function(resp){
        if (resp == 1){
-           console.log('En eliminarPpto Ok'); 
            listar_pptos(idCli);
        }
        else{
@@ -1010,12 +1002,10 @@ function eliminarPpto(id_ppto, idCli){
 }
 
 function eliminarPed(id_ped, idCli){
-    console.log('En eliminarPed Ok'); 
     var urlEliminarPed = url.concat('eliminarPed.php');
     //Enviamos la id al PHP
     $.post(urlEliminarPed,{"id_ped":id_ped}, function(resp){
        if (resp == 1){
-           console.log('En eliminarPed Ok'); 
            listar_pedidos(idCli);
            //listadoPed(idcli);
        }
@@ -1030,7 +1020,6 @@ function eliminarBBDD(id_bbdd){
     //Enviamos la id al PHP
     $.post(urlEliminarBBDD,{"id_bbdd":id_bbdd}, function(resp){
        if (resp == 1){
-           console.log('En eliminarBBDD Ok'); 
            listar_bbdd();
        }
        else{
@@ -1041,8 +1030,6 @@ function eliminarBBDD(id_bbdd){
 
 
 function confirmar(cod, id, idCli) {
-    console.log('En confirmar, desde (cod): ', cod);
-    console.log('id: ', id);
     $("#confirm2").dialog({
       resizable: false,
       height:170,
@@ -1078,7 +1065,6 @@ function confirmar(cod, id, idCli) {
             case 4:
                 //Eliminar pedido
                 eliminarPed(id, idCli);
-                console.log('Confirmar cod: ', cod, id);
                 break;
             case 5:
                 //Eliminar artículo de pedido. No probado
@@ -1094,7 +1080,6 @@ function confirmar(cod, id, idCli) {
                 break;
             case 8:
                 //Elimar BBDD
-                console.log('Confirmar cod: ', cod, id);
                 eliminarBBDD(id);
                 break;
             case 9:
