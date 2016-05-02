@@ -346,6 +346,7 @@ function editarCliente (cliente){
     });
     
     var urlDireccionesCliente = url.concat('direccionesCliente.php');
+    console.log('En direcciones cliente, cliente: ', cliente);
     $.ajax({
         url: urlDireccionesCliente,
         type: 'GET',
@@ -394,7 +395,7 @@ function autocomplet() {
                         success:function(json){
                             var tablaClientes = '';
                             $.each(json.Clientes, function(i, cliente){
-                                tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                                tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
                                 });
                             $('#listadoClientes').html(tablaClientes);
                         }
@@ -775,7 +776,12 @@ function altaCliente(){
                     fact_ciudad: $("#fact_ciudad").val(),},  
             success: function(data)
             {
-                console.log ('Ajax enviado. Actualizar Cliente. Query1: ', data); 
+                if (data == 1) {
+                    alert ('CLIENTE MODIFICADO');
+                }
+                else {
+                    alert ('Ha ocurrido un error al actualizar el cliente')
+                }
                    
             }
         }); 
@@ -801,6 +807,7 @@ function altaCliente(){
     {
         var urlAltaCliente = url.concat('altaCliente.php');
         $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
+            alert(resp);
             if(resp==-1){
                 //Ya existe este cliente
                 alert("Ya existe este cliente");
