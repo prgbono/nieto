@@ -1169,9 +1169,7 @@ function confirmar(cod, id, idCli) {
 function aplicar_cambios(id_pedido, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul){
 
     //DEfinir las variables checkbox antes de enviarlas al ajax
-
-    /*TENGO QUE BUSCAR LA FORMA DE PASARLE AL AJAX LOS NUEVOS VALORES QUE EL USER HA INTRODUCIDO EN LOS INPUTS. AHORA MISMO NO SE CÓMO HACERLO PQ TODOS LOS INPUTS SE GENERAN AUTOMÁTICAMENTE Y TIENEN EL MISMO ID, ESTO ES UNA JODIDA*/
-
+    console.log('llega');
     var urlAplicarPedido = url.concat('aplicarPedido.php');
     $.ajax({
         type: "POST",
