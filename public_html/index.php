@@ -428,6 +428,7 @@
 <!--                            Artículos -->
                             <div id="articulos">
                                 <div class="form-group">
+                                    <?php for ?>
                                     <div class="col-xs-4">
                                         <input type="text" name="descripcion[]" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones()" onblur="getRefPVP(this.value)" >
                                     </div>

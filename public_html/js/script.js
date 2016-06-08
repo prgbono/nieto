@@ -57,6 +57,9 @@ function setEvents(){
     $("#guardar_cliente2").on("click", altaCliente);
     $("#btn_addBBDD").on("click", agregarBBDD);
     $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
+
+    
+    
     /*$(".aplicar").on("click", aplicar_cambios);  */  
     //$(".descripcion").on("blur", getRefPVP);
     
@@ -290,8 +293,6 @@ function listar_clientes(){
     var tablaClientes = '';
     $.getJSON(urlListarClientes, function(json){
         $.each(json.Clientes, function(i, cliente){
-        //Meter el JSON en la tabla de 'listado Clientes'
-           /*tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';*/
 
            tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
         });
@@ -670,6 +671,8 @@ function listar_pptos(cliente){
 }
 
 function navegacion(){
+    //Cargar la lista de clientes en la pantalla por defecto 'Listado Presupuestos'
+    comboClientesPpto();
     //BOtones
     //var submenu = document.getElementsByClassName('col');
     contenedor = document.getElementById("contenedor");
@@ -717,21 +720,26 @@ function navegacion(){
         $('#client_id').val('');
         //console.log('id_cliente antes de la f(x) listadoPptos: ', id_cliente);
         listadoPptos(id_cliente);
+        
     };
     submenu[3].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
+        comboClientesNewPpto();
         $('#client_id').val('');
         
         nuevoPpto();
+        //console.log('Pantalla 4');
+        
     };
 //  Listado de pedidos    
     submenu[4].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=5;
+        comboClientesPed();
         $('#client_id').val('');
-        
         listadoPed(id_cliente);
+        
     };
 //  Pedidos anul.    
     submenu[5].onclick= function(){
@@ -985,6 +993,24 @@ function getRefPVP (){
     }
     
 }*/
+
+function comboClientesNewPpto (){
+    var urlcomboCliente = url.concat('listarClientes.php');
+    $.ajax({
+        url: urlcomboCliente,
+        type: 'POST',
+        //data: {keyword: keyword},
+        dataType: 'json',
+        success:function(json){
+            var comboClientes = "<select id='selectClientes' onchange='copiarPpto(this.value)'><option value='0'>Selecciona cliente a quien copiar...</option>";
+            $.each(json.Clientes, function(i, cliente){
+                comboClientes += "<option value="+cliente.id_cliente+">"+cliente.nombre+"</option>";
+            });
+            comboClientes += "</select>";
+            $('#selectClientes').html(comboClientes);
+        }
+    });
+}
 
 function comboClientesPpto (){
     var urlcomboCliente = url.concat('listarClientes.php');
