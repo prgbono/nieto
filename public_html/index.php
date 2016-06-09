@@ -35,7 +35,7 @@
         <header>
             <div class="menu">
                 <div class="col activo" style="background-color: #CFB480"> 
-                    Nuevo Cliente
+                    Nuevo Clientee
                 </div>
                 <div class="col" style="background-color: #7F6538">
                     Listado Clientes
@@ -427,356 +427,36 @@
                             <legend>Artículos</legend>    
 <!--                            Artículos -->
                             <div id="articulos">
-                                <div class="form-group">
-                                    <?php for ?>
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones()" onblur="getRefPVP(this.value)" >
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="referencia form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="ref[]" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <!-- <div class="col-xs-1">
-                                        <input type="text" name="check[]" class="form-control" placeholder="check">
-                                    </div> -->
-                                    <div class="col-xs-1">
-                                        <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="uds[]" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="cambio[]" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="pvp[]" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="dto[]" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" name="total[]" class="form-control" placeholder="Total">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <!-- <button type="button" class="btn-danger btn-sm" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
-                                        <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                            <span class="glyphicon glyphicon-trash"></span>
-                                        </button>
-                                    </div> 
-                                </div>
+                                <?php  
+                                for ($i = 1; $i <= 10; $i++) { ?>
+                                    <div class="form-group">
+                                        <div class="col-xs-5">
+                                            <input type="text" name="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones()" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="ref<?php echo $i;?>" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="precio<?php echo $i;?>" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="uds<?php echo $i;?>" id="uds<?php echo $i;?>" class="form-control" placeholder="UDS">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="cambio<?php echo $i;?>" id="cambio<?php echo $i;?>" class="form-control" placeholder="Cambio">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="pvp<?php echo $i;?>" id="pvp<?php echo $i;?>" class="form-control" placeholder="PVP">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="dto<?php echo $i;?>" dto="dto<?php echo $i;?>" class="form-control" placeholder="DTO">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="total<?php echo $i;?>" id="total<?php echo $i;?>" class="form-control" placeholder="Total">
+                                        </div>
+                                    </div>
+                                <?php 
+                                } ?>
                             </div>    
                                 <div id="addArticuloOculto">
                                     <div class="form-group">
@@ -823,7 +503,7 @@
                             <legend>Detalles</legend>
                             <div class="row">
                                 <div class="col-md-7">
-                                    <textarea rows="3" class="form-control" id="asunto_newPpto" placeholder="Embalaje y transporte"></textarea>
+                                    <textarea rows="3" class="form-control" id="asunto_newPpto" placeholder="Asunto"></textarea>
                                 </div>
                                 <div class="col-md-2">
                                     <div>
@@ -839,19 +519,19 @@
                                         <label>SUBTOTAL:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
-                                        <label>0.00</label>
+                                        <label class="subtotal"></label>
                                     </div>
                                     <div class="pull-left col-xs-4">
-                                        <label>IVA:</label>
+                                        <label>IVA3:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
-                                        <input type="text" name="iva_newPpto" class="form-control"></input>
+                                        <input type="text" name="iva_newPpto" class="iva_newPpto" class="form-control"></input>
                                     </div>
                                     <div class="pull-left col-xs-4">
                                         <label>TOTAL:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
-                                        <label>0.00</label>
+                                        <label class="total"></label>
                                     </div>
                                 </div>
                             </div>
@@ -968,95 +648,7 @@
                                         </tr>        
                                     </thead>
                                     <tbody id="listadoPedidos1">
-                                        <!--<tr>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                      <div class="row">
-                                                        <div class="col-xs-3">
-                                                          448
-                                                        </div>
-                                                        <div class="col-xs-5 col-xs-offset-1">
-                                                          2015-11-11
-                                                        </div>
-                                                        <div class="col-xs-3">
-                                                          78451
-                                                        </div>  
-                                                      </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                      <div class="row">
-                                                        <div class="col-xs-6">
-                                                          Bentley 500
-                                                        </div>  
-                                                        <div class="col-xs-4">
-                                                          BASTIDOR-JJD
-                                                        </div>
-                                                        <div class="col-xs-6">
-                                                          Phillip J Fry
-                                                        </div> 
-                                                      </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                      <div class="row">
-                                                        <div class="col-xs-2">
-                                                          345.06
-                                                        </div>
-                                                        <div class="col-xs-4">
-                                                            <div style="text-align: center" class="btn-group">
-                                                                <button id="btn_editar_pedido" type="button" class="btn-primary btn-xs" title="Editar">
-                                                                    <span class="glyphicon glyphicon-pencil"></span>
-                                                                </button>
-                                                                <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm">
-                                                                    <span class="glyphicon glyphicon-trash"></span>
-                                                                </button>
-                                                            </div>
-                                                        </div>  
-                                                        <div class="col-xs-2">
-                                                            <div>
-                                                                <label><input type="checkbox" value=""></label>
-                                                            </div>
-                                                        </div>  
-                                                        <div class="col-xs-2">
-                                                            <input type="text" id="inter">
-                                                        </div> 
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="recog">
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                      <div class="row">
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="fianza">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="pagado">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="cambio">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="pe">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="benef">
-                                                        </div>
-                                                        <div class="col-xs-2">
-                                                          <input type="text" id="anul">
-                                                        </div>  
-                                                      </div>
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                      <div class="row">
-                                                        <div class="col-xs-12">
-                                                          <button type="button" class="btn-primary btn-xs">APLICAR</button>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>-->
+                                        
                                         
                                     </tbody>
                                 </table>
@@ -1677,7 +1269,7 @@
                                         <label>0.00</label>
                                     </div>
                                     <div class="pull-left col-xs-4">
-                                        <label>IVA:</label>
+                                        <label>IVA1:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
                                         <label>0.00</label>
@@ -1940,7 +1532,7 @@
                                         <label>0.00</label>
                                     </div>
                                     <div class="pull-left col-xs-4">
-                                        <label>IVA:</label>
+                                        <label>IVA2:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
                                         <label>0.00</label>

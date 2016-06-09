@@ -21,6 +21,7 @@ var submenu = document.getElementsByClassName('col');
 function main(){
     navegacion();
     setEvents();
+    $(".buscadores").show();
 }    
 
 
@@ -40,7 +41,7 @@ function setEvents(){
     $("#btn_cancelArticulo").on("click", cancelAddArticulo);
     $("#btn_cancelArticuloPed").on("click", cancelAddArticuloPed);
     $("#btn_new_ppto").on("click", nuevoPpto);
-    $("#btn_editar_ppto").on("click", editarPpto);
+    //$("#btn_editar_ppto").on("click", editarPpto);
     $("#btn_editar_pedido").on("click", editarPedido);
     $("#btn_cancelNewPed").on("click", cancelNewPed);
 //    $("#btn_limpiar").on("click", resetFormNuevoCliente);
@@ -195,8 +196,9 @@ function nuevoPpto(cliente){
 }
 
 //Hay qye traerse a esta función los datos del presupuesto seleccionado, de momento es igual que la función anterior
-function editarPpto(){
-//    console.log('editarPresupuesto');
+function editarPpto(id_ppto){
+    comboClientesNewPpto();
+    cargarPpto(id_ppto);
     contenedor.style.left = "-300%";
     $(".buscadores").show();
     submenu[0].className="col";
@@ -662,8 +664,8 @@ function listar_pptos(cliente){
         dataType: 'json',
         success: function (json) {
             $.each(json.Presupuestos, function (i, ppto) {
-                //Meter el JSON en la tabla de 'listado Presupuestos'       
-                tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                //Meter el JSON en la tabla de 'listado Presupuestos'    
+                tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto_'+ppto.id_ppto+'" type="button" onclick="editarPpto('+ppto.id_ppto+')" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
             });
             $('#listadoPptos').html(tablaPptos);
         }
@@ -953,7 +955,7 @@ function getDescripciones (){
 }
 
 
-function getRefPVP (des){
+function getRefPVP (des, fila){
     urlgetRefPvp = url.concat('getRefPvp.php');
     if (des != '') {
         $.ajax({
@@ -962,8 +964,8 @@ function getRefPVP (des){
             data: {des: des},
             dataType: 'json',
             success:function(json){
-                $('.referencia').val(json.pruebasBBDD[0].part_number);
-                $('.precio').val(json.pruebasBBDD[0].gbp);
+                $('#ref'+fila).val(json.pruebasBBDD[0].part_number);
+                $('#precio'+fila).val(json.pruebasBBDD[0].gbp);
             }
         });    
     }
@@ -1206,11 +1208,38 @@ function aplicar_cambios(id_pedido){
     }); 
 }
 
-
-
-
-
-
+function cargarPpto(id_ppto){
+    console.log('En cargarPpto');
+    urlCargarPpto = url.concat('listarPresupuestos.php');
+    $.ajax({
+        url: urlCargarPpto,
+        type: 'POST',
+        data: {id_ppto: id_ppto},
+        dataType: 'json',
+        success:function(json){
+            //var tablaPptos = '';
+           /* $.each(json.Presupuestos, function(i, ppto){
+                tablaPptos += '<tr><td>'+ppto.id_ppto+'</td><td>'+ppto.fecha+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_cliente+'</td><td>'+ppto.total+'</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+            });*/
+            
+            console.log(json.Presupuestos[0].iva);
+            $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
+            $('#cliente_newPpto').val(json.Presupuestos[0].id_cliente);
+            $('#vehiculo_newPpto').val(json.Presupuestos[0].id_coche);
+            $('#transporte_newPpto').val(json.Presupuestos[0].transporte);
+            //$('#asunto_newPpto').val(ppto.transporte);
+            if (json.Presupuestos[0].canarias==1)
+                $('#canarias_newPpto').prop("checked", "checked");
+            else
+                $('#canarias_newPpto').prop("checked", "");
+            $('.subtotal').val(json.Presupuestos[0].subtotal+'€');
+            $('.iva_newPpto').text(json.Presupuestos[0].iva+'%');
+            $('.total').text(json.Presupuestos[0].total+'€');
+            
+            //cargarArticulos(id_ppto);
+        }
+    });
+}
 
 
 
