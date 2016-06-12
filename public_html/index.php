@@ -440,19 +440,19 @@
                                             <input type="text" name="precio<?php echo $i;?>" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="uds<?php echo $i;?>" id="uds<?php echo $i;?>" class="form-control" placeholder="UDS">
+                                            <input type="text" name="uds<?php echo $i;?>" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="UDS">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="cambio<?php echo $i;?>" id="cambio<?php echo $i;?>" class="form-control" placeholder="Cambio">
+                                            <input type="text" name="cambio<?php echo $i;?>" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Cambio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvp<?php echo $i;?>" id="pvp<?php echo $i;?>" class="form-control" placeholder="PVP">
+                                            <input type="text" name="pvp<?php echo $i;?>" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="PVP">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="dto<?php echo $i;?>" dto="dto<?php echo $i;?>" class="form-control" placeholder="DTO">
+                                            <input type="text" name="dto<?php echo $i;?>" dto="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="total<?php echo $i;?>" id="total<?php echo $i;?>" class="form-control" placeholder="Total">
+                                            <input type="text" name="total<?php echo $i;?>" id="total<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Total">
                                         </div>
                                     </div>
                                 <?php 

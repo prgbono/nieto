@@ -1209,7 +1209,6 @@ function aplicar_cambios(id_pedido){
 }
 
 function cargarPpto(id_ppto){
-    console.log('En cargarPpto');
     urlCargarPpto = url.concat('listarPresupuestos.php');
     $.ajax({
         url: urlCargarPpto,
@@ -1222,7 +1221,6 @@ function cargarPpto(id_ppto){
                 tablaPptos += '<tr><td>'+ppto.id_ppto+'</td><td>'+ppto.fecha+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_cliente+'</td><td>'+ppto.total+'</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
             });*/
             
-            console.log(json.Presupuestos[0].iva);
             $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
             $('#cliente_newPpto').val(json.Presupuestos[0].id_cliente);
             $('#vehiculo_newPpto').val(json.Presupuestos[0].id_coche);
@@ -1239,6 +1237,62 @@ function cargarPpto(id_ppto){
             //cargarArticulos(id_ppto);
         }
     });
+}
+
+function CurrencyFormat(number, decimalcharacter, thousandseparater)
+{
+    var decimalplaces = 2;
+    number = parseFloat(number);
+    var sign = number < 0 ? "-" : "";
+    var formatted = new String(number.toFixed(decimalplaces));
+    if (decimalcharacter.length && decimalcharacter != ".") {
+        formatted = formatted.replace(/\./, decimalcharacter);
+    }
+    var integer = "";
+    var fraction = "";
+    var strnumber = new String(formatted);
+    var dotpos = decimalcharacter.length ? strnumber.indexOf(decimalcharacter) : -1;
+    if (dotpos > -1)
+    {
+        if (dotpos) {
+            integer = strnumber.substr(0, dotpos);
+        }
+        fraction = strnumber.substr(dotpos + 1);
+    }
+    else {
+        integer = strnumber;
+    }
+    if (integer) {
+        integer = String(Math.abs(integer));
+    }
+    while (fraction.length < decimalplaces) {
+        fraction += "0";
+    }
+    temparray = new Array();
+    while (integer.length > 3)
+    {
+        temparray.unshift(integer.substr(-3));
+        integer = integer.substr(0, integer.length - 3);
+    }
+    temparray.unshift(integer);
+    integer = temparray.join(thousandseparater);
+    return sign + integer + decimalcharacter + fraction;
+}
+
+function calcularTotal (uds, fila){
+
+    console.log('precio: ', CurrencyFormat($('#precio'+fila).val(),',','.'));
+    console.log('precio*2: ', $('#precio'+fila).val()*2);
+    console.log('Valor de pvp: ', $('#pvp'+fila).val());
+    
+    if ($('#pvp'+fila).val() == ""){
+        $('#total'+fila).val(CurrencyFormat($('#precio'+fila).val()*$('#uds'+fila).val(),',','.')+'€');
+
+    }
+    else{
+        $('#total'+fila).val(CurrencyFormat($('#pvp'+fila).val()*$('#uds'+fila).val(),',','.')+'€');   
+    }
+    
 }
 
 
