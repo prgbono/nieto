@@ -5,8 +5,9 @@ $(document).ready(main);
 //LOCALHOST
 //var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
-var url = "http://www.rios.esy.es/nietoBack/";
-//
+//var url = "http://www.rios.esy.es/nietoBack/";
+//RasPi local
+var url = "http://192.168.1.200/nietoBack/";
 //PRODUCCIÓN
 
 var pantalla = 1;
@@ -424,9 +425,11 @@ function autocomplet() {
             break;
             
         case 4:
-            //alert('En pantalla = 4');
+            console.log('En pantalla = 4 Nuevo presupuesto');
+            //$('#cambio1').val('0.54');
             break;
         case 5:
+            //console.log('En pantalla = 5 Listado Pedidos');
             urlPantalla = url.concat('listarPedidos.php');
             if (keyword.length >= min) {
                 $.ajax({
@@ -727,6 +730,7 @@ function navegacion(){
     submenu[3].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
+        $("[id*=cambio]").val('0.65');
         comboClientesNewPpto();
         $('#client_id').val('');
         
@@ -1280,17 +1284,20 @@ function CurrencyFormat(number, decimalcharacter, thousandseparater)
 }
 
 function calcularTotal (uds, fila){
+    subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
+    descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;
 
-    console.log('precio: ', CurrencyFormat($('#precio'+fila).val(),',','.'));
-    console.log('precio*2: ', $('#precio'+fila).val()*2);
-    console.log('Valor de pvp: ', $('#pvp'+fila).val());
+    console.log('precio*cambio*uds: ', subtotal);
+    console.log('Descuento a aplicar: ', descuento);
+    console.log('TOTAL ', subtotal - descuento);
     
     if ($('#pvp'+fila).val() == ""){
-        $('#total'+fila).val(CurrencyFormat($('#precio'+fila).val()*$('#uds'+fila).val(),',','.')+'€');
+        //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
+        $('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.')+'€');
 
     }
     else{
-        $('#total'+fila).val(CurrencyFormat($('#pvp'+fila).val()*$('#uds'+fila).val(),',','.')+'€');   
+        $('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.')+'€');
     }
     
 }

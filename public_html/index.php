@@ -449,7 +449,7 @@
                                             <input type="text" name="pvp<?php echo $i;?>" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="PVP">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="dto<?php echo $i;?>" dto="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="DTO">
+                                            <input type="text" name="dto<?php echo $i;?>" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="total<?php echo $i;?>" id="total<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Total">
