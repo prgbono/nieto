@@ -371,7 +371,7 @@
                 </div>
                 <div class="page">
 <!--                    Nuevo ppto-->
-                    <form class="form-horizontal" role="form" id="form_newPpto">
+                    <form class="form-horizontal" role="form" id="form_newPpto" action="codigo/nuevoPpto.php">
                         <fieldset>
                             <legend>Presupuesto</legend>
 
@@ -431,7 +431,7 @@
                                 for ($i = 1; $i <= 10; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <input type="text" name="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones()" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
+                                            <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones()" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="ref<?php echo $i;?>" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref">

@@ -907,30 +907,55 @@ function agregarBBDD(){
 function insertar_nuevoPpto(){
     //Campos obligatorios para insertar artículos: descripción y referencia. Miramos estos campos del primer input del id="articulos". Si están vacíos avisamos. IMPLEMENTARLO
     event.preventDefault();
-    
-    
-    var urlNuevoPpto = url.concat('nuevoPpto.php');    
-    /*console.log('antes del ajax');
-    $.ajax({
-        type: "POST",
-        url: urlNuevoPpto,
-        data: { form: $("#form_newPpto").serialize(), id_cliente: id_cliente }, 
-        success: function(resp)
-        {
-            alert(resp);
-        }
-    });*/
 
-    $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
-        if (resp == 'No iguales'){
-            alert('Informa adecuadamente los artículos');
-        }
-        else if (resp==1){
-            alert('Presupuesto creado');
-        }
+    //Validar datos antes de llamr al Ajax
+    if (!validar_guardar_ppto()){ 
+        alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
+    }
+    else{
+        $('#form_newPpto').submit();
+    }
+    /*else{
+        var urlNuevoPpto = url.concat('nuevoPpto.php');    
+        $.ajax({
+            type: "POST",
+            url: urlNuevoPpto,
+            data: { form: $("#form_newPpto").serialize(), id_cliente: id_cliente }, 
+            success: function(resp)
+            {
+                console.log(resp);
+            }
+        });
 
-    });
-        
+        $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
+            if (resp == 'No iguales'){
+                alert('Informa adecuadamente los artículos');
+            }
+            else if (resp==1){
+                alert('Presupuesto creado');
+            }
+
+        });
+    }      */  
+}
+
+function validar_guardar_ppto(){
+    /*Validación del formulario del presupuesto
+        PAra que la pantalla de ppto sea válida requerimos:
+        Fecha, cliente, vehículo y al menos un artículo con mínimo descripción, referencia y precio */
+    var ok = true;
+    if ($('#fecha_newPpto').val()=='') {ok = false;}
+    if ($('#cliente_newPpto').val()=='') {ok = false;}
+    if ($('#vehiculo_newPpto').val()=='') {ok = false;}
+    if ($('#descripcion1').val()=='') {ok = false;}
+    if ($('#ref1').val()=='') {ok = false;}
+    if ($('#uds1').val()=='') {ok = false;}
+    if ($('#cambio1').val()=='') {ok = false;}
+    if (($('#precio1').val()=='') && ($('#pvp1').val()=='')) {ok = false;}
+    if ($('#dto1').val()=='') {ok = false;}
+    if ($('#total1').val()=='') {ok = false;}
+
+    return (ok);
 }
 
 
@@ -1286,10 +1311,6 @@ function CurrencyFormat(number, decimalcharacter, thousandseparater)
 function calcularTotal (uds, fila){
     subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
     descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;
-
-    console.log('precio*cambio*uds: ', subtotal);
-    console.log('Descuento a aplicar: ', descuento);
-    console.log('TOTAL ', subtotal - descuento);
     
     if ($('#pvp'+fila).val() == ""){
         //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
