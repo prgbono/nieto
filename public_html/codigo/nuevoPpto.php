@@ -1,7 +1,7 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
-include 'inc/conexion.php';
+include ('../../nietoBack/inc/conexion.php');
 
 extract($_REQUEST); 
 
@@ -34,33 +34,28 @@ for ($i = 1; $i < 11; $i++) {
 }
 
 $descripcion=array_filter($descripcion);
-$ref=array_filter($ref);
+/*$ref=array_filter($ref);
 $precio=array_filter($precio);
 $uds=array_filter($uds);
 $cambio=array_filter($cambio);
 $pvp=array_filter($pvp);
 $dto=array_filter($dto);
-$total=array_filter($total);
+$total=array_filter($total);*/
+//Con esto tengo en cada array exactamente lo que ha metido ek usuario. Independientemente si ha metido alguna descripción y después no unidades. TENGO LOS ARRAYS SIN POSICIONES VACÍAS.
+//También me llevo artículos incompletos
 
-//Con esto tengo en cada array exactamente lo que ha metido ek usuario. Independientemente si ha metido alguna descripción y después no unidades. También me llevo artículos incompletos
-
-foreach ($descripcion as $descripcio){
-	echo 'Descripción: '.$descripcio;
-}
-foreach ($dto as $dt){
-	echo 'dto: '.$dt;
-}
-
-foreach ($uds as $ud){
-	echo 'uds: '.$ud;
-}
-
+echo 'Núm eltos: '.count($descripcion);
+echo ('Des2: ' .$descripcion2);
 
 // 1. Inserción en Detalle_Presupuestos
-/*$query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto) VALUES ";
 
-for ($i = 0; $i <= count($descripcion)-1; $i++) {
-	//$query = $query.$descripcion[$i]."un mojón";
+for ($i = 1; $i <= count($descripcion); $i++) {
+	$query="INSERT INTO pruebas_detalle_presupuestos (descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES ('".$descripcion[$i]."', '".$ref[$i]."', '".$precio[$i]."', '".$uds[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";
+	echo $query;
+	//mysqli_query($link, $query);
+}
+
+/*for ($i = 0; $i <= count($descripcion)-1; $i++) {
 	$query = $query."((SELECT max(id_ppto) +1 FROM pruebas_presupuestos), '".$descripcion[$i]."', '".$ref[$i]."', '".$uds[$i]."', '".$precio[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."'), ";
 }*/
 
@@ -76,16 +71,6 @@ echo $query;
 echo 1;*/
 
 
-/*usar array_filter para eliminar eltos vacíos en arrays dinámicos
-$descripcion=array_filter($_REQUEST[descripcion]);
-$ref=array_filter($_REQUEST[ref]);
-$check=array_filter($_REQUEST[check]);
-$uds=array_filter($_REQUEST[uds]);
-$precio=array_filter($_REQUEST[precio]);
-$cambio=array_filter($_REQUEST[cambio]);
-$pvp=array_filter($_REQUEST[pvp]);
-$dto=array_filter($_REQUEST[dto]);
-$total=array_filter($_REQUEST[total]);*/
 
 /*Para que no de error si deja fila d eartículos vacías entre medias
 	for ($i = 0; $i <= count($descripcion)-1; $i++) {
