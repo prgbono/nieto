@@ -21,7 +21,7 @@ $pvp=[];
 $dto=[];
 $total=[];
 
-for ($i = 1; $i < 11; $i++) {
+for ($i = 1; $i < 11; $i++) {	
 	array_push($descripcion, $_REQUEST['descripcion'.$i]);
 	array_push($ref, $_REQUEST['ref'.$i]);
 	array_push($precio, $_REQUEST['precio'.$i]);
@@ -34,26 +34,28 @@ for ($i = 1; $i < 11; $i++) {
 }
 
 $descripcion=array_filter($descripcion);
-/*$ref=array_filter($ref);
+$ref=array_filter($ref);
 $precio=array_filter($precio);
 $uds=array_filter($uds);
 $cambio=array_filter($cambio);
 $pvp=array_filter($pvp);
 $dto=array_filter($dto);
-$total=array_filter($total);*/
+$total=array_filter($total);
 //Con esto tengo en cada array exactamente lo que ha metido ek usuario. Independientemente si ha metido alguna descripción y después no unidades. TENGO LOS ARRAYS SIN POSICIONES VACÍAS.
 //También me llevo artículos incompletos
 
-echo 'Núm eltos: '.count($descripcion);
-echo ('Des2: ' .$descripcion2);
+/*$i=1;
+echo ('Des2: ' .$descripcion[$i]);*/
 
 // 1. Inserción en Detalle_Presupuestos
-
-for ($i = 1; $i <= count($descripcion); $i++) {
+for ($i = 0; $i <= count($descripcion)-1; $i++) {
 	$query="INSERT INTO pruebas_detalle_presupuestos (descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES ('".$descripcion[$i]."', '".$ref[$i]."', '".$precio[$i]."', '".$uds[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";
-	echo $query;
-	//mysqli_query($link, $query);
+	mysqli_query($link, $query);
 }
+
+
+/*Falta añadir a la consulta tabla Detalle_Presupuestos el campo id_ppto!!!
+El total no se guarda en la tabla correctamente. A partir de la coma se jode*/
 
 /*for ($i = 0; $i <= count($descripcion)-1; $i++) {
 	$query = $query."((SELECT max(id_ppto) +1 FROM pruebas_presupuestos), '".$descripcion[$i]."', '".$ref[$i]."', '".$uds[$i]."', '".$precio[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."'), ";

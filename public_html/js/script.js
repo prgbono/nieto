@@ -959,10 +959,10 @@ function validar_guardar_ppto(){
 }
 
 
-function getDescripciones (){
+function getDescripciones (fila){
     var min = 1; // min caracteres para buscar
     urlDescripciones = url.concat('getDescripciones.php');
-    var keyword = $('.descripcion').val();
+    var keyword = $('#descripcion'+fila).val();
     if (keyword.length >= min) {
         $.ajax({
             url: urlDescripciones,
@@ -980,7 +980,6 @@ function getDescripciones (){
             }
         });
     }
-
 }
 
 
@@ -995,6 +994,7 @@ function getRefPVP (des, fila){
             success:function(json){
                 $('#ref'+fila).val(json.pruebasBBDD[0].part_number);
                 $('#precio'+fila).val(json.pruebasBBDD[0].gbp);
+                $( '#uds'+fila ).focus();
             }
         });    
     }

@@ -431,7 +431,7 @@
                                 for ($i = 1; $i <= 10; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones()" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
+                                            <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="ref<?php echo $i;?>" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref">
