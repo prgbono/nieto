@@ -7,14 +7,14 @@
         <!--<meta http-equiv="Content-Type" content="text/html">-->
         
         <link href="css/style.css" rel="stylesheet" type="text/css"/> 
-        <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+        <!-- <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link> -->
         
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
-        <!-- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 
         <!-- esta es la forma en la que se carga en IMF -->
-        <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
         <!--<link href="css/tablas.css" rel="stylesheet" type="text/css"/>--> 
@@ -375,8 +375,9 @@
                         <fieldset>
                             <legend>Presupuesto</legend>
 
-                            <!-- Input oculto para pasar el id_cliente -->
+                            <!-- Inputs oculto para pasar el id_cliente y el id_ppto-->
                             <input type="hidden" name="id_cliente" id="id_cliente">
+                            <input type="hidden" name="id_ppto" id="id_ppto">
                             
                             <div class="form-group">
                                 <div class="col-xs-1">
@@ -515,23 +516,25 @@
                                     
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="pull-left col-xs-4">
+                                    <div class="pull-left col-xs-3">
                                         <label>SUBTOTAL:</label>
                                     </div>
-                                    <div class="pull-right col-xs-offset-5">
-                                        <label class="subtotal"></label>
+                                    <div class="pull-right col-xs-offset-3">
+                                        <input type="text" name="subtotal" class="subtotal" class="form-control"></input>
+                                        <!-- <label class="subtotal" id="subtotal"></label> -->
                                     </div>
-                                    <div class="pull-left col-xs-4">
-                                        <label>IVA3:</label>
+                                    <div class="pull-left col-xs-3">
+                                        <label>IVA:</label>
                                     </div>
-                                    <div class="pull-right col-xs-offset-5">
+                                    <div class="pull-right col-xs-offset-1">
                                         <input type="text" name="iva_newPpto" class="iva_newPpto" class="form-control"></input>
                                     </div>
-                                    <div class="pull-left col-xs-4">
+                                    <div class="pull-left col-xs-1">
                                         <label>TOTAL:</label>
                                     </div>
-                                    <div class="pull-right col-xs-offset-5">
-                                        <label class="total"></label>
+                                    <div class="pull-right col-xs-offset-1">
+                                        <input type="text" name="total" class="total" class="form-control"></input>
+                                        <!-- <label class="total" id="total"></label> -->
                                     </div>
                                 </div>
                             </div>

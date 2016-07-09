@@ -7,8 +7,11 @@ $(document).ready(main);
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
-var url = "http://192.168.1.200/nietoBack/";
+//var url = "http://192.168.1.200/nietoBack/";
+//1&1
+var url = "http://www.g4security.es/nietoBack/";
 //PRODUCCIÓN
+
 
 var pantalla = 1;
 var id_cliente = 0;
@@ -988,7 +991,7 @@ function getRefPVP (des, fila){
     if (des != '') {
         $.ajax({
             url: urlgetRefPvp,
-            type: 'POST',
+            type: 'POST',   
             data: {des: des},
             dataType: 'json',
             success:function(json){
@@ -1238,7 +1241,9 @@ function aplicar_cambios(id_pedido){
 }
 
 function cargarPpto(id_ppto){
+    console.log('En cargar Ppto');
     urlCargarPpto = url.concat('listarPresupuestos.php');
+    $('#id_ppto').val(id_ppto);
     $.ajax({
         url: urlCargarPpto,
         type: 'POST',
@@ -1252,6 +1257,7 @@ function cargarPpto(id_ppto){
             
             $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
             $('#cliente_newPpto').val(json.Presupuestos[0].id_cliente);
+            $('#id_cliente').val(json.Presupuestos[0].clienteId);
             $('#vehiculo_newPpto').val(json.Presupuestos[0].id_coche);
             $('#transporte_newPpto').val(json.Presupuestos[0].transporte);
             //$('#asunto_newPpto').val(ppto.transporte);
