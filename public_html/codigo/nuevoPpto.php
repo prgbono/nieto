@@ -1,9 +1,9 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
-//include ('../../nietoBack/inc/conexion.php');
+include ('../../nietoBack/inc/conexion.php');
 //Para localhost (MAMP)
-include ('../../../nietoBack/inc/conexion.php');
+//include ('../../../nietoBack/inc/conexion.php');
 
 extract($_REQUEST); 
 
@@ -16,14 +16,14 @@ $id_cliente = isset($_REQUEST['id_cliente']) ? $_REQUEST['id_cliente'] : NULL;
 2. INSERTAR EL PRESUPUESTO EN PRESUPUESTOS
 3. Ambos pasos hay que hacerlos mediante una transacción en la bbdd*/
 
-$descripcion= [];
+/*$descripcion= [];
 $ref=[];
 $precio=[];
 $uds=[];
 $cambio=[];
 $pvp=[];
 $dto=[];
-$total=[];
+$total=[];*/
 
 for ($i = 1; $i < 11; $i++) {	
 	array_push($descripcion, $_REQUEST['descripcion'.$i]);
@@ -53,11 +53,14 @@ $total=array_filter($total);
 // 1. Inserción en Detalle_Presupuestos
 for ($i = 0; $i <= count($descripcion)-1; $i++) {
 	$query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES (".$id_ppto.",'".$descripcion[$i]."', '".$ref[$i]."', '".$precio[$i]."', '".$uds[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";	
-	mysqli_query($link, $query);
+	echo $query;
+	//mysqli_query($link, $query);
 }
 
 
 /*
+El asunto no viene
+el total tampoco
 Distinguir entre edición de presupuesto y nuevo!!!
 El total no se guarda en la tabla correctamente. A partir de la coma se jode*/
 
@@ -65,9 +68,9 @@ El total no se guarda en la tabla correctamente. A partir de la coma se jode*/
 //$query = substr($query, 0, -2);
 
 /*2.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
-$query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, aunto,total, transporte, canarias, subtotal, iva) VALUES ('$fecha_newPpto', (SELECT id_coche from pruebas_coches WHERE (id_cliente = '".$id_cliente."' AND ppal=1)), '".$id_cliente."', '$asunto_newPpto', $total, '$transporte_newPpto', '$canarias_newPpto', $subtotal, '$iva_newPpto')";
+$query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto,total, transporte, canarias, subtotal, iva) VALUES ('$fecha_newPpto', (SELECT id_coche from pruebas_coches WHERE (id_cliente = '".$id_cliente."' AND ppal=1)), '".$id_cliente."', '$asunto_newPpto', $total, '$transporte_newPpto', '$canarias_newPpto', $subtotal, '$iva_newPpto')";
 //mysqli_query($link, $query);
-echo $query;
+//echo $query;
 
 /*
 Arreglar el front del subtotal, IVA y TOTAL (518) de index.php

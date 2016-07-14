@@ -1241,7 +1241,7 @@ function aplicar_cambios(id_pedido){
 }
 
 function cargarPpto(id_ppto){
-    console.log('En cargar Ppto');
+    //console.log('En cargar Ppto');
     urlCargarPpto = url.concat('listarPresupuestos.php');
     $('#id_ppto').val(id_ppto);
     $.ajax({
@@ -1250,11 +1250,6 @@ function cargarPpto(id_ppto){
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
-            //var tablaPptos = '';
-           /* $.each(json.Presupuestos, function(i, ppto){
-                tablaPptos += '<tr><td>'+ppto.id_ppto+'</td><td>'+ppto.fecha+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_coche+'</td><td>'+ppto.id_cliente+'</td><td>'+ppto.total+'</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
-            });*/
-            
             $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
             $('#cliente_newPpto').val(json.Presupuestos[0].id_cliente);
             $('#id_cliente').val(json.Presupuestos[0].clienteId);
@@ -1268,11 +1263,28 @@ function cargarPpto(id_ppto){
             $('.subtotal').val(json.Presupuestos[0].subtotal+'€');
             $('.iva_newPpto').text(json.Presupuestos[0].iva+'%');
             $('.total').text(json.Presupuestos[0].total+'€');
-            
-            //cargarArticulos(id_ppto);
+            cargarArticulos(id_ppto);
         }
     });
 }
+
+function cargarArticulos(id_ppto){
+    console.log('En cargar artículos');
+    urlCargarArticulo = url.concat('cargarArticulos.php');
+    $('#id_ppto').val(id_ppto);
+    $.ajax({
+        url: urlCargarArticulo,
+        type: 'POST',
+        data: {id_ppto: id_ppto},
+        dataType: 'json',
+        success:function(json){
+            $.each(json.Articulos, function(i, articulo){
+                console.log('otro');
+            });
+        }
+    });
+}
+
 
 function CurrencyFormat(number, decimalcharacter, thousandseparater)
 {

@@ -7,14 +7,13 @@
         <!--<meta http-equiv="Content-Type" content="text/html">-->
         
         <link href="css/style.css" rel="stylesheet" type="text/css"/> 
-        <!-- <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link> -->
+        <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
         
         <script src="js/jquery-1.11.2.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-
         <!-- esta es la forma en la que se carga en IMF -->
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+        <script src="js/jquery-ui.min.js"></script>
+        <!-- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->
 
 
         <!--<link href="css/tablas.css" rel="stylesheet" type="text/css"/>--> 
@@ -523,11 +522,11 @@
                                         <input type="text" name="subtotal" class="subtotal" class="form-control"></input>
                                         <!-- <label class="subtotal" id="subtotal"></label> -->
                                     </div>
-                                    <div class="pull-left col-xs-3">
+                                    <div class="pull-left col-xs-2">
                                         <label>IVA:</label>
                                     </div>
-                                    <div class="pull-right col-xs-offset-1">
-                                        <input type="text" name="iva_newPpto" class="iva_newPpto" class="form-control"></input>
+                                    <div class="pull-right col-xs-offset-2">
+                                        <input type="text" name="iva_newPpto" class="form-control">
                                     </div>
                                     <div class="pull-left col-xs-1">
                                         <label>TOTAL:</label>
