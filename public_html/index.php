@@ -7,7 +7,7 @@
         <!--<meta http-equiv="Content-Type" content="text/html">-->
         
         <link href="css/style.css" rel="stylesheet" type="text/css"/> 
-        <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+        <!-- <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link> -->
         
         <script src="js/jquery-1.11.2.min.js"></script>
         <!-- esta es la forma en la que se carga en IMF -->
@@ -428,7 +428,7 @@
 <!--                            Artículos -->
                             <div id="articulos">
                                 <?php  
-                                for ($i = 1; $i <= 10; $i++) { ?>
+                                for ($i = 0; $i <= 9; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-5">
                                             <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >

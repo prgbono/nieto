@@ -3,13 +3,13 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-//var url = "http://localhost:8888/nietoBack/";
+var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
 //var url = "http://192.168.1.200/nietoBack/";
 //1&1
-var url = "http://www.g4security.es/nietoBack/";
+//var url = "http://www.g4security.es/nietoBack/";
 //PRODUCCIÓN
 
 
@@ -918,28 +918,6 @@ function insertar_nuevoPpto(){
     else{
         $('#form_newPpto').submit();
     }
-    /*else{
-        var urlNuevoPpto = url.concat('nuevoPpto.php');    
-        $.ajax({
-            type: "POST",
-            url: urlNuevoPpto,
-            data: { form: $("#form_newPpto").serialize(), id_cliente: id_cliente }, 
-            success: function(resp)
-            {
-                console.log(resp);
-            }
-        });
-
-        $.post(urlNuevoPpto, $("#form_newPpto").serialize(), function(resp){
-            if (resp == 'No iguales'){
-                alert('Informa adecuadamente los artículos');
-            }
-            else if (resp==1){
-                alert('Presupuesto creado');
-            }
-
-        });
-    }      */  
 }
 
 function validar_guardar_ppto(){
@@ -950,13 +928,13 @@ function validar_guardar_ppto(){
     if ($('#fecha_newPpto').val()=='') {ok = false;}
     if ($('#cliente_newPpto').val()=='') {ok = false;}
     if ($('#vehiculo_newPpto').val()=='') {ok = false;}
-    if ($('#descripcion1').val()=='') {ok = false;}
-    if ($('#ref1').val()=='') {ok = false;}
-    if ($('#uds1').val()=='') {ok = false;}
-    if ($('#cambio1').val()=='') {ok = false;}
-    if (($('#precio1').val()=='') && ($('#pvp1').val()=='')) {ok = false;}
-    if ($('#dto1').val()=='') {ok = false;}
-    if ($('#total1').val()=='') {ok = false;}
+    if ($('#descripcion0').val()=='') {ok = false;}
+    if ($('#ref0').val()=='') {ok = false;}
+    if ($('#uds0').val()=='') {ok = false;}
+    if ($('#cambio0').val()=='') {ok = false;}
+    if (($('#precio0').val()=='') && ($('#pvp1').val()=='')) {ok = false;}
+    if ($('#dto0').val()=='') {ok = false;}
+    if ($('#total0').val()=='') {ok = false;}
 
     return (ok);
 }
@@ -1269,9 +1247,22 @@ function cargarPpto(id_ppto){
 }
 
 function cargarArticulos(id_ppto){
-    console.log('En cargar artículos');
+    console.log('En cargar artículos. Presupuesto Id: ', id_ppto);
     urlCargarArticulo = url.concat('cargarArticulos.php');
     $('#id_ppto').val(id_ppto);
+
+    //limpiar los inputs antes de escribirlos con los valores recibidos
+    for (i = 0; i < 10; i++){
+        $('#descripcion'+i).val('');
+        $('#ref'+i).val('');
+        $('#precio'+i).val('');
+        $('#uds'+i).val('');
+        $('#cambio'+i).val('');
+        $('#pvp'+i).val('');
+        $('#dto'+i).val('');
+        $('#total'+i).val('');    
+    }
+
     $.ajax({
         url: urlCargarArticulo,
         type: 'POST',
@@ -1279,7 +1270,14 @@ function cargarArticulos(id_ppto){
         dataType: 'json',
         success:function(json){
             $.each(json.Articulos, function(i, articulo){
-                console.log('otro');
+                $('#descripcion'+i).val(json.Articulos[i].descripcion);
+                $('#ref'+i).val(json.Articulos[i].referencia);
+                $('#precio'+i).val(json.Articulos[i].uds);
+                $('#uds'+i).val(json.Articulos[i].precio);
+                $('#cambio'+i).val(json.Articulos[i].cambio);
+                $('#pvp'+i).val(json.Articulos[i].pvp);
+                $('#dto'+i).val(json.Articulos[i].dto);
+                $('#total'+i).val(json.Articulos[i].total);
             });
         }
     });
