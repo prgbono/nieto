@@ -3,13 +3,13 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-var url = "http://localhost:8888/nietoBack/";
+//var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
 //var url = "http://192.168.1.200/nietoBack/";
 //1&1
-//var url = "http://www.g4security.es/nietoBack/";
+var url = "http://www.g4security.es/nietoBack/";
 //PRODUCCIÓN
 
 
