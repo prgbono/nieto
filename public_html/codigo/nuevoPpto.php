@@ -52,10 +52,17 @@ $total=array_filter($total);
 
 /*Distinguir si viene id_ppto o no para esta consulta (como en código/matriculacion)!
 Hay que distinguir entre nuevo ppto y edición de pptp*/
-echo ('id_ppto: '.$id_ppto);
+
 if ($id_ppto){
-	//INSERCIÓN
-	console.log('ESTO ES UNA MODIFICACIÓN DE UN PPTO');
+	//MODIFICACIÓN
+	//0. Me cargo el presupuesto anterior copiando previamente el id
+
+	$query="DELETE from pruebas_detalle_presupuestos where id_ppto = ".$id_ppto;
+	echo $query;
+	//mysqli_query($link, $query);
+
+	echo ('Array descripciones: ' .$descripcion);
+	
 
 	// 1. Inserción en Detalle_Presupuestos
 	for ($i = 0; $i <= count($descripcion)-1; $i++) {
@@ -86,8 +93,8 @@ if ($id_ppto){
 
 }
 else{
-	//MODIFICACIÓN
-	console.log('ESTO ES UNA INSERCIÓN DE UN PPTO');
+	//INSERCIÓN
+	echo 'INSERCIÓN';
 }
 
 
