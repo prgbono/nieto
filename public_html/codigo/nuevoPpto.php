@@ -1,9 +1,10 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
-//include ('../../nietoBack/inc/conexion.php');
+include ('../nietoBack/inc/conexion.php');
+
 //Para localhost (MAMP)
-include ('../../../nietoBack/inc/conexion.php');
+//include ('../../../nietoBack/inc/conexion.php');
 
 extract($_REQUEST); 
 
@@ -11,41 +12,79 @@ $canarias_newPpto = isset($_REQUEST['canarias_newPpto']) ? 1 : 0;
 $id_ppto = isset($_REQUEST['id_ppto']) ? $_REQUEST['id_ppto'] : NULL;
 $id_cliente = isset($_REQUEST['id_cliente']) ? $_REQUEST['id_cliente'] : NULL;
 
+
+function formato_decimal($valor) {
+	$resultado = str_replace(".","",$valor);	//eliminamos el punto de los millares
+	$resultado = str_replace(",",".",$resultado);	//sustituimos la coma decimal por el punto
+	return $resultado;
+}
+
+/*function CurrencyFormat(number, decimalcharacter, thousandseparater)
+{
+    var decimalplaces = 2;
+    number = parseFloat(number);
+    var sign = number < 0 ? "-" : "";
+    var formatted = new String(number.toFixed(decimalplaces));
+    if (decimalcharacter.length && decimalcharacter != ".") {
+        formatted = formatted.replace(/\./, decimalcharacter);
+    }
+    var integer = "";
+    var fraction = "";
+    var strnumber = new String(formatted);
+    var dotpos = decimalcharacter.length ? strnumber.indexOf(decimalcharacter) : -1;
+    if (dotpos > -1)
+    {
+        if (dotpos) {
+            integer = strnumber.substr(0, dotpos);
+        }
+        fraction = strnumber.substr(dotpos + 1);
+    }
+    else {
+        integer = strnumber;
+    }
+    if (integer) {
+        integer = String(Math.abs(integer));
+    }
+    while (fraction.length < decimalplaces) {
+        fraction += "0";
+    }
+    temparray = new Array();
+    while (integer.length > 3)
+    {
+        temparray.unshift(integer.substr(-3));
+        integer = integer.substr(0, integer.length - 3);
+    }
+    temparray.unshift(integer);
+    integer = temparray.join(thousandseparater);
+    return sign + integer + decimalcharacter + fraction;
+}*/
+
 /* PASOS:
 1. INSERTAR TODOS LOS ARTÍCULOS DEL PRESUPUESTO EN DETALLE_PRESUPUESTO
 2. INSERTAR EL PRESUPUESTO EN PRESUPUESTOS
 3. Ambos pasos hay que hacerlos mediante una transacción en la bbdd*/
 
-/*$descripcion= [];
-$ref=[];
-$precio=[];
-$uds=[];
-$cambio=[];
-$pvp=[];
-$dto=[];
-$total=[];*/
-
-for ($i = 0; $i < 10; $i++) {	
+for ($i = 1; $i < 11; $i++) {	
 	if ($_REQUEST['descripcion'.$i]!=''){
 		array_push($descripcion, $_REQUEST['descripcion'.$i]);
 		array_push($ref, $_REQUEST['ref'.$i]);
-		array_push($precio, $_REQUEST['precio'.$i]);
+		array_push($precio, formato_decimal($_REQUEST['precio'.$i]));
 		array_push($uds, $_REQUEST['uds'.$i]);
-		array_push($cambio, $_REQUEST['cambio'.$i]);
-		array_push($pvp, $_REQUEST['pvp'.$i]);
+		array_push($cambio, formato_decimal($_REQUEST['cambio'.$i]));
+		array_push($pvp, formato_decimal($_REQUEST['pvp'.$i]));
 		array_push($dto, $_REQUEST['dto'.$i]);
-		array_push($total, $_REQUEST['total'.$i]);
+		array_push($total, formato_decimal($_REQUEST['total'.$i]));
 	}
 }
 
-$descripcion=array_filter($descripcion);
+/*$descripcion=array_filter($descripcion);
 $ref=array_filter($ref);
 $precio=array_filter($precio);
 $uds=array_filter($uds);
 $cambio=array_filter($cambio);
 $pvp=array_filter($pvp);
 $dto=array_filter($dto);
-$total=array_filter($total);
+$total=array_filter($total);*/
 //Con esto tengo en cada array exactamente lo que ha metido ek usuario. Independientemente si ha metido alguna descripción y después no unidades. TENGO LOS ARRAYS SIN POSICIONES VACÍAS.
 //También me llevo artículos incompletos
 
@@ -54,21 +93,16 @@ $total=array_filter($total);
 Hay que distinguir entre nuevo ppto y edición de pptp*/
 
 if ($id_ppto){
-	//MODIFICACIÓN
-	//0. Me cargo el presupuesto anterior copiando previamente el id
-
+	//MODIFICACIÓN	
+	//0. Me cargo el presupuesto anterior (tengo el id_ppto en la vble id_ppto))
 	$query="DELETE from pruebas_detalle_presupuestos where id_ppto = ".$id_ppto;
-	echo $query;
-	//mysqli_query($link, $query);
-
-	echo ('Array descripciones: ' .$descripcion);
-	
+	mysqli_query($link, $query);
 
 	// 1. Inserción en Detalle_Presupuestos
-	for ($i = 0; $i <= count($descripcion)-1; $i++) {
-		$query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES (".$id_ppto.",'".$descripcion[$i]."', '".$ref[$i]."', '".$precio[$i]."', '".$uds[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";	
+	for ($i = 1; $i <= count($descripcion)-1; $i++) {
+		$query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES (".$id_ppto.",'".$descripcion[$i]."', '".$ref[$i]."', '".$uds[$i]."', '".$precio[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";	
 		echo $query;
-		//mysqli_query($link, $query);
+		//mysqli_query($link, $query); 
 	}
 
 	/*
@@ -82,8 +116,9 @@ if ($id_ppto){
 
 	/*2.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
 	$query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto,total, transporte, canarias, subtotal, iva) VALUES ('$fecha_newPpto', (SELECT id_coche from pruebas_coches WHERE (id_cliente = '".$id_cliente."' AND ppal=1)), '".$id_cliente."', '$asunto_newPpto', $total, '$transporte_newPpto', '$canarias_newPpto', $subtotal, '$iva_newPpto')";
-	//mysqli_query($link, $query);
 	//echo $query;
+	//mysqli_query($link, $query);
+	
 
 	/*
 	Arreglar el front del subtotal, IVA y TOTAL (518) de index.php
@@ -96,6 +131,12 @@ else{
 	//INSERCIÓN
 	echo 'INSERCIÓN';
 }
+
+?>
+<!-- <script language="javascript">
+	window.location='/index.php';
+</script> -->
+<?php
 
 
 

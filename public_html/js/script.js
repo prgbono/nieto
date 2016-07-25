@@ -936,6 +936,23 @@ function validar_guardar_ppto(){
     if ($('#dto0').val()=='') {ok = false;}
     if ($('#total0').val()=='') {ok = false;}
 
+    if (ok){
+        //pasarle el currencyFormat a todos los inputs que corresponda
+        for (i = 0; i < 10; i++){
+            $('#descripcion'+i).val('');
+            $('#ref'+i).val('');
+            $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),".",","));
+            $('#uds'+i).val('');
+            $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),".",","));
+            $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),".",","));
+            $('#dto'+i).val('');
+            if ($('#total'+i).val()=='NaN,00'){
+                alert('Por favor, expresa los decimales con un \'.\'')
+            }
+            $('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),".",","));    
+        }
+    }
+
     return (ok);
 }
 
@@ -1247,7 +1264,6 @@ function cargarPpto(id_ppto){
 }
 
 function cargarArticulos(id_ppto){
-    console.log('En cargar artículos. Presupuesto Id: ', id_ppto);
     urlCargarArticulo = url.concat('cargarArticulos.php');
     $('#id_ppto').val(id_ppto);
 
@@ -1273,16 +1289,21 @@ function cargarArticulos(id_ppto){
                 $('#descripcion'+i).val(json.Articulos[i].descripcion);
                 $('#ref'+i).val(json.Articulos[i].referencia);
                 $('#precio'+i).val(json.Articulos[i].uds);
-                $('#uds'+i).val(json.Articulos[i].precio);
-                $('#cambio'+i).val(json.Articulos[i].cambio);
-                $('#pvp'+i).val(json.Articulos[i].pvp);
+                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].precio),".",","));
+                $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),".",","));
+                $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",","));
                 $('#dto'+i).val(json.Articulos[i].dto);
-                $('#total'+i).val(json.Articulos[i].total);
+                $('#total'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",","));
             });
         }
     });
 }
 
+/*function formato_decimal($valor) {
+    $resultado = str_replace(".","",$valor);    //eliminamos el punto de los millares
+    $resultado = str_replace(",",".",$resultado);   //sustituimos la coma decimal por el punto
+    return $resultado;
+}*/
 
 function CurrencyFormat(number, decimalcharacter, thousandseparater)
 {

@@ -7,7 +7,7 @@
         <!--<meta http-equiv="Content-Type" content="text/html">-->
         
         <link href="css/style.css" rel="stylesheet" type="text/css"/> 
-        <!-- <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link> -->
+        <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
         
         <script src="js/jquery-1.11.2.min.js"></script>
         <!-- esta es la forma en la que se carga en IMF -->
