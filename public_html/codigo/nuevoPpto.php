@@ -12,6 +12,12 @@ $canarias_newPpto = isset($_REQUEST['canarias_newPpto']) ? 1 : 0;
 $id_ppto = isset($_REQUEST['id_ppto']) ? $_REQUEST['id_ppto'] : NULL;
 $id_cliente = isset($_REQUEST['id_cliente']) ? $_REQUEST['id_cliente'] : NULL;
 
+echo 'id_ppto: '.$id_ppto;
+
+//NO SE PQ NO LLEGA EL $_REQUEST['descripcion'.$i]!!!!!!!!!!!!!!!!!!!
+echo 'descripcion1: '.$_REQUEST['asd'];
+
+
 
 function formato_decimal($valor) {
 	$resultado = str_replace(".","",$valor);	//eliminamos el punto de los millares
@@ -19,7 +25,7 @@ function formato_decimal($valor) {
 	return $resultado;
 }
 
-/*function CurrencyFormat(number, decimalcharacter, thousandseparater)
+/*functionnction CurrencyFormat(number, decimalcharacter, thousandseparater)
 {
     var decimalplaces = 2;
     number = parseFloat(number);
@@ -64,7 +70,10 @@ function formato_decimal($valor) {
 2. INSERTAR EL PRESUPUESTO EN PRESUPUESTOS
 3. Ambos pasos hay que hacerlos mediante una transacción en la bbdd*/
 
-for ($i = 1; $i < 11; $i++) {	
+for ($i = 0; $i < 10; $i++) {	
+	echo $_REQUEST['descripcion'.$i];
+
+	//echo 'con #: ' $('#descripcion'.$i).val(); 
 	if ($_REQUEST['descripcion'.$i]!=''){
 		array_push($descripcion, $_REQUEST['descripcion'.$i]);
 		array_push($ref, $_REQUEST['ref'.$i]);
@@ -93,24 +102,21 @@ $total=array_filter($total);*/
 Hay que distinguir entre nuevo ppto y edición de pptp*/
 
 if ($id_ppto){
+	echo 'En el if de id_ppto: '.$id_ppto;
 	//MODIFICACIÓN	
 	//0. Me cargo el presupuesto anterior (tengo el id_ppto en la vble id_ppto))
 	$query="DELETE from pruebas_detalle_presupuestos where id_ppto = ".$id_ppto;
-	mysqli_query($link, $query);
+	//mysqli_query($link, $query);
 
 	// 1. Inserción en Detalle_Presupuestos
-	for ($i = 1; $i <= count($descripcion)-1; $i++) {
+	
+	for ($i = 0; $i <= count($descripcion); $i++) {
 		$query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES (".$id_ppto.",'".$descripcion[$i]."', '".$ref[$i]."', '".$uds[$i]."', '".$precio[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";	
-		echo $query;
+		echo $descripcion[$i];
 		//mysqli_query($link, $query); 
 	}
 
-	/*
-	El asunto no viene
-	el total tampoco
-	Distinguir entre edición de presupuesto y nuevo!!!
-	El total no se guarda en la tabla correctamente. A partir de la coma se jode*/
-
+	
 	//$query quitarle la última ,
 	//$query = substr($query, 0, -2);
 
