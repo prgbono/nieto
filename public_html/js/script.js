@@ -3,13 +3,13 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-//var url = "http://localhost:8888/nietoBack/";
+var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
 //var url = "http://192.168.1.200/nietoBack/";
 //1&1
-var url = "http://www.g4security.es/nietoBack/";
+/*var url = "http://www.g4security.es/nietoBack/";*/
 //PRODUCCIÓN
 
 
@@ -409,7 +409,8 @@ function autocomplet() {
             break;
             
         case 3:
-            urlPantalla = url.concat('listarPresupuestos.php');
+            listar_pptos();
+            /*urlPantalla = url.concat('listarPresupuestos.php');
             if (keyword.length >= min) {
                 $.ajax({
                     url: urlPantalla,
@@ -424,7 +425,7 @@ function autocomplet() {
                         $('#listadoPptos').html(tablaPptos);
                     }
                 });
-            }
+            }*/
             break;
             
         case 4:
@@ -812,6 +813,7 @@ function navegacion(){
 }
 
 function altaCliente(){
+    console.log('altaCliente');
     //Comprobamos mediante el texto del botón si es update o nueva inserción
     if ($('#guardar_cliente1').text() === 'Actualizar'){ 
         //$.post(urlActualizarCliente, $("#form_nuevo_cliente").serialize(), function(resp){}
@@ -870,8 +872,9 @@ function altaCliente(){
     else
     {
         var urlAltaCliente = url.concat('altaCliente.php');
+        console.log('else');
         $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
-            alert(resp);
+            alert('rest:' +resp);
             if(resp==-1){
                 //Ya existe este cliente
                 alert("Ya existe este cliente");
@@ -917,6 +920,7 @@ function insertar_nuevoPpto(){
     }
     else{
         $('#form_newPpto').submit();
+        console.log('Enviado a action');
     }
 }
 
@@ -1095,7 +1099,16 @@ function eliminarPpto(id_ppto, idCli){
     //Enviamos la id al PHP
     $.post(urlEliminarPpto,{"id_ppto":id_ppto}, function(resp){
        if (resp == 1){
-           listar_pptos(idCli);
+            //Tengo que distinguir aquí si el borrado viene de una lista filtrada por cliente o sin filtrar. Lo hago con la vble pantalla
+            console.log('pantalla:' +pantalla);
+            if (pantalla==2) {
+                listar_pptos(idCli);
+                console.log('Elimina presupuesto de la lista filtrada por cliente');
+            }
+            else {
+                listar_pptos();
+                console.log('Elimina presupuesto de la lista sin filtrar');
+            } 
        }
        else{
            alert("Error al eliminar presupuesto");

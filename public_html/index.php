@@ -289,34 +289,7 @@
                                 </tr>
                             </thead>
                             <tbody id="listadoClientes">
-                                <!--                                <tr>
-                                    <td>Antonio Moron Alonso</td>
-                                    <td>RR Silver Cloud vin:LSYB222</td>
-                                    <td>Bombas de freno</td>
-                                    <td>607 151 536</td>
-                                    <td>amoron@asemorca.com</td>
-                                    <td>Inventada</td>
-                                    <td style="text-align: center">
-                                        <div class="btn-group center-block">
-                                            <button type="button" class="btn-primary btn-sm btn_editar_cliente" title="Editar">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" title="Listado presupuestos">
-                                                <span class="glyphicon glyphicon-list-alt"></span>
-                                            </button>
-                                            <button type="button" class="btn-success btn-sm" id="btn_new_ppto" title="Nuevo presupuesto">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
-                                            <button type="button" class="btn-primary btn-sm btn_listadoPedCliente" title="Listado pedidos">
-                                                <span class="glyphicon glyphicon-copy"></span>
-                                            </button>
-                                            <button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" data-toggle="modal" data-target="#confirm">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </div>
-                                        
-                                    </td>
-                                </tr>-->
+
                             </tbody>
                         </table>
                         <table class="table table-condensed table-bordered table-striped header-fixed"></table>
@@ -370,7 +343,7 @@
                 </div>
                 <div class="page">
 <!--                    Nuevo ppto-->
-                    <form class="form-horizontal" role="form" id="form_newPpto" action="codigo/nuevoPpto.php">
+                    <form class="form-horizontal" role="form" id="form_newPpto" action="codigo/nuevoPpto.php" method="POST">
                         <fieldset>
                             <legend>Presupuesto</legend>
 

@@ -1,21 +1,21 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
-include ('../nietoBack/inc/conexion.php');
+//PARA PRODUCCIÓN
+//include ('../nietoBack/inc/conexion.php');
 
 //Para localhost (MAMP)
-//include ('../../../nietoBack/inc/conexion.php');
+include ('../../../nietoBack/inc/conexion.php');
 
 extract($_REQUEST); 
 
-$canarias_newPpto = isset($_REQUEST['canarias_newPpto']) ? 1 : 0;
+/*$canarias_newPpto = isset($_REQUEST['canarias_newPpto']) ? 1 : 0;
 $id_ppto = isset($_REQUEST['id_ppto']) ? $_REQUEST['id_ppto'] : NULL;
-$id_cliente = isset($_REQUEST['id_cliente']) ? $_REQUEST['id_cliente'] : NULL;
+$id_cliente = isset($_REQUEST['id_cliente']) ? $_REQUEST['id_cliente'] : NULL;*/
 
-echo 'id_ppto: '.$id_ppto;
-
-//NO SE PQ NO LLEGA EL $_REQUEST['descripcion'.$i]!!!!!!!!!!!!!!!!!!!
-echo 'descripcion1: '.$_REQUEST['asd'];
+echo 'ref1	: '.$_REQUEST['ref1'];
+echo 'cliente_newPpto: '.$_REQUEST['cliente_newPpto'];
+var_dump($GLOBALS['_REQUEST']);
 
 
 
@@ -71,7 +71,7 @@ function formato_decimal($valor) {
 3. Ambos pasos hay que hacerlos mediante una transacción en la bbdd*/
 
 for ($i = 0; $i < 10; $i++) {	
-	echo $_REQUEST['descripcion'.$i];
+	//echo $_REQUEST['descripcion'.$i];
 
 	//echo 'con #: ' $('#descripcion'.$i).val(); 
 	if ($_REQUEST['descripcion'.$i]!=''){
@@ -102,7 +102,8 @@ $total=array_filter($total);*/
 Hay que distinguir entre nuevo ppto y edición de pptp*/
 
 if ($id_ppto){
-	echo 'En el if de id_ppto: '.$id_ppto;
+	//echo 'MODIFICACIÓN';
+	//echo 'En el if de id_ppto: '.$id_ppto;
 	//MODIFICACIÓN	
 	//0. Me cargo el presupuesto anterior (tengo el id_ppto en la vble id_ppto))
 	$query="DELETE from pruebas_detalle_presupuestos where id_ppto = ".$id_ppto;
@@ -112,7 +113,7 @@ if ($id_ppto){
 	
 	for ($i = 0; $i <= count($descripcion); $i++) {
 		$query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES (".$id_ppto.",'".$descripcion[$i]."', '".$ref[$i]."', '".$uds[$i]."', '".$precio[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";	
-		echo $descripcion[$i];
+		//echo $descripcion[$i];
 		//mysqli_query($link, $query); 
 	}
 
