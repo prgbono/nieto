@@ -318,24 +318,7 @@
                                 </tr>
                             </thead>
                             <tbody id="listadoPptos">
-                                <!-- <tr>
-                                    <td>11074155</td>
-                                    <td>2015-11-13</td>
-                                    <td>Vehículo</td>
-                                    <td>Bastidor</td>
-                                    <td>Phillip J Fry</td>
-                                    <td>10387.46</td>
-                                    <td style="text-align: center">
-                                        <div class="btn-group">
-                                            <button id="btn_editar_ppto" type="button" class="btn-primary btn-sm" title="Editar">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn-danger btn-sm" title="Eliminar">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr> -->
+                                
                             </tbody>
                         </table>
                         <table class="table table-condensed table-bordered table-striped header-fixed"></table>
@@ -346,7 +329,6 @@
                     <form class="form-horizontal" role="form" id="form_newPpto" action="codigo/nuevoPpto.php" method="POST">
                         <fieldset>
                             <legend>Presupuesto</legend>
-
                             <!-- Inputs oculto para pasar el id_cliente y el id_ppto-->
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <input type="hidden" name="id_ppto" id="id_ppto">
@@ -371,22 +353,16 @@
                                     <label class="control-label">Cliente</label>
                                 </div>
                                 <div class="col-xs-4">
-                                    <input type="text" name="cliente_newPpto" id="cliente_newPpto" class="form-control">
+                                    <select name="cliente_newPpto" id="cliente_newPpto" class="form-control" onchange="getVehiculos(this.value)">
+                                    </select>
                                 </div>
                                 <div class="col-xs-1">
                                     <label class="control-label col-xs-1">Vehículo</label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <input type="text" id="vehiculo_newPpto" class="form-control"></input>
-                                    <!-- CÓDIGO PARA HACER DROPDOWN DE LOS VEHÍCULOS DEL CLIENTE
-                                    En script.js hay que manipular el json para que devuelva además de los
-                                    datos del cliente los vehículos del mismo, F(x) nuevoPpto
-                                     <select type="text" id="vehiculo_newPpto" class="form-control">
-                                      <option class="form-control">Volvo</option>
-                                      <option class="form-control">Saab</option>
-                                      <option class="form-control">Opel</option>
-                                      <option class="form-control">Audi</option>
-                                    </select> --> 
+                                    <!-- <select name="vehiculo_newPpto" id="vehiculo_newPpto" class="form-control" onchange="getBastidor(this.value)"> -->
+                                    <select name="vehiculo_newPpto" id="vehiculo_newPpto" class="form-control" onchange="getBastidor(this.value)">
+                                    </select>
                                 </div>
                                 <div class="col-xs-1">
                                     <label class="control-label col-xs-1">Bastidor</label>

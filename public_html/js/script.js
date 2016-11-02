@@ -3,13 +3,13 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-var url = "http://localhost:8888/nietoBack/";
+/*var url = "http://localhost:8888/nietoBack/";*/
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
 //var url = "http://192.168.1.200/nietoBack/";
 //1&1
-/*var url = "http://www.g4security.es/nietoBack/";*/
+var url = "http://www.g4security.es/nietoBack/";
 //PRODUCCIÓN
 
 
@@ -179,7 +179,7 @@ function nuevoPpto(cliente){
         var urlDatosCliente = url.concat('datosCliente.php');
         $.ajax({
             url: urlDatosCliente,
-            type: 'GET',
+            type: 'POST',
             data: {cliente: cliente},
             dataType: 'json',
             success:function(json){
@@ -318,7 +318,7 @@ function editarCliente (cliente){
     var urlDatosCliente = url.concat('datosCliente.php');
     $.ajax({
         url: urlDatosCliente,
-        type: 'GET',
+        type: 'POST',
         data: {cliente: cliente},
         dataType: 'json',
         success:function(json){
@@ -335,7 +335,7 @@ function editarCliente (cliente){
     var urlCochesCliente = url.concat('cochesCliente.php');
     $.ajax({
         url: urlCochesCliente,
-        type: 'GET',
+        type: 'POST',
         data: {cliente: cliente},
         dataType: 'json',
         success:function(json){
@@ -354,7 +354,7 @@ function editarCliente (cliente){
     var urlDireccionesCliente = url.concat('direccionesCliente.php');
     $.ajax({
         url: urlDireccionesCliente,
-        type: 'GET',
+        type: 'POST',
         data: {cliente: cliente},
         dataType: 'json',
         success:function(json){
@@ -387,9 +387,11 @@ function autocomplet() {
     var min = 2; // min caracteres para buscar
     var keyword = $('#client_id').val();
     switch (pantalla) {    
-        case 1:
+        case 1: 
+            console.log(pantalla);
             break;
         case 2:
+            console.log(pantalla);
             urlPantalla = url.concat('autocompletar.php');
             if (keyword.length >= min) {
                     $.ajax({
@@ -409,6 +411,7 @@ function autocomplet() {
             break;
             
         case 3:
+            console.log(pantalla);
             listar_pptos();
             /*urlPantalla = url.concat('listarPresupuestos.php');
             if (keyword.length >= min) {
@@ -429,10 +432,11 @@ function autocomplet() {
             break;
             
         case 4:
+            console.log(pantalla);
             console.log('En pantalla = 4 Nuevo presupuesto');
-            //$('#cambio1').val('0.54');
             break;
         case 5:
+            console.log(pantalla);
             //console.log('En pantalla = 5 Listado Pedidos');
             urlPantalla = url.concat('listarPedidos.php');
             if (keyword.length >= min) {
@@ -524,10 +528,11 @@ function autocomplet() {
             }
             break;
         case 6:
+            console.log(pantalla);
             break;
         case 7:
+            console.log(pantalla);
             urlPantalla = url.concat('bbdd.php');
-            
             if (keyword.length >= min) {
                 $.ajax({
                     url: urlPantalla,
@@ -545,6 +550,7 @@ function autocomplet() {
             }
             break;
         case 8:
+            console.log(pantalla);
             break;
     }
 }
@@ -562,7 +568,7 @@ function listar_pedidos(cliente){
     //id_cliente = cliente;
     $.ajax({
         url: urlListarPedidos,
-        type: 'GET',
+        type: 'POST',
         data: {cliente: cliente},
         dataType: 'json',
         success:function(json){
@@ -702,12 +708,14 @@ function navegacion(){
     submenu[0].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=1;
+        console.log(pantalla);
         $('#client_id').val('');
         nuevoCliente();
     };
     submenu[1].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=2;
+        console.log(pantalla);
         $('#client_id').val('');
         contenedor.style.left = "-100%";
         $(".buscadores").show();
@@ -726,6 +734,7 @@ function navegacion(){
     submenu[2].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=3;
+        console.log(pantalla);
         $('#client_id').val('');
         //console.log('id_cliente antes de la f(x) listadoPptos: ', id_cliente);
         listadoPptos(id_cliente);
@@ -734,6 +743,10 @@ function navegacion(){
     submenu[3].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
+        console.log(pantalla);
+
+        comboClientes();
+
         $("[id*=cambio]").val('0.65');
         comboClientesNewPpto();
         $('#client_id').val('');
@@ -746,6 +759,7 @@ function navegacion(){
     submenu[4].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=5;
+        console.log(pantalla);
         comboClientesPed();
         $('#client_id').val('');
         listadoPed(id_cliente);
@@ -755,6 +769,7 @@ function navegacion(){
     submenu[5].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=6;
+        console.log(pantalla);
         $('#client_id').val('');
         
         contenedor.style.left = "-500%";
@@ -774,6 +789,7 @@ function navegacion(){
     submenu[6].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=7;
+        console.log(pantalla);
         $('#client_id').val('');
         
         contenedor.style.left = "-600%";
@@ -795,6 +811,7 @@ function navegacion(){
     submenu[7].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=8;
+        console.log(pantalla);
         $('#client_id').val('');
         
         contenedor.style.left = "-700%";
@@ -1041,6 +1058,60 @@ function comboClientesNewPpto (){
             });
             comboClientes += "</select>";
             $('#selectClientes').html(comboClientes);
+        }
+    });
+}
+
+function comboClientes (){
+    var urlcomboCliente = url.concat('listarClientes.php');
+    $.ajax({
+        url: urlcomboCliente,
+        type: 'POST',
+        //data: {keyword: keyword},
+        dataType: 'json',
+        success:function(json){
+            var combo = '<select name="cliente_newPpto" id="cliente_newPpto" onchange="getVehiculos(this.vaue)" class="form-control"><option value="0">Cliente...</option>';
+            $.each(json.Clientes, function(i, cliente){
+                combo += "<option value="+cliente.id_cliente+">"+cliente.nombre+"</option>";
+            });
+            combo += "</select>";
+            $('#cliente_newPpto').html(combo);
+        }
+    });
+}
+
+function getVehiculos(cliente){
+    var urlCochesCliente = url.concat('cochesCliente.php');
+    $.ajax({
+        url: urlCochesCliente,
+        type: 'POST',
+        data: {cliente: cliente},
+        dataType: 'json',
+        success:function(json){
+            var bastidor = '';
+            var coches = '<select name="vehiculo_newPpto" id="vehiculo_newPpto" class="form-control" onchange="getBastidor(this.value)">';
+            $.each(json.Coches, function(i, coche){
+                if (i==0) {
+                    bastidor = getBastidor(coche.id_coche);
+                }
+                coches += "<option value="+coche.id_coche+">"+coche.modelo+"</option>";
+            });
+            coches += "</select>";
+            $('#vehiculo_newPpto').html(coches);
+            $('#bastidor_newPpto').val(bastidor);
+        }
+    });
+}
+
+function getBastidor(id_vehiculo){
+    var urlBastidor = url.concat('getBastidor.php');
+    $.ajax({
+        url: urlBastidor,
+        type: 'POST',
+        data: {id_vehiculo: id_vehiculo},
+        //dataType: 'json',
+        success:function(bastidor){
+            $('#bastidor_newPpto').val(bastidor);
         }
     });
 }
