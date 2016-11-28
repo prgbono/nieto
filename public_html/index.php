@@ -26,8 +26,7 @@
         <!--<script src="js/jquery.fixedheadertable.min"></script>-->
         <script src="js/script.js"></script>
         <!--<script src="js/cabeceras.js"></script>-->
-        
-        
+
     </head>
     
     <body>
@@ -360,7 +359,6 @@
                                     <label class="control-label col-xs-1">Vehículo</label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <!-- <select name="vehiculo_newPpto" id="vehiculo_newPpto" class="form-control" onchange="getBastidor(this.value)"> -->
                                     <select name="vehiculo_newPpto" id="vehiculo_newPpto" class="form-control" onchange="getBastidor(this.value)">
                                     </select>
                                 </div>
@@ -380,34 +378,36 @@
                                 for ($i = 0; $i <= 9; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
+                                            <!-- <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" > -->
+                                            <input type="text" name="descripcion[]" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="ref<?php echo $i;?>" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref">
+                                            <input type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="precio<?php echo $i;?>" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio">
+                                            <input type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="uds<?php echo $i;?>" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="UDS">
+                                            <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="UDS">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="cambio<?php echo $i;?>" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Cambio">
+                                            <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Cambio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvp<?php echo $i;?>" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="PVP">
+                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="PVP">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="dto<?php echo $i;?>" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="DTO">
+                                            <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="total<?php echo $i;?>" id="total<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Total">
+                                            <input type="text" name="total[]" id="total<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Total">
                                         </div>
                                     </div>
                                 <?php 
                                 } ?>
+                                    
                             </div>    
-                                <div id="addArticuloOculto">
+                                <!-- <div id="addArticuloOculto">
                                     <div class="form-group">
                                         <div class="col-xs-4">
                                             <input type="text" name="descripcion[]" class="form-control" placeholder="Descripcion">
@@ -415,9 +415,6 @@
                                         <div class="col-xs-1">
                                             <input type="text" name="ref[]" class="form-control" placeholder="Ref">
                                         </div>
-                                        <!-- <div class="col-xs-1">
-                                            <input type="text" name="check[]" class="form-control" placeholder="check">
-                                        </div> -->
                                         <div class="col-xs-1">
                                             <input type="text" name="precio[]" class="precio form-control" placeholder="Precio">
                                         </div>
@@ -439,7 +436,7 @@
                                     </div>
                                         <div class="col-md-1 pull-right">
                                         <div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar" id="btn_addArticulo"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancelArticulo"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div>
-                                </div>        
+                                </div>     -->    
                                     
                             <div class="form-group pull-left">
                                 <div class="col-xs-1">
@@ -492,7 +489,10 @@
                         <div class="form-group text-center">
                             <div class="btn-group">
                                 <button class="btn btn-primary center-block" id="btn_guardar_newPpto" style="background-color: #CFB480">Guardar</button>
-                                <button class="btn btn-primary center-block" style="background-color: #7F6538">Imprimir</button>
+                                
+                                
+                                
+                                <button class="btn btn-primary center-block" style="background-color: #7F6538"><a href="PDFS/dompdf.php" target="_blank" style="background-color: #7F6538">Imprimir</a></button>
                                 <button class="btn btn-primary center-block" style="background-color: #362B18">Enviar</button>
                                 <button class="btn btn-primary center-block" style="background-color: #DBAE18">Copiar en nuevo</button>
                                 <button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   

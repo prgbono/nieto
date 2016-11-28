@@ -3,7 +3,7 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-/*var url = "http://localhost:8888/nietoBack/";*/
+// var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
@@ -20,14 +20,16 @@ var id_direcciones = [];
 var contenedor;
 var posXinicial; //posición inicial al hacer touch
 var submenu = document.getElementsByClassName('col');
+var preArticulos = '';
 
 
 function main(){
     navegacion();
+    //Artículos e id's a localStorage
+    getArticulos();
     setEvents();
     $(".buscadores").show();
 }    
-
 
 function setEvents(){
     $("#addBBDD").on("click", addBBDD);
@@ -62,11 +64,7 @@ function setEvents(){
     $("#guardar_cliente2").on("click", altaCliente);
     $("#btn_addBBDD").on("click", agregarBBDD);
     $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
-
     
-    
-    /*$(".aplicar").on("click", aplicar_cambios);  */  
-    //$(".descripcion").on("blur", getRefPVP);
     
 }
 
@@ -532,6 +530,7 @@ function autocomplet() {
             break;
         case 7:
             console.log(pantalla);
+            //TODOLeer de localStorage
             urlPantalla = url.concat('bbdd.php');
             if (keyword.length >= min) {
                 $.ajax({
@@ -744,14 +743,23 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
         console.log(pantalla);
-
         comboClientes();
-
         $("[id*=cambio]").val('0.65');
         comboClientesNewPpto();
         $('#client_id').val('');
-        
         nuevoPpto();
+        /*preCargarArticulos();
+        $("#descripcion0").on("click", comboArticulos(0));
+        $("#descripcion1").on("click", comboArticulos(1));*/
+        /*$("#descripcion2").on("click", comboArticulos(preArticulos,2));*/
+        /*$("#descripcion3").on("click", comboArticulos(3));*/
+        // $("#descripcion4").on("click", comboArticulos(4));
+        // $("#descripcion5").on("click", comboArticulos(5));
+        // $("#descripcion6").on("click", comboArticulos(6));
+        // $("#descripcion7").on("click", comboArticulos(7));
+        // $("#descripcion8").on("click", comboArticulos(8));
+        // $("#descripcion9").on("click", comboArticulos(9));
+        
         //console.log('Pantalla 4');
         
     };
@@ -763,7 +771,6 @@ function navegacion(){
         comboClientesPed();
         $('#client_id').val('');
         listadoPed(id_cliente);
-        
     };
 //  Pedidos anul.    
     submenu[5].onclick= function(){
@@ -932,7 +939,8 @@ function insertar_nuevoPpto(){
     event.preventDefault();
 
     //Validar datos antes de llamr al Ajax
-    if (!validar_guardar_ppto()){ 
+    if (!validar_guardar_ppto()){
+        //TODO usar modales 
         alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
     }
     else{
@@ -960,13 +968,9 @@ function validar_guardar_ppto(){
     if (ok){
         //pasarle el currencyFormat a todos los inputs que corresponda
         for (i = 0; i < 10; i++){
-            $('#descripcion'+i).val('');
-            $('#ref'+i).val('');
             $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),".",","));
-            $('#uds'+i).val('');
             $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),".",","));
             $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),".",","));
-            $('#dto'+i).val('');
             if ($('#total'+i).val()=='NaN,00'){
                 alert('Por favor, expresa los decimales con un \'.\'')
             }
@@ -996,21 +1000,24 @@ function getDescripciones (fila){
                 $('.descripcion').autocomplete({
                     source: selectDescripciones
                 });
+                /*$('#descripcion'+fila).val($(this).val());*/
             }
         });
     }
 }
 
 
-function getRefPVP (des, fila){
+function getRefPVP (sp_title, fila){
     urlgetRefPvp = url.concat('getRefPvp.php');
-    if (des != '') {
+    console.log('getRefPVP, this.value: '+sp_title);
+    if (sp_title != '') {
         $.ajax({
             url: urlgetRefPvp,
             type: 'POST',   
-            data: {des: des},
+            data: {sp_title: sp_title},
             dataType: 'json',
             success:function(json){
+                console.log(json);
                 $('#ref'+fila).val(json.pruebasBBDD[0].part_number);
                 $('#precio'+fila).val(json.pruebasBBDD[0].gbp);
                 $( '#uds'+fila ).focus();
@@ -1440,28 +1447,59 @@ function calcularTotal (uds, fila){
     }
     else{
         $('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
-    }
+    } 
+}
+
+function getArticulos(){
     
+    if (window.localStorage){
+        console.log('getArticulos');
+        id_bbdd = [];
+        title = [];
+        gbp = [];
+        urlBbdd = url.concat('bbdd.php');
+        $.ajax({
+            url: urlBbdd,
+            type: 'POST',
+            dataType: 'json',
+            success:function(json){
+                $.each(json.Piezas, function(i, bbdd){
+                    id_bbdd.push(bbdd.id_bbdd);
+                    title.push(bbdd.title);
+                });
+                console.log('ls cargado');
+                localStorage.setItem('id_bbdd', JSON.stringify(id_bbdd));    
+                localStorage.setItem('title', JSON.stringify(title));
+                console.log('ls cargado');
+             }
+        });
+    }
+    else{
+        alert('Este programa necesita localStorage');
+    }
+    /*title = JSON.parse(localStorage.getItem('title'));
+    console.log(title[0]);*/
+}
+    
+
+/*function preCargarArticulos(){
+    console.log('preCargarArticulos');
+    id_bbdd = JSON.parse(localStorage.getItem('id_bbdd'));
+    title =  JSON.parse(localStorage.getItem('title'));
+    for (i = 0; i<=id_bbdd.length; i++) {
+        preArticulos += "<option value="+id_bbdd[i]+">"+title[i]+"</option>";
+    }
+    console.log('preCargarArticulos FIN');
 }
 
 
+function comboArticulos(id){
+    console.log('comboArticulos FIN');
 
+    var combo = '<select name="descripcion[]" id="descripcion'+id+'" onchange="getRefPVP(this.value, '+id+')" class="form-control descripcion"><option value="0">Artículo...</option>';
+    combo = combo + preArticulos + "</select>";
+    $('#descripcion'+id).html(combo);    
+    console.log('comboArticulos FIN');
+}*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
