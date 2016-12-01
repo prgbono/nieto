@@ -8,12 +8,6 @@ include ('../nietoBack/inc/conexion.php');
 /*include ('../../../nietoBack/inc/conexion.php');*/
 
 extract($_POST); 
-if ($id_ppto){
-	$mensaje = 'MOFIDICACIÓN';
-}
-else{
-	$mensaje = 'INSERCIÓN';
-}		
 
 if($_POST)
 {
@@ -22,62 +16,81 @@ if($_POST)
 		echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
 	}
-    echo ($descripcion);
-    foreach ($descripcion as $clave=>$valor)
+    
+    /*foreach ($descripcion as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($ref);
     foreach ($ref as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($precio);
     foreach ($precio as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($uds);
     foreach ($uds as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($cambio);
     foreach ($cambio as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($pvp);
     foreach ($pvp as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($dto);
     foreach ($dto as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }
-    echo ($total);
     foreach ($total as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
-    }
+    }*/
 }
+
+if ($id_ppto){
+    $mensaje = 'MOFIDICACIÓN';
+}
+else{
+    $mensaje = 'INSERCIÓN';
+
+    /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
+    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) 
+    VALUES ('$fecha_newPpto', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', $total, '$transporte_newPpto', '$canarias_newPpto', $subtotal, '$iva_newPpto')";
+    echo $query;
+    // mysqli_query($link, $query);
+
+    // 2. Inserción en Detalle_Presupuestos 
+    /*for ($i = 0; $i <= count($descripcion); $i++) {
+        $query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES (".$id_ppto.",'".$descripcion[$i]."', '".$ref[$i]."', '".$uds[$i]."', '".$precio[$i]."', '".$cambio[$i]."', '".$pvp[$i]."', '".$dto[$i]."', '".$total[$i]."')";    
+        //mysqli_query($link, $query); 
+    }*/
+    
+    //$query quitarle la última ,
+    //$query = substr($query, 0, -2);
+
+    
+
+
+}       
 
 /*function formato_decimal($valor) {
     $resultado = str_replace(".","",$valor);    //eliminamos el punto de los millares
     $resultado = str_replace(",",".",$resultado);   //sustituimos la coma decimal por el punto
     return $resultado;
 }
-functionnction CurrencyFormat(number, decimalcharacter, thousandseparater)
+function CurrencyFormat(number, decimalcharacter, thousandseparater)
 {
     var decimalplaces = 2;
     number = parseFloat(number);

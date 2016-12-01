@@ -26,7 +26,7 @@ var preArticulos = '';
 function main(){
     navegacion();
     //Artículos e id's a localStorage
-    getArticulos();
+    /*getArticulos();*/
     setEvents();
     $(".buscadores").show();
 }    
@@ -382,7 +382,7 @@ function editarCliente (cliente){
 function autocomplet() {
     //console.log('En autocomplet: '+pantalla);
     var urlPantalla='';
-    var min = 2; // min caracteres para buscar
+    var min = 3; // min caracteres para buscar
     var keyword = $('#client_id').val();
     switch (pantalla) {    
         case 1: 
@@ -945,14 +945,13 @@ function insertar_nuevoPpto(){
     }
     else{
         $('#form_newPpto').submit();
-        console.log('Enviado a action');
     }
 }
 
 function validar_guardar_ppto(){
     /*Validación del formulario del presupuesto
         PAra que la pantalla de ppto sea válida requerimos:
-        Fecha, cliente, vehículo y al menos un artículo con mínimo descripción, referencia y precio */
+        Fecha, cliente, vehículo y al menos un artículo con mínimo descripción, referencia y precio/pvp */
     var ok = true;
     if ($('#fecha_newPpto').val()=='') {ok = false;}
     if ($('#cliente_newPpto').val()=='') {ok = false;}
@@ -961,8 +960,7 @@ function validar_guardar_ppto(){
     if ($('#ref0').val()=='') {ok = false;}
     if ($('#uds0').val()=='') {ok = false;}
     if ($('#cambio0').val()=='') {ok = false;}
-    if (($('#precio0').val()=='') && ($('#pvp1').val()=='')) {ok = false;}
-    if ($('#dto0').val()=='') {ok = false;}
+    if (($('#precio0').val()=='') && ($('#pvp0').val()=='')) {ok = false;}
     if ($('#total0').val()=='') {ok = false;}
 
     if (ok){
@@ -1017,10 +1015,15 @@ function getRefPVP (sp_title, fila){
             data: {sp_title: sp_title},
             dataType: 'json',
             success:function(json){
-                console.log(json);
-                $('#ref'+fila).val(json.pruebasBBDD[0].part_number);
-                $('#precio'+fila).val(json.pruebasBBDD[0].gbp);
-                $( '#uds'+fila ).focus();
+                if ((typeof json.pruebasBBDD[0] !== 'undefined') && json.pruebasBBDD[0]){
+                    console.log(json);
+                    $('#ref'+fila).html(json.pruebasBBDD[0].part_number);
+                    $('#precio'+fila).html(json.pruebasBBDD[0].gbp);
+
+                    /*$('#ref'+fila).val(json.pruebasBBDD[0].part_number);
+                    $('#precio'+fila).val(json.pruebasBBDD[0].gbp);*/
+                    $('#uds'+fila).focus();
+                }
             }
         });    
     }
@@ -1437,49 +1440,59 @@ function CurrencyFormat(number, decimalcharacter, thousandseparater)
 }
 
 function calcularTotal (uds, fila){
-    subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
-    descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;
+    /*subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
+    descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;*/
+    subtotal = $('#precio'+fila).html()*$('#cambio'+fila).val()*$('#uds'+fila).val();
+    descuento = ($('#precio'+fila).html()*$('#dto'+fila).val())/100;
     
-    if ($('#pvp'+fila).val() == ""){
-        //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
-        $('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
 
+    if ($('#pvp'+fila).val() == ""){
+        console.log('PVP VACIÍO');
+        //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
+        /*$('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
+        $('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
     }
     else{
-        $('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        console.log('PVP INFORMADO');
+        /*$('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
+        $('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
     } 
 }
 
-function getArticulos(){
-    
-    if (window.localStorage){
-        console.log('getArticulos');
-        id_bbdd = [];
-        title = [];
-        gbp = [];
-        urlBbdd = url.concat('bbdd.php');
-        $.ajax({
-            url: urlBbdd,
-            type: 'POST',
-            dataType: 'json',
-            success:function(json){
-                $.each(json.Piezas, function(i, bbdd){
-                    id_bbdd.push(bbdd.id_bbdd);
-                    title.push(bbdd.title);
-                });
-                console.log('ls cargado');
-                localStorage.setItem('id_bbdd', JSON.stringify(id_bbdd));    
-                localStorage.setItem('title', JSON.stringify(title));
-                console.log('ls cargado');
-             }
-        });
-    }
-    else{
-        alert('Este programa necesita localStorage');
-    }
-    /*title = JSON.parse(localStorage.getItem('title'));
-    console.log(title[0]);*/
+
+function calcularGenerales(){
+    console.log('calcularGenerales'); 
 }
+
+// function getArticulos(){
+//     if (window.localStorage){
+//         console.log('getArticulos');
+//         id_bbdd = [];
+//         title = [];
+//         gbp = [];
+//         urlBbdd = url.concat('bbdd.php');
+//         $.ajax({
+//             url: urlBbdd,
+//             type: 'POST',
+//             dataType: 'json',
+//             success:function(json){
+//                 $.each(json.Piezas, function(i, bbdd){
+//                     id_bbdd.push(bbdd.id_bbdd);
+//                     title.push(bbdd.title);
+//                 });
+//                 console.log('ls cargado');
+//                 localStorage.setItem('id_bbdd', JSON.stringify(id_bbdd));    
+//                 localStorage.setItem('title', JSON.stringify(title));
+//                 console.log('ls cargado');
+//              }
+//         });
+//     }
+//     else{
+//         alert('Este programa necesita localStorage');
+//     }
+//     // title = JSON.parse(localStorage.getItem('title'));
+//     // console.log(title[0]);
+// }
     
 
 /*function preCargarArticulos(){

@@ -378,29 +378,28 @@
                                 for ($i = 0; $i <= 9; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <!-- <input type="text" name="descripcion<?php echo $i;?>" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" > -->
-                                            <input type="text" name="descripcion[]" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
+                                            <input type="text" name="descripcion[]" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>); calcularGenerales();" >
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref">
+                                            <label type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control">Ref</label>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio">
+                                            <label type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control">Precio</label>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="UDS">
+                                            <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="UDS">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Cambio">
+                                            <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="Cambio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="PVP">
+                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="PVP">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="DTO">
+                                            <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="total[]" id="total<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>)" class="form-control" placeholder="Total">
+                                            <label type="text" name="total[]" id="total<?php echo $i;?>" class="form-control">Total</label>
                                         </div>
                                     </div>
                                 <?php 
@@ -436,20 +435,20 @@
                                     </div>
                                         <div class="col-md-1 pull-right">
                                         <div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar" id="btn_addArticulo"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancelArticulo"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div>
-                                </div>     -->    
+                                </div>        
                                     
                             <div class="form-group pull-left">
                                 <div class="col-xs-1">
                                     <button class="btn btn-primary" id="addArticulo">Añadir Artículo</button>
                                 </div>
-                            </div>
+                            </div>--> 
                             
                         </fieldset>
                         <fieldset>
                             <legend>Detalles</legend>
                             <div class="row">
                                 <div class="col-md-7">
-                                    <textarea rows="3" class="form-control" id="asunto_newPpto" placeholder="Asunto"></textarea>
+                                    <textarea rows="3" class="form-control" name="asunto_newPpto" id="asunto_newPpto" placeholder="Asunto"></textarea>
                                 </div>
                                 <div class="col-md-2">
                                     <div>
