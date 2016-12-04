@@ -378,7 +378,7 @@
                                 for ($i = 0; $i <= 9; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-5">
-                                            <input type="text" name="descripcion[]" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>); calcularGenerales();" >
+                                            <input type="text" name="descripcion[]" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
                                         </div>
                                         <div class="col-xs-1">
                                             <label type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control">Ref</label>
@@ -387,16 +387,16 @@
                                             <label type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control">Precio</label>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="UDS">
+                                            <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="UDS">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="Cambio">
+                                            <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="Cambio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="PVP">
+                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="PVP">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularGenerales();" class="form-control" placeholder="DTO">
+                                            <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
                                             <label type="text" name="total[]" id="total<?php echo $i;?>" class="form-control">Total</label>
@@ -460,25 +460,23 @@
                                     
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="pull-left col-xs-3">
+                                    <div class="pull-left col-xs-2">
                                         <label>SUBTOTAL:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-3">
-                                        <input type="text" name="subtotal" class="subtotal" class="form-control"></input>
-                                        <!-- <label class="subtotal" id="subtotal"></label> -->
+                                        <label type="text" name="subtotal" id="subtotal" class="form-control"></input>
                                     </div>
                                     <div class="pull-left col-xs-2">
                                         <label>IVA:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-2">
-                                        <input type="text" name="iva_newPpto" class="form-control">
+                                        <input type="text" name="iva_newPpto" id="iva_newPpto" class="form-control">
                                     </div>
                                     <div class="pull-left col-xs-1">
                                         <label>TOTAL:</label>
                                     </div>
-                                    <div class="pull-right col-xs-offset-1">
-                                        <input type="text" name="total" class="total" class="form-control"></input>
-                                        <!-- <label class="total" id="total"></label> -->
+                                    <div class="pull-right col-xs-offset-2">
+                                        <input type="text" name="total" id="totalTotal" class="form-control"></input>
                                     </div>
                                 </div>
                             </div>

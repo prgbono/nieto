@@ -1016,7 +1016,6 @@ function getRefPVP (sp_title, fila){
             dataType: 'json',
             success:function(json){
                 if ((typeof json.pruebasBBDD[0] !== 'undefined') && json.pruebasBBDD[0]){
-                    console.log(json);
                     $('#ref'+fila).html(json.pruebasBBDD[0].part_number);
                     $('#precio'+fila).html(json.pruebasBBDD[0].gbp);
 
@@ -1447,21 +1446,35 @@ function calcularTotal (uds, fila){
     
 
     if ($('#pvp'+fila).val() == ""){
-        console.log('PVP VACIÍO');
         //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
         /*$('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
         $('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
     }
     else{
-        console.log('PVP INFORMADO');
         /*$('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
         $('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
     } 
 }
 
 
-function calcularGenerales(){
-    console.log('calcularGenerales'); 
+function calcularSubtotal(){
+    console.log('calcularGenerales');
+    var subtotal = 0;
+    for (i=0; i<10; i++){
+
+        if ($('#descripcion'+i).val()!=''){
+            console.log($('#descripcion'+i).val());
+            subtotal = subtotal + parseFloat($('#total'+i).text().replace(',', '.'));
+
+            console.log(parseFloat($('#total'+i).text().replace(',', '.')));
+            console.log(subtotal);
+        }
+        
+    }
+    
+    $('#subtotal').html(CurrencyFormat(parseFloat(subtotal),".",","));
+
+    
 }
 
 // function getArticulos(){
