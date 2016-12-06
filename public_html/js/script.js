@@ -957,11 +957,12 @@ function validar_guardar_ppto(){
     if ($('#cliente_newPpto').val()=='') {ok = false;}
     if ($('#vehiculo_newPpto').val()=='') {ok = false;}
     if ($('#descripcion0').val()=='') {ok = false;}
-    if ($('#ref0').val()=='') {ok = false;}
+    /*if ($('#ref0').html()=='') {ok = false;}*/
     if ($('#uds0').val()=='') {ok = false;}
     if ($('#cambio0').val()=='') {ok = false;}
+    /*if (($('#precio0').html()=='') && ($('#pvp0').val()=='')) {ok = false;}*/
     if (($('#precio0').val()=='') && ($('#pvp0').val()=='')) {ok = false;}
-    if ($('#total0').val()=='') {ok = false;}
+    /*if ($('#total0').html()=='') {ok = false;}*/
 
     if (ok){
         //pasarle el currencyFormat a todos los inputs que corresponda
@@ -1016,11 +1017,10 @@ function getRefPVP (sp_title, fila){
             dataType: 'json',
             success:function(json){
                 if ((typeof json.pruebasBBDD[0] !== 'undefined') && json.pruebasBBDD[0]){
-                    $('#ref'+fila).html(json.pruebasBBDD[0].part_number);
-                    $('#precio'+fila).html(json.pruebasBBDD[0].gbp);
-
-                    /*$('#ref'+fila).val(json.pruebasBBDD[0].part_number);
-                    $('#precio'+fila).val(json.pruebasBBDD[0].gbp);*/
+                    /*$('#ref'+fila).html(json.pruebasBBDD[0].part_number);
+                    $('#precio'+fila).html(json.pruebasBBDD[0].gbp);*/
+                    $('#ref'+fila).val(json.pruebasBBDD[0].part_number);
+                    $('#precio'+fila).val(json.pruebasBBDD[0].gbp);
                     $('#uds'+fila).focus();
                 }
             }
@@ -1439,43 +1439,45 @@ function CurrencyFormat(number, decimalcharacter, thousandseparater)
 }
 
 function calcularTotal (uds, fila){
-    /*subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
-    descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;*/
-    subtotal = $('#precio'+fila).html()*$('#cambio'+fila).val()*$('#uds'+fila).val();
-    descuento = ($('#precio'+fila).html()*$('#dto'+fila).val())/100;
+    subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
+    descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;
+    /*subtotal = $('#precio'+fila).html()*$('#cambio'+fila).val()*$('#uds'+fila).val();
+    descuento = ($('#precio'+fila).html()*$('#dto'+fila).val())/100;*/
     
 
     if ($('#pvp'+fila).val() == ""){
         //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
-        /*$('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
-        $('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        $('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        /*$('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
     }
     else{
-        /*$('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
-        $('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        $('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        /*$('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
     } 
 }
 
 
 function calcularSubtotal(){
-    console.log('calcularGenerales');
     var subtotal = 0;
+    var totalTotal = 0;
     for (i=0; i<10; i++){
-
         if ($('#descripcion'+i).val()!=''){
-            console.log($('#descripcion'+i).val());
-            subtotal = subtotal + parseFloat($('#total'+i).text().replace(',', '.'));
-
-            console.log(parseFloat($('#total'+i).text().replace(',', '.')));
-            console.log(subtotal);
+            /*subtotal = subtotal + parseFloat($('#total'+i).text().replace(',', '.'));*/
+            subtotal = subtotal + parseFloat($('#total'+i).val().replace(',', '.'));
         }
-        
     }
-    
-    $('#subtotal').html(CurrencyFormat(parseFloat(subtotal),".",","));
-
-    
+    /*$('#subtotal').html(CurrencyFormat(parseFloat(subtotal),".",","));*/
+    $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),".",","));
+    calcularTotalTotal(subtotal);
 }
+
+function calcularTotalTotal(subtotal){
+    console.log('calcularTotalTotal, subtotal: '+subtotal);
+    console.log('iva marcado: '+$('#iva_newPpto').val());
+    $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
+    $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",","));
+}
+
 
 // function getArticulos(){
 //     if (window.localStorage){

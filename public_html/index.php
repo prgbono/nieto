@@ -381,10 +381,10 @@
                                             <input type="text" name="descripcion[]" id="descripcion<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" onkeyup="getDescripciones(<?php echo $i;?>)" onblur="getRefPVP(this.value, <?php echo $i;?>)" >
                                         </div>
                                         <div class="col-xs-1">
-                                            <label type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control">Ref</label>
+                                            <input type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref" readonly>
                                         </div>
                                         <div class="col-xs-1">
-                                            <label type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control">Precio</label>
+                                            <input type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio" readonly>
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="UDS">
@@ -399,7 +399,7 @@
                                             <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
-                                            <label type="text" name="total[]" id="total<?php echo $i;?>" class="form-control">Total</label>
+                                            <input type="text" name="total[]" id="total<?php echo $i;?>" class="form-control" placeholder="Total" readonly>
                                         </div>
                                     </div>
                                 <?php 
@@ -452,7 +452,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div>
-                                        <label><input name="canarias_newPpto" id="canarias_newPpto" type="checkbox">Canarias</label>
+                                        <label><input type="checkbox" name="canarias_newPpto" id="canarias_newPpto" type="checkbox">Canarias</label>
                                     </div>
                                     <div>
                                         <input type="text" name="transporte_newPpto" class="form-control" id="transporte_newPpto" placeholder="PVP transporte">
@@ -460,24 +460,24 @@
                                     
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="pull-left col-xs-2">
-                                        <label>SUBTOTAL:</label>
-                                    </div>
-                                    <div class="pull-right col-xs-offset-3">
-                                        <label type="text" name="subtotal" id="subtotal" class="form-control"></input>
-                                    </div>
-                                    <div class="pull-left col-xs-2">
-                                        <label>IVA:</label>
-                                    </div>
-                                    <div class="pull-right col-xs-offset-2">
-                                        <input type="text" name="iva_newPpto" id="iva_newPpto" class="form-control">
-                                    </div>
-                                    <div class="pull-left col-xs-1">
-                                        <label>TOTAL:</label>
-                                    </div>
-                                    <div class="pull-right col-xs-offset-2">
-                                        <input type="text" name="total" id="totalTotal" class="form-control"></input>
-                                    </div>
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                            <label>SUBTOTAL:</label>
+                                        </div>
+                                        <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            <input name="subtotal" id="subtotal" class="form-control" readonly>
+                                        </div>
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                            <label>IVA:</label>
+                                        </div>
+                                        <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            <label><input type="text" name="iva_newPpto" id="iva_newPpto" class="form-control" placeholder="21" onblur="calcularTotalTotal($('#subtotal').val())"></label>
+                                        </div>
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                            <label>TOTAL:</label>
+                                        </div>
+                                        <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            <input name="total" id="totalTotal" class="form-control" readonly>
+                                        </div>
                                 </div>
                             </div>
                         </fieldset>

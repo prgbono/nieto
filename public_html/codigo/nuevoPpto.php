@@ -57,6 +57,12 @@ if($_POST)
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
     }*/
+
+    $canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;
+    $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
+
+    echo ($canarias_newPpto);
+    echo ($iva_newPpto);
 }
 
 if ($id_ppto){
@@ -64,10 +70,9 @@ if ($id_ppto){
 }
 else{
     $mensaje = 'INSERCIÓN';
-
+    
     /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
-    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) 
-    VALUES ('$fecha_newPpto', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', $total, '$transporte_newPpto', '$canarias_newPpto', $subtotal, '$iva_newPpto')";
+    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', $total, '$transporte_newPpto', '".$canarias_newPpto."', $subtotal, '".$iva_newPpto."')";
     echo $query;
     // mysqli_query($link, $query);
 
