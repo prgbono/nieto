@@ -372,6 +372,34 @@
                         </fieldset>
                         <fieldset>
                             <legend>Artículos</legend>    
+                            <div id="cabecera">
+                                <div class="form-group">
+                                    <div class="col-xs-5">
+                                        <label class="header">DESCRIPCIÓN</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">REF</label>                          
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">PRECIO</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">UDS</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">CAMBIO</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">PVP</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">DTO</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">TOTAL</label>
+                                    </div>
+                                </div>
+                            </div>
 <!--                            Artículos -->
                             <div id="articulos">
                                 <?php  
@@ -476,7 +504,7 @@
                                             <label>TOTAL:</label>
                                         </div>
                                         <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                            <input name="total" id="totalTotal" class="form-control" readonly>
+                                            <input name="totalTotal" id="totalTotal" class="form-control" readonly>
                                         </div>
                                 </div>
                             </div>

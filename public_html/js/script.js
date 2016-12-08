@@ -745,20 +745,10 @@ function navegacion(){
         console.log(pantalla);
         comboClientes();
         $("[id*=cambio]").val('0.65');
+        
         comboClientesNewPpto();
         $('#client_id').val('');
         nuevoPpto();
-        /*preCargarArticulos();
-        $("#descripcion0").on("click", comboArticulos(0));
-        $("#descripcion1").on("click", comboArticulos(1));*/
-        /*$("#descripcion2").on("click", comboArticulos(preArticulos,2));*/
-        /*$("#descripcion3").on("click", comboArticulos(3));*/
-        // $("#descripcion4").on("click", comboArticulos(4));
-        // $("#descripcion5").on("click", comboArticulos(5));
-        // $("#descripcion6").on("click", comboArticulos(6));
-        // $("#descripcion7").on("click", comboArticulos(7));
-        // $("#descripcion8").on("click", comboArticulos(8));
-        // $("#descripcion9").on("click", comboArticulos(9));
         
         //console.log('Pantalla 4');
         
@@ -954,7 +944,7 @@ function validar_guardar_ppto(){
         Fecha, cliente, vehículo y al menos un artículo con mínimo descripción, referencia y precio/pvp */
     var ok = true;
     if ($('#fecha_newPpto').val()=='') {ok = false;}
-    if ($('#cliente_newPpto').val()=='') {ok = false;}
+    if ($('#cliente_newPpto').val()=='' || $('#cliente_newPpto').val()==0) {ok = false;}
     if ($('#vehiculo_newPpto').val()=='') {ok = false;}
     if ($('#descripcion0').val()=='') {ok = false;}
     /*if ($('#ref0').html()=='') {ok = false;}*/
@@ -970,10 +960,25 @@ function validar_guardar_ppto(){
             $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),".",","));
             $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),".",","));
             $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),".",","));
-            if ($('#total'+i).val()=='NaN,00'){
-                alert('Por favor, expresa los decimales con un \'.\'')
+            if ($('#pvp'+i).val()=='NaN.00'){
+                $('#pvp'+i).val(0);
             }
-            $('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),".",","));    
+            if ($('#dto'+i).val()==''){
+                $('#dto'+i).val(0);
+            }
+            /*if ($('#total'+i).val()=='NaN,00'){
+                alert('Por favor, expresa los decimales con un \'.\'')
+            }*/
+            console.log($('#total'+i).val());
+            $('#total'+i).val(function(index, value) {
+               return value.replace(',', '.');
+            });
+            console.log($('#total'+i).val());
+            console.log('ssss');
+
+            
+            /*$('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),".",","));*/
+            
         }
     }
 
@@ -1447,11 +1452,11 @@ function calcularTotal (uds, fila){
 
     if ($('#pvp'+fila).val() == ""){
         //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
-        $('#total'+fila).val(CurrencyFormat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),',','.'));
         /*$('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
     }
     else{
-        $('#total'+fila).val(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));
+        $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),',','.'));
         /*$('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
     } 
 }
