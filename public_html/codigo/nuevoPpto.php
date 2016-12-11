@@ -77,7 +77,7 @@ else{
     //Obtengo el id_ppto recién insentado para usarlo en la tabla de detalles_presupuestos
     $ppto =  mysqli_query($link, "SELECT MAX(id_ppto) as maxId_ppto FROM pruebas_presupuestos"); 
     $maxPpto = mysqli_fetch_assoc($ppto);
-    $id_ppto = $maxPpto['maxId_ppto'] +1;
+    $id_ppto = $maxPpto['maxId_ppto'];
         
     //Con esto tengo en cada array exactamente lo que ha metido el usuario. Independientemente si ha metido alguna descripción y después no unidades. TENGO LOS ARRAYS SIN POSICIONES VACÍAS.
     $descripcion=array_filter($descripcion);

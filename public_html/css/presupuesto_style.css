@@ -1,0 +1,144 @@
+*{padding: 0px; margin: 0px; -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box; }
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+html {
+  margin: 0 auto;
+}
+
+a {
+  color: #5D6975;
+  text-decoration: underline;
+}
+
+header {
+  padding: 10px 0;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+body {
+  font-family: "Times New Roman", serif;
+  position: relative;
+  width: 21cm;  
+  height: 29.7cm; 
+  margin: 0 auto;
+  color: #001028;
+  background: #FFFFFF; 
+  font-family: Arial, sans-serif; 
+  font-size: 12px; 
+  font-family: Arial;
+  -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;
+}
+
+.contenido{
+  width: 660px;
+  margin: 0 auto;
+  margin-top: 70px;
+  color: #575656;
+  -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box;
+  padding: 0px;
+  font-family: 'DejaVu Sans Condensed', sans-serif;
+}
+
+h1 {
+  border-bottom: 1px solid  #5D6975;
+  color: #5D6975;
+  font-size: 1.4em;
+  line-height: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 0 20px 0;
+  text-align: right;
+}
+
+#project {
+  margin-top:30px;
+  float: left;
+  margin-bottom:30px;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: left;
+  width: 80px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 1em;
+}
+
+
+#project div {
+  white-space: nowrap;        
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+table tr:nth-child(2n-1) td {
+  background: #F5F5F5;
+}
+
+table th,
+table td {
+  text-align: center;
+}
+
+table th {
+  padding: 5px 20px;
+  color: #5D6975;
+  border-bottom: 1px solid #C1CED9;
+  white-space: nowrap;        
+  font-weight: normal;
+  font-size: 1em;
+}
+
+table .ref,
+table .desc {
+  text-align: left;
+}
+
+table td {
+  padding: 20px;
+  text-align: right;
+  font-size: 0.8em;
+}
+
+table td.ref,
+table td.desc {
+  vertical-align: top;
+}
+
+table td.uds,
+table td.pvp,
+table td.importe {
+  font-size: 0.8em;
+}
+
+table td.grand {
+  border-top: 1px solid #5D6975;;
+}
+
+#notices .notice {
+  color: #5D6975;
+  font-size: 0.8em;
+}
+
+footer {
+  color: #5D6975;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #C1CED9;
+  padding: 8px 0;
+  text-align: center;
+}

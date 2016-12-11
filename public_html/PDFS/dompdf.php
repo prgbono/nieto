@@ -535,32 +535,83 @@ if ($html = file_get_contents($doc)) {
 
 
 $html='
-	<html>
-	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Ejemplo de Documento en PDF.</title>
-	</head>
-	<body>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Example 1</title>
+    <link href="../css/presupuesto_style.css" rel="stylesheet" type="text/css"/>  
+  </head>
+  <body>
+  <div class="contenido">
+    <header class="clearfix">
+      <h1>Presupuesto núm: ###</h1> 
+      <div id="project">
+        <div><span>CLIENTE</span>John Doe</div>
+        <div><span>DIRECCIÓN</span>796 Silver Harbour, TX 79273, US</div>
+        <div><span>VEHÍCULO</span>VEHÍCULO CLIENTE</div>
+        <div><span>FECHA </span>PONER AQUÍ NOW()</div>
+        <div><span>VÁLIDO</span>PONER AQUÍ NOW() + X DÍAS</div>
+      </div>
+    </header>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th class="ref">REFERENCIA</th>
+            <th class="desc">DESCRIPCIÓN</th>
+            <th>PVP</th>
+            <th>UDS</th>
+            <th>IMPORTE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ref">UR14011</td>
+            <td class="desc">Air Conditioning Condenser (from Vin 1001 To 11000 Approx) (ur14011)</td>
+            <td class="pvp">$40.00</td>
+            <td class="uds">26</td>
+            <td class="importe">$1,040.00</td>
+          </tr>
+          <tr>
+            <td class="ref">UR14011</td>
+            <td class="desc">Air Conditioning Condenser (from Vin 1001 To 11000 Approx) (ur14011)</td>
+            <td class="pvp">$40.00</td>
+            <td class="uds">26</td>
+            <td class="importe">$1,040.00</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="grand total">SUBTOTAL</td>
+            <td class="grand">$5,200.00</td>
+          </tr>
+          <tr>
+            <td colspan="4">IVA 21%</td>
+            <td>$1,300.00</td>
+          </tr>
+          <tr>
+            <td colspan="4">TOTAL</td>
+            <td>$6,500.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <div id="notices">
+        <div>Comentarios:</div>
+        <div class="notice">ALGÚN TEXTO A REMARCAR. ¿ASUNTO DEL PRESUPUESTO?.</div>
+      </div>
+    </main>
+    <footer>
+      NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com
+    </footer>
+  </div>
+  </body>
+</html>';
 
-	<h2>Ingredientes para la realización de Postres.</h2>
-	<p>Ingredientes:</p>
-	<dl>
-	<dt>Chocolate</dt>
-	<dd>Cacao</dd>
-	<dd>Azucar</dd>
-	<dd>Leche</dd>
-	<dt>Caramelo</dt>
-	<dd>Azucar</dd>
-	<dd>Colorantes</dd>
-	</dl>
 
-	</body>
-	</html>';
 $pdf = new DOMPDF();
 $pdf->set_paper("A4", "portrait");
+/*$pdf->set_paper("A4", "landscape");*/
 $pdf->load_html(utf8_decode($html)); 
 $pdf->render();
-$pdf->stream('FicheroEjemplo.pdf');
+$pdf->stream('NietoPresupuesto.pdf');
 
 
 
