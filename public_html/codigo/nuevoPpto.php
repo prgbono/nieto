@@ -11,13 +11,13 @@ extract($_POST);
 
 if($_POST)
 {
-    foreach ($_POST as $clave=>$valor)
+    /*foreach ($_POST as $clave=>$valor)
     {
 		echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
 	}
     
-    /*foreach ($descripcion as $clave=>$valor)
+    foreach ($descripcion as $clave=>$valor)
     {
         echo "El valor de $clave es: $valor"."\n";
         echo "<br>";
@@ -72,7 +72,6 @@ else{
     /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
     $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', $totalTotal, '$transporte_newPpto', '".$canarias_newPpto."', $subtotal, '".$iva_newPpto."')";
     /*echo $query."\n";*/
-    mysqli_query($link, $query);
 
     //Obtengo el id_ppto recién insentado para usarlo en la tabla de detalles_presupuestos
     $ppto =  mysqli_query($link, "SELECT MAX(id_ppto) as maxId_ppto FROM pruebas_presupuestos"); 
@@ -89,26 +88,25 @@ else{
     $dto=array_filter($dto);
     $total=array_filter($total);
 
-    $query="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES ";   
+    $query2="INSERT INTO pruebas_detalle_presupuestos (id_ppto, descripcion, referencia, uds, precio, cambio, pvp, dto, total) VALUES ";   
 
     foreach ($descripcion as $clave=>$valor)
     {
-        $query.= "(".$id_ppto.",'$valor', '".$ref[$clave]."', ".$uds[$clave].", ".$precio[$clave].", ".$cambio[$clave].", '".$pvp[$clave]."', '".$dto[$clave]."', ".$total[$clave]."),";
+        $query2.= "(".$id_ppto.",'$valor', '".$ref[$clave]."', ".$uds[$clave].", ".$precio[$clave].", ".$cambio[$clave].", '".$pvp[$clave]."', '".$dto[$clave]."', ".$total[$clave]."),";
     }
-    $query = substr($query, 0, -1);
-    /*echo $query;*/
-    mysqli_query($link, $query); 
-    
+    $query2 = substr($query2, 0, -1);
+    /*echo $query2;*/
+
+    mysqli_query($link, $query);
+    mysqli_query($link, $query2); 
 
 }       
 
 ?>
-
 <script language="javascript">
 	console.log('<?php echo $mensaje; ?>');
 	window.location='/index.php';
 </script> 
-
 <?php
 
 

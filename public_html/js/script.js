@@ -64,6 +64,7 @@ function setEvents(){
     $("#guardar_cliente2").on("click", altaCliente);
     $("#btn_addBBDD").on("click", agregarBBDD);
     $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
+    $("#btn_imprimir").on("click", imprimir_Ppto);
     
     
 }
@@ -928,6 +929,9 @@ function insertar_nuevoPpto(){
     //Campos obligatorios para insertar artículos: descripción y referencia. Miramos estos campos del primer input del id="articulos". Si están vacíos avisamos. IMPLEMENTARLO
     event.preventDefault();
 
+    $('#form_newPpto').attr('target', '_self');
+    $('#form_newPpto').attr('action', 'codigo/nuevoPpto.php');
+
     //Validar datos antes de llamr al Ajax
     if (!validar_guardar_ppto()){
         //TODO usar modales 
@@ -936,6 +940,13 @@ function insertar_nuevoPpto(){
     else{
         $('#form_newPpto').submit();
     }
+}
+
+function imprimir_Ppto(){
+    /*event.preventDefault();*/
+    $('#form_newPpto').attr('action', 'PDFS/dompdf.php');
+    $('#form_newPpto').attr('target', '_blank');
+    $('#form_newPpto').submit();
 }
 
 function validar_guardar_ppto(){

@@ -515,9 +515,8 @@
                             <div class="btn-group">
                                 <button class="btn btn-primary center-block" id="btn_guardar_newPpto" style="background-color: #CFB480">Guardar</button>
                                 
-                                
-                                
-                                <button class="btn btn-primary center-block" style="background-color: #7F6538"><a href="PDFS/dompdf.php" target="_blank" style="background-color: #7F6538">Imprimir</a></button>
+                                <!-- <button class="btn btn-primary center-block" style="background-color: #7F6538"><a href="PDFS/dompdf.php" target="_blank" style="background-color: #7F6538">Imprimir</a></button> -->
+                                <button class="btn btn-primary center-block" id="btn_imprimir" style="background-color: #7F6538">Imprimir</button>
                                 <button class="btn btn-primary center-block" style="background-color: #362B18">Enviar</button>
                                 <button class="btn btn-primary center-block" style="background-color: #DBAE18">Copiar en nuevo</button>
                                 <button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   
