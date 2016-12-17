@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 // Cargamos la librería dompdf que hemos instalado en la carpeta dompdf
 require_once ('../dompdf/dompdf_config.inc.php');
 // Cargamos las librerías de base de datos
-include '..nietoBack/inc/conexion.php';
+include '../nietoBack/inc/conexion.php';
 
 extract($_POST); 
 
@@ -14,11 +14,11 @@ $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 //Datos de cliente (si viene cliente informado)
 if (!$cliente_newPpto==''){
   $pruebas = 'sdsdsdsd';
-  /*$datosCli="SELECT pruebas_clientes.id_cliente, pruebas_clientes.nombre, pruebas_clientes.variado, pruebas_clientes.tlf1, pruebas_clientes.tlf2, pruebas_clientes.email, pruebas_clientes.email2, pruebas_clientes.ciudad, pruebas_coches.modelo, pruebas_coches.bastidor, pruebas_coches.anio FROM pruebas_clientes INNER JOIN pruebas_coches ON pruebas_clientes.id_cliente = pruebas_coches.id_cliente AND pruebas_clientes.id_cliente = '$cliente_newPpto'";
+  $datosCli="SELECT pruebas_clientes.id_cliente, pruebas_clientes.nombre, pruebas_clientes.variado, pruebas_clientes.tlf1, pruebas_clientes.tlf2, pruebas_clientes.email, pruebas_clientes.email2, pruebas_clientes.ciudad, pruebas_coches.modelo, pruebas_coches.bastidor, pruebas_coches.anio FROM pruebas_clientes INNER JOIN pruebas_coches ON pruebas_clientes.id_cliente = pruebas_coches.id_cliente AND pruebas_clientes.id_cliente = '$cliente_newPpto'";
   $result = mysqli_query($link, $datosCli);
   $fila= mysqli_fetch_assoc($result);
   $cliente_newPpto = $fila['nombre'];
-  $vehiculo_newPpto = $fila['modelo'];*/
+  $vehiculo_newPpto = $fila['modelo'];
 }
 
 
@@ -60,7 +60,6 @@ $html='
       <h1>Presupuesto</h1> 
       <div id="project">
         <div><span>CLIENTE</span>'.$cliente_newPpto.'</div>
-        <div><span>DIRECCIÓN</span>¿¿¿MANTENERLA???</div>
         <div><span>VEHÍCULO</span>'.$vehiculo_newPpto.'</div>
         <div><span>FECHA </span>'.$fecha_newPpto.'</div>
       </div>
@@ -109,8 +108,8 @@ $html='
 $pdf = new DOMPDF();
 $pdf->set_paper("A4", "portrait");
 /*$pdf->set_paper("A4", "landscape");*/
-/*$pdf->load_html(utf8_decode($html)); */
-$pdf->load_html(utf8_decode($pruebas)); 
+$pdf->load_html(utf8_decode($html)); 
+/*$pdf->load_html(utf8_decode($pruebas)); */
 $pdf->render();
 //ASÍ SE DESCARGA
 /*$pdf->stream('NietoPresupuesto.pdf');*/
