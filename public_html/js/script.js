@@ -1479,17 +1479,22 @@ function calcularSubtotal(){
     for (i=0; i<10; i++){
         if ($('#descripcion'+i).val()!=''){
             /*subtotal = subtotal + parseFloat($('#total'+i).text().replace(',', '.'));*/
+
             subtotal = subtotal + parseFloat($('#total'+i).val().replace(',', '.'));
+            /*ASI FUNC --> subtotal = subtotal + parseFloat($('#total'+i).val().replace(',', '.'));*/
+            console.log('SIN replace: '+parseFloat($('#total'+i).val()));
+            console.log('cON replace: '+parseFloat($('#total'+i).val().replace(',', '.')));
         }
     }
     /*$('#subtotal').html(CurrencyFormat(parseFloat(subtotal),".",","));*/
-    $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),".",","));
+    $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),",","."));
+    
     calcularTotalTotal(subtotal);
 }
 
 function calcularTotalTotal(subtotal){
-    console.log('calcularTotalTotal, subtotal: '+subtotal);
-    console.log('iva marcado: '+$('#iva_newPpto').val());
+    /*console.log('calcularTotalTotal, subtotal: '+subtotal);
+    console.log('iva marcado: '+$('#iva_newPpto').val());*/
     $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
     $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",","));
 }

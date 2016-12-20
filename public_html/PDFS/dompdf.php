@@ -29,7 +29,7 @@ foreach ($descripcion as $clave=>$valor)
   if (!$descripcion[$clave]==''){
     if($pvp[$clave]==''){
       $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
-      <td class="desc">'.$descripcion[$clave].'</td>
+      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
       <td class="pvp">'.$precio[$clave].'</td>
       <td class="uds">'.$uds[$clave].'</td>
       <td class="importe">'.$total[$clave].'</td>
@@ -37,7 +37,7 @@ foreach ($descripcion as $clave=>$valor)
     }
     else{
       $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
-      <td class="desc">'.$descripcion[$clave].'</td>
+      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
       <td class="pvp">'.$pvp[$clave].'</td>
       <td class="uds">'.$uds[$clave].'</td>
       <td class="importe">'.$total[$clave].'</td>
@@ -51,7 +51,7 @@ $html='
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Example 1</title>
+    <title>Presupuesto NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com</title>
     <link href="../css/presupuesto_style.css" rel="stylesheet" type="text/css"/>  
   </head>
   <body>
@@ -59,8 +59,8 @@ $html='
     <header class="clearfix">
       <h1>Presupuesto</h1> 
       <div id="project">
-        <div><span>CLIENTE</span>'.$cliente_newPpto.'</div>
-        <div><span>VEHÍCULO</span>'.$vehiculo_newPpto.'</div>
+        <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
+        <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
         <div><span>FECHA </span>'.$fecha_newPpto.'</div>
       </div>
     </header>
@@ -69,7 +69,7 @@ $html='
         <thead>
           <tr>
             <th class="ref">REFERENCIA</th>
-            <th class="desc">DESCRIPCIÓN</th>
+            <th class="desc" style="width:50%">DESCRIPCIÓN</th>
             <th>PVP</th>
             <th>UDS</th>
             <th>IMPORTE</th>
@@ -94,7 +94,7 @@ $html='
       <br />
       <div id="notices">
         <div>Comentarios:</div>
-        <div class="notice">'.$asunto_newPpto.'</div>
+        <div class="notice">'.utf8_encode($asunto_newPpto).'</div>
       </div>
     </main>
     <footer>
@@ -108,7 +108,8 @@ $html='
 $pdf = new DOMPDF();
 $pdf->set_paper("A4", "portrait");
 /*$pdf->set_paper("A4", "landscape");*/
-$pdf->load_html(utf8_decode($html)); 
+$pdf->load_html($html); 
+/*$pdf->load_html(utf8_decode($html)); */
 /*$pdf->load_html(utf8_decode($pruebas)); */
 $pdf->render();
 //ASÍ SE DESCARGA
