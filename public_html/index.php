@@ -33,7 +33,7 @@
         <header>
             <div class="menu">
                 <div class="col activo" style="background-color: #CFB480"> 
-                    Nuevo Clientee
+                    Nuevo Cliente
                 </div>
                 <div class="col" style="background-color: #7F6538">
                     Listado Clientes
@@ -495,7 +495,7 @@
                                             <input name="subtotal" id="subtotal" class="form-control" readonly>
                                         </div>
                                         <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                                            <label>IVA:</label>
+                                            <label>IVA(%):</label>
                                         </div>
                                         <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                             <label><input type="text" name="iva_newPpto" id="iva_newPpto" class="form-control" placeholder="21" onblur="calcularTotalTotal($('#subtotal').val())"></label>

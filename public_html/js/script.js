@@ -3,7 +3,7 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-// var url = "http://localhost:8888/nietoBack/";
+//var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
@@ -200,8 +200,10 @@ function nuevoPpto(cliente){
 
 //Hay qye traerse a esta función los datos del presupuesto seleccionado, de momento es igual que la función anterior
 function editarPpto(id_ppto){
+    console.log('editarPpto');
+    comboClientes();
     comboClientesNewPpto();
-    cargarPpto(id_ppto);
+    sleep(200);
     contenedor.style.left = "-300%";
     $(".buscadores").show();
     submenu[0].className="col";
@@ -212,7 +214,17 @@ function editarPpto(id_ppto){
     submenu[5].className="col";
     submenu[6].className="col";
     submenu[7].className="col";
+    cargarPpto(id_ppto);
 //    ocultarNewPed();
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 }
 
 function listadoPptos(cliente){
@@ -968,9 +980,9 @@ function validar_guardar_ppto(){
     if (ok){
         //pasarle el currencyFormat a todos los inputs que corresponda
         for (i = 0; i < 10; i++){
-            $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),".",","));
-            $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),".",","));
-            $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),".",","));
+            $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),",","."));
+            $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),",","."));
+            $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),",","."));
             if ($('#pvp'+i).val()=='NaN.00'){
                 $('#pvp'+i).val(0);
             }
@@ -988,7 +1000,7 @@ function validar_guardar_ppto(){
             console.log('ssss');
 
             
-            /*$('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),".",","));*/
+            /*$('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),",","."));*/
             
         }
     }
@@ -1345,7 +1357,7 @@ function aplicar_cambios(id_pedido){
 }
 
 function cargarPpto(id_ppto){
-    //console.log('En cargar Ppto');
+    console.log('En cargar Ppto. id_ppto: ' + id_ppto);
     urlCargarPpto = url.concat('listarPresupuestos.php');
     $('#id_ppto').val(id_ppto);
     $.ajax({
@@ -1354,19 +1366,26 @@ function cargarPpto(id_ppto){
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
+            console.log(json);
+            console.log(json.Presupuestos[0].id_coche);
             $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
-            $('#cliente_newPpto').val(json.Presupuestos[0].id_cliente);
+
+            //El cliente es un select, hay que poner el select con la opción que trae el json
+            $("#cliente_newPpto").val(json.Presupuestos[0].clienteId);    
             $('#id_cliente').val(json.Presupuestos[0].clienteId);
-            $('#vehiculo_newPpto').val(json.Presupuestos[0].id_coche);
-            $('#transporte_newPpto').val(json.Presupuestos[0].transporte);
+            $('#vehiculo_newPpto').text(json.Presupuestos[0].id_coche);
+            //$('#transporte_newPpto').val(json.Presupuestos[0].transporte);
             //$('#asunto_newPpto').val(ppto.transporte);
-            if (json.Presupuestos[0].canarias==1)
+
+            /*if (json.Presupuestos[0].canarias==1)
                 $('#canarias_newPpto').prop("checked", "checked");
             else
                 $('#canarias_newPpto').prop("checked", "");
-            $('.subtotal').val(json.Presupuestos[0].subtotal+'€');
-            $('.iva_newPpto').text(json.Presupuestos[0].iva+'%');
-            $('.total').text(json.Presupuestos[0].total+'€');
+
+            $('#subtotal').val(json.Presupuestos[0].subtotal);
+            $('#iva_newPpto').val(json.Presupuestos[0].iva);
+            $('#totalTotal').val(json.Presupuestos[0].total);*/
+
             cargarArticulos(id_ppto);
         }
     });
@@ -1398,11 +1417,11 @@ function cargarArticulos(id_ppto){
                 $('#descripcion'+i).val(json.Articulos[i].descripcion);
                 $('#ref'+i).val(json.Articulos[i].referencia);
                 $('#precio'+i).val(json.Articulos[i].uds);
-                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].precio),".",","));
-                $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),".",","));
-                $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",","));
+                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].precio),",","."));
+                $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),",","."));
+                $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),",","."));
                 $('#dto'+i).val(json.Articulos[i].dto);
-                $('#total'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",","));
+                $('#total'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),",","."));
             });
         }
     });
@@ -1486,7 +1505,7 @@ function calcularSubtotal(){
             console.log('cON replace: '+parseFloat($('#total'+i).val().replace(',', '.')));
         }
     }
-    /*$('#subtotal').html(CurrencyFormat(parseFloat(subtotal),".",","));*/
+    /*$('#subtotal').html(CurrencyFormat(parseFloat(subtotal),",","."));*/
     $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),",","."));
     
     calcularTotalTotal(subtotal);
@@ -1496,7 +1515,7 @@ function calcularTotalTotal(subtotal){
     /*console.log('calcularTotalTotal, subtotal: '+subtotal);
     console.log('iva marcado: '+$('#iva_newPpto').val());*/
     $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
-    $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",","));
+    $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),",","."));
 }
 
 
