@@ -3,13 +3,13 @@ $(document).ready(main);
 //Vbles globales
 //URL's
 //LOCALHOST
-//var url = "http://localhost:8888/nietoBack/";
+var url = "http://localhost:8888/nietoBack/";
 //rios.esy.es
 //var url = "http://www.rios.esy.es/nietoBack/";
 //RasPi local
 //var url = "http://192.168.1.200/nietoBack/";
 //1&1
-var url = "http://www.g4security.es/nietoBack/";
+//var url = "http://www.g4security.es/nietoBack/";
 //PRODUCCIÓN
 
 
@@ -200,7 +200,7 @@ function nuevoPpto(cliente){
 
 //Hay qye traerse a esta función los datos del presupuesto seleccionado, de momento es igual que la función anterior
 function editarPpto(id_ppto){
-    console.log('editarPpto');
+    /*console.log('editarPpto');*/
     comboClientes();
     comboClientesNewPpto();
     sleep(200);
@@ -239,8 +239,6 @@ function listadoPptos(cliente){
     submenu[6].className="col";
     submenu[7].className="col";
 //    ocultarNewPed();
-    //alert('En listadoPptos. cliente: '+cliente);
-    //console.log('valor del parámetro cliente en la f(x) listadoPptos: ', cliente);
     listar_pptos(cliente);
     
 }
@@ -688,9 +686,10 @@ function listar_pptos(cliente){
         data: {cliente: id_cliente},
         dataType: 'json',
         success: function (json) {
+            /*console.log(json);*/
             $.each(json.Presupuestos, function (i, ppto) {
                 //Meter el JSON en la tabla de 'listado Presupuestos'    
-                tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto_'+ppto.id_ppto+'" type="button" onclick="editarPpto('+ppto.id_ppto+')" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto_'+ppto.id_ppto+'" type="button" onclick="editarPpto('+ppto.id_ppto+')" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
             });
             $('#listadoPptos').html(tablaPptos);
         }
@@ -748,7 +747,6 @@ function navegacion(){
         pantalla=3;
         console.log(pantalla);
         $('#client_id').val('');
-        //console.log('id_cliente antes de la f(x) listadoPptos: ', id_cliente);
         listadoPptos(id_cliente);
         
     };
@@ -757,15 +755,12 @@ function navegacion(){
         pantalla=4;
         console.log(pantalla);
         comboClientes();
-        $("[id*=cambio]").val('0.65');
-        
+        $("[id*=cambio]").val('0.65');    
         comboClientesNewPpto();
         $('#client_id').val('');
         nuevoPpto();
-        
-        //console.log('Pantalla 4');
-        
     };
+
 //  Listado de pedidos    
     submenu[4].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
@@ -992,19 +987,12 @@ function validar_guardar_ppto(){
             /*if ($('#total'+i).val()=='NaN,00'){
                 alert('Por favor, expresa los decimales con un \'.\'')
             }*/
-            console.log($('#total'+i).val());
             $('#total'+i).val(function(index, value) {
                return value.replace(',', '.');
             });
-            console.log($('#total'+i).val());
-            console.log('ssss');
-
-            
             /*$('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),",","."));*/
-            
         }
     }
-
     return (ok);
 }
 
@@ -1036,7 +1024,7 @@ function getDescripciones (fila){
 
 function getRefPVP (sp_title, fila){
     urlgetRefPvp = url.concat('getRefPvp.php');
-    console.log('getRefPVP, this.value: '+sp_title);
+    /*console.log('getRefPVP, this.value: '+sp_title);*/
     if (sp_title != '') {
         $.ajax({
             url: urlgetRefPvp,
@@ -1056,30 +1044,6 @@ function getRefPVP (sp_title, fila){
     }
     
 }
-
-/*CON ESTA FUNCIÓN HAY QUE PONER $(".descripcion").on("blur", getRefPVP); en el SET Events y quitar el onblur de los inputs descripción de nuevo_ppto
-function getRefPVP (){
-    console.log('Pierde el foco, des: ', this.name);
-    next  = $(this).next();
-    console.log('next: ', next);
-
-    urlgetRefPvp = url.concat('getRefPvp.php');
-    if (this.value != '') {
-        $.ajax({
-            url: urlgetRefPvp,
-            type: 'POST',
-            data: {des: this.value},
-            dataType: 'json',
-            success:function(json){
-                console.log ('Dentro del function, jason: ', json);
-                console.log ($(this.name));
-                $(this).next().val(json.pruebasBBDD[0].part_number);
-                
-            }
-        });    
-    }
-    
-}*/
 
 function comboClientesNewPpto (){
     var urlcomboCliente = url.concat('listarClientes.php');
@@ -1357,7 +1321,6 @@ function aplicar_cambios(id_pedido){
 }
 
 function cargarPpto(id_ppto){
-    console.log('En cargar Ppto. id_ppto: ' + id_ppto);
     urlCargarPpto = url.concat('listarPresupuestos.php');
     $('#id_ppto').val(id_ppto);
     $.ajax({
@@ -1366,26 +1329,19 @@ function cargarPpto(id_ppto){
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
-            console.log(json);
-            console.log(json.Presupuestos[0].id_coche);
             $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
-
-            //El cliente es un select, hay que poner el select con la opción que trae el json
+            getVehiculos(json.Presupuestos[0].clienteId);
             $("#cliente_newPpto").val(json.Presupuestos[0].clienteId);    
             $('#id_cliente').val(json.Presupuestos[0].clienteId);
-            $('#vehiculo_newPpto').text(json.Presupuestos[0].id_coche);
-            //$('#transporte_newPpto').val(json.Presupuestos[0].transporte);
-            //$('#asunto_newPpto').val(ppto.transporte);
-
-            /*if (json.Presupuestos[0].canarias==1)
+            $('#asunto_newPpto').val(json.Presupuestos[0].asunto);
+            $('#transporte_newPpto').val(json.Presupuestos[0].transporte);
+            if (json.Presupuestos[0].canarias==1)
                 $('#canarias_newPpto').prop("checked", "checked");
             else
                 $('#canarias_newPpto').prop("checked", "");
-
             $('#subtotal').val(json.Presupuestos[0].subtotal);
             $('#iva_newPpto').val(json.Presupuestos[0].iva);
-            $('#totalTotal').val(json.Presupuestos[0].total);*/
-
+            $('#totalTotal').val(json.Presupuestos[0].total);
             cargarArticulos(id_ppto);
         }
     });
@@ -1413,11 +1369,12 @@ function cargarArticulos(id_ppto){
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
+            /*console.log(json);*/
             $.each(json.Articulos, function(i, articulo){
                 $('#descripcion'+i).val(json.Articulos[i].descripcion);
                 $('#ref'+i).val(json.Articulos[i].referencia);
-                $('#precio'+i).val(json.Articulos[i].uds);
-                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].precio),",","."));
+                $('#precio'+i).val(json.Articulos[i].precio);
+                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].uds),",","."));
                 $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),",","."));
                 $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),",","."));
                 $('#dto'+i).val(json.Articulos[i].dto);
@@ -1498,16 +1455,12 @@ function calcularSubtotal(){
     for (i=0; i<10; i++){
         if ($('#descripcion'+i).val()!=''){
             /*subtotal = subtotal + parseFloat($('#total'+i).text().replace(',', '.'));*/
-
             subtotal = subtotal + parseFloat($('#total'+i).val().replace(',', '.'));
             /*ASI FUNC --> subtotal = subtotal + parseFloat($('#total'+i).val().replace(',', '.'));*/
-            console.log('SIN replace: '+parseFloat($('#total'+i).val()));
-            console.log('cON replace: '+parseFloat($('#total'+i).val().replace(',', '.')));
         }
     }
     /*$('#subtotal').html(CurrencyFormat(parseFloat(subtotal),",","."));*/
     $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),",","."));
-    
     calcularTotalTotal(subtotal);
 }
 

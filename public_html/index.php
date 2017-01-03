@@ -309,9 +309,11 @@
                                 <tr>
                                     <th class="col-xs-1">NUMERO</th>
                                     <th class="col-xs-1">FECHA</th>
+                                    <th class="col-xs-3">CLIENTE</th>
                                     <th class="col-xs-2">VEHICULO</th>
+                                    <!-- <th class="col-xs-2">VEHICULO</th>
                                     <th class="col-xs-1">BASTIDOR</th>
-                                    <th class="col-xs-2">CLIENTE</th>
+                                    <th class="col-xs-2">CLIENTE</th> -->
                                     <th class="col-xs-1">TOTAL</th>
                                     <th class="col-xs-1">OPCIONES</th>
                                 </tr>
@@ -514,8 +516,6 @@
                         <div class="form-group text-center">
                             <div class="btn-group">
                                 <button class="btn btn-primary center-block" id="btn_guardar_newPpto" style="background-color: #CFB480">Guardar</button>
-                                
-                                <!-- <button class="btn btn-primary center-block" style="background-color: #7F6538"><a href="PDFS/dompdf.php" target="_blank" style="background-color: #7F6538">Imprimir</a></button> -->
                                 <button class="btn btn-primary center-block" id="btn_imprimir" style="background-color: #7F6538">Imprimir</button>
                                 <button class="btn btn-primary center-block" style="background-color: #362B18">Enviar</button>
                                 <button class="btn btn-primary center-block" style="background-color: #DBAE18">Copiar en nuevo</button>
