@@ -517,7 +517,7 @@
                             <div class="btn-group">
                                 <button class="btn btn-primary center-block" id="btn_guardar_newPpto" style="background-color: #CFB480">Guardar</button>
                                 <button class="btn btn-primary center-block" id="btn_imprimir" style="background-color: #7F6538">Imprimir</button>
-                                <button class="btn btn-primary center-block" style="background-color: #362B18">Enviar</button>
+                                <button class="btn btn-primary center-block" id="btn_enviar" style="background-color: #362B18">Enviar</button>
                                 <button class="btn btn-primary center-block" style="background-color: #DBAE18">Copiar en nuevo</button>
                                 <button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   
                             </div>
@@ -1114,9 +1114,51 @@
                                 </div>
                             </div>
                         </fieldset>
+
                         <fieldset>
-                            <legend>Artículos</legend>    
-<!--                            Artículos-->
+                            <legend>Artículos</legend>  
+                            <div class="form-group" id="articulosPed">
+                                <?php  
+                                for ($i = 0; $i <= 9; $i++) { ?>
+                                    <div class="form-group">
+                                        <div class="col-xs-4">
+                                            <input type="text" name="descripcionPed[]" id="descripcionPed<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="refPed[]" id="refPed<?php echo $i;?>" class="form-control" placeholder="Ref" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="precioPed[]" id="precioPed<?php echo $i;?>" class="form-control" placeholder="Precio" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="udsPed[]" id="udsPed<?php echo $i;?>" class="form-control" placeholder="UDS">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="cambioPed[]" id="cambioPed<?php echo $i;?>" class="form-control" placeholder="Cambio">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="pvpPed[]" id="Pedpvp<?php echo $i;?>" class="form-control" placeholder="PVP">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="dtoPed[]" id="dtoPed<?php echo $i;?>" class="form-control" placeholder="DTO">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="totalPed[]" id="totalPed<?php echo $i;?>" class="form-control" placeholder="Total" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                <?php 
+                                } ?>
+                                    
+                            </div>    
+                        <!-- </fieldset>                                                
+
+                        <fieldset> -->
+                            <!-- <legend>Artículos</legend>    
                             <div class="form-group" id="articulosPed">
                                 <div class="col-xs-3">
                                     <input type="text" class="form-control" placeholder="Descripcion">
@@ -1150,8 +1192,9 @@
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </div>
-                            </div>
-                            <div class="articulos form-group">
+                            </div> -->
+
+                            <!-- <div class="articulos form-group">
                                 <div class="col-xs-3">
                                     <input type="text" class="form-control" placeholder="Descripcion">
                                 </div>
@@ -1184,11 +1227,9 @@
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </div>
-                            </div>
-
+                            </div> -->                            
                             
-                            
-                            <div id="addArticuloOcultoPed">
+                            <!-- <div id="addArticuloOcultoPed">
                                 <div class="form-group">
                                     <div class="col-xs-4">
                                         <input type="text" class="form-control" placeholder="Descripcion">
@@ -1224,7 +1265,7 @@
                                 <div class="col-xs-1">
                                     <button class="btn btn-primary" id="addArticuloPed">Añadir Artículo</button>
                                 </div>
-                            </div>
+                            </div> -->
                             
 
                             <div class="row">

@@ -53,7 +53,7 @@ function setEvents(){
 //    $("#btn_limpiar").on("click", resetFormNuevoCliente);
     $(".btn_listadoPptosCliente").on("click", listadoPptos(id_cliente));
     $(".btn_listadoPedCliente").on("click", listadoPed(id_cliente));
-    $("#btn_cancelNewPpto").on("click", listadoPptos(id_cliente));
+    $("#btn_cancelNewPpto").on("click", cancelar_Ppto());
     $("#btn_editar_anul").on("click", editarAnul);
     $("#btn_cancelEditAnul").on("click", cancelEditAnul);
     $("#btn_addArticuloAnul").on("click", addArticuloAnul);
@@ -65,6 +65,7 @@ function setEvents(){
     $("#btn_addBBDD").on("click", agregarBBDD);
     $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
     $("#btn_imprimir").on("click", imprimir_Ppto);
+    $("#btn_enviar").on("click", enviar_Ppto);
     
     
 }
@@ -225,6 +226,12 @@ function sleep(milliseconds) {
       break;
     }
   }
+}
+
+function cancelar_Ppto(){
+    console.log('cancelar_Ppto');
+    $('#form_newPpto').attr('action', '');
+    listadoPptos();
 }
 
 function listadoPptos(cliente){
@@ -720,6 +727,8 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=1;
         console.log(pantalla);
+        $('#guardar_cliente1').text('Guardar');
+        $('#guardar_cliente2').text('Guardar');
         $('#client_id').val('');
         nuevoCliente();
     };
@@ -835,11 +844,9 @@ function navegacion(){
 }
 
 function altaCliente(){
-    console.log('altaCliente');
     //Comprobamos mediante el texto del botón si es update o nueva inserción
     if ($('#guardar_cliente1').text() === 'Actualizar'){ 
         //$.post(urlActualizarCliente, $("#form_nuevo_cliente").serialize(), function(resp){}
-        
         //Ajax para el envío de datos a actualizar
         var urlActualizarCliente = url.concat('actualizarCliente.php');
         $.ajax({
@@ -853,11 +860,11 @@ function altaCliente(){
                     input_tlf2: $("#input_tlf2").val(),
                     input_email1: $("#input_email1").val(),
                     input_email2: $("#input_email2").val(),
-                    envio_nombre: $("#envio_nombre").val(),
+                    //envio_nombre: $("#envio_nombre").val(),
                     envio_calle: $("#envio_calle").val(),
                     envioCP: $("#envioCP").val(),
                     envio_ciudad: $("#envio_ciudad").val(),
-                    fact_nombre: $("#fact_nombre").val(),
+                    //fact_nombre: $("#fact_nombre").val(),
                     fact_calle: $("#fact_calle").val(),
                     factCP: $("#factCP").val(),
                     factNIF: $("#factNIF").val(),
@@ -894,9 +901,9 @@ function altaCliente(){
     else
     {
         var urlAltaCliente = url.concat('altaCliente.php');
-        console.log('else');
+        console.log(urlAltaCliente);
         $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
-            alert('rest:' +resp);
+            console.log(resp);
             if(resp==-1){
                 //Ya existe este cliente
                 alert("Ya existe este cliente");
@@ -956,8 +963,15 @@ function imprimir_Ppto(){
     $('#form_newPpto').submit();
 }
 
+function enviar_Ppto(){
+    console.log('enviar_Ppto');
+    $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
+    //$('#form_newPpto').attr('target', '_blank');
+    $('#form_newPpto').submit();
+}
+
 function validar_guardar_ppto(){
-    /*Validación del formulario del presupuesto
+       /*Validación del formulario del presupuesto
         PAra que la pantalla de ppto sea válida requerimos:
         Fecha, cliente, vehículo y al menos un artículo con mínimo descripción, referencia y precio/pvp */
     var ok = true;
@@ -1431,18 +1445,26 @@ function CurrencyFormat(number, decimalcharacter, thousandseparater)
 }
 
 function calcularTotal (uds, fila){
-    subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
+    /*subtotal = $('#precio'+fila).val()*$('#cambio'+fila).val()*$('#uds'+fila).val();
     descuento = ($('#precio'+fila).val()*$('#dto'+fila).val())/100;
+    console.log(subtotal);
+    console.log(descuento);*/
     /*subtotal = $('#precio'+fila).html()*$('#cambio'+fila).val()*$('#uds'+fila).val();
     descuento = ($('#precio'+fila).html()*$('#dto'+fila).val())/100;*/
-    
 
-    if ($('#pvp'+fila).val() == ""){
+    if (($('#pvp'+fila).val() == "") || ($('#pvp'+fila).val() === '0,00')){
+        console.log('PVP vacío o 0,00');
+        /*var precio = $('#precio'+fila).val();
+        var cambio = $('#cambio'+fila).val();
+        var dto = $('#dto'+fila).val()/100;
+        var uds = $('#uds'+fila).val();*/
+        
         //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
         $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),',','.'));
         /*$('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
     }
     else{
+        console.log('PVP no vacío');
         $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),',','.'));
         /*$('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
     } 
