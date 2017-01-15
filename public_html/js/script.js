@@ -53,7 +53,7 @@ function setEvents(){
 //    $("#btn_limpiar").on("click", resetFormNuevoCliente);
     $(".btn_listadoPptosCliente").on("click", listadoPptos(id_cliente));
     $(".btn_listadoPedCliente").on("click", listadoPed(id_cliente));
-    $("#btn_cancelNewPpto").on("click", cancelar_Ppto());
+    $("#btn_cancelNewPpto").on("click", cancelar_Ppto);
     $("#btn_editar_anul").on("click", editarAnul);
     $("#btn_cancelEditAnul").on("click", cancelEditAnul);
     $("#btn_addArticuloAnul").on("click", addArticuloAnul);
@@ -66,6 +66,7 @@ function setEvents(){
     $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
     $("#btn_imprimir").on("click", imprimir_Ppto);
     $("#btn_enviar").on("click", enviar_Ppto);
+    $("#btn_generarPedido").on("click", generarPedido);
     
     
 }
@@ -952,6 +953,7 @@ function insertar_nuevoPpto(){
         alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
     }
     else{
+        console.log('submit 956');
         $('#form_newPpto').submit();
     }
 }
@@ -960,6 +962,7 @@ function imprimir_Ppto(){
     /*event.preventDefault();*/
     $('#form_newPpto').attr('action', 'PDFS/dompdf.php');
     $('#form_newPpto').attr('target', '_blank');
+    console.log('submit 965');
     $('#form_newPpto').submit();
 }
 
@@ -967,6 +970,7 @@ function enviar_Ppto(){
     console.log('enviar_Ppto');
     $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
     //$('#form_newPpto').attr('target', '_blank');
+    console.log('submit 973');
     $('#form_newPpto').submit();
 }
 
@@ -1492,6 +1496,24 @@ function calcularTotalTotal(subtotal){
     $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
     $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),",","."));
 }
+
+function generarPedido(){
+    //Campos obligatorios para insertar pedido: los mismos que para ppto
+    event.preventDefault();
+
+    $('#form_newPpto').attr('target', '_self');
+    $('#form_newPpto').attr('action', 'codigo/nuevoPedido.php');
+
+    //Validar datos antes de llamr al Ajax
+    if (!validar_guardar_ppto()){
+        //TODO usar modales 
+        alert ('Un pedido debe tener fecha, cliente, vehículo y al menos el primer artículo');
+    }
+    else{
+        $('#form_newPpto').submit();
+    }
+}
+
 
 
 // function getArticulos(){

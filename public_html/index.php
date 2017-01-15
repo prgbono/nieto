@@ -20,7 +20,8 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/fastclick.js" type="text/javascript"></script>
+        <!--  --><script src="js/fastclick.js" type="text/javascript"></script>
+        
         <!--<script src="js/navegacion.js" type="text/javascript"></script>-->
         <!--<script src="js/table-fixed-header.js"></script>-->
         <!--<script src="js/jquery.fixedheadertable.min"></script>-->
@@ -522,7 +523,7 @@
                                 <button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   
                             </div>
                             <div class="btn-group pull-right">
-                                <button class="btn btn-primary center-block" style="background-color: #FF9717">Generar pedido</button>
+                                <button class="btn btn-primary center-block" id="btn_generarPedido" style="background-color: #FF9717">Generar pedido</button>
                             </div>
                             
                             
