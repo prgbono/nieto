@@ -844,81 +844,114 @@ function navegacion(){
     
 }
 
+function validar_nuevo_cliente(){
+    var ok = true;
+    if ($("#input_nombre").val().search(/^\D+$/)==-1) {
+        $("#input_nombre").parent().addClass('has-error');
+        ok = false;
+    }
+    else{
+        $("#input_nombre").parent().removeClass('has-error');
+        $("#input_nombre").parent().addClass('has-success');
+    }
+    if ($("#input_coche0").val().search(/^\D+$/)==-1) {
+        $("#input_coche0").parent().addClass('has-error');
+        ok = false;
+    }
+    if ($("#input_tlf1").val().search(/^\+?[0-9]{5,}$/)==-1) {
+        $("#input_tlf1").parent().addClass('has-error');
+        ok = false;
+    }
+    if ($("#input_email1").val().search(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-z]{2,}$/i)==-1) {
+        $("#input_email1").parent().addClass('has-error');
+        ok = false;
+    }
+    return ok;
+}
+
 function altaCliente(){
-    //Comprobamos mediante el texto del botón si es update o nueva inserción
-    if ($('#guardar_cliente1').text() === 'Actualizar'){ 
-        //$.post(urlActualizarCliente, $("#form_nuevo_cliente").serialize(), function(resp){}
-        //Ajax para el envío de datos a actualizar
-        var urlActualizarCliente = url.concat('actualizarCliente.php');
-        $.ajax({
-            type: "POST",
-            url: urlActualizarCliente,
-            /*data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente },  */
-            data: { id_cliente: id_cliente,
-                    input_nombre: $("#input_nombre").val(), 
-                    input_variado: $("#input_variado").val(),
-                    input_tlf1: $("#input_tlf1").val(),
-                    input_tlf2: $("#input_tlf2").val(),
-                    input_email1: $("#input_email1").val(),
-                    input_email2: $("#input_email2").val(),
-                    //envio_nombre: $("#envio_nombre").val(),
-                    envio_calle: $("#envio_calle").val(),
-                    envioCP: $("#envioCP").val(),
-                    envio_ciudad: $("#envio_ciudad").val(),
-                    //fact_nombre: $("#fact_nombre").val(),
-                    fact_calle: $("#fact_calle").val(),
-                    factCP: $("#factCP").val(),
-                    factNIF: $("#factNIF").val(),
-                    fact_ciudad: $("#fact_ciudad").val(),},  
-            success: function(data)
-            {
-                if (data == 1) {
-                    alert ('CLIENTE MODIFICADO');
+    var msj = '';
+    if (validar_nuevo_cliente()){
+        //TODO quitar la clase has-error a todo
+        //Comprobamos mediante el texto del botón si es update o nueva inserción
+        if ($('#guardar_cliente1').text() === 'Actualizar'){ 
+            //$.post(urlActualizarCliente, $("#form_nuevo_cliente").serialize(), function(resp){}
+            //Ajax para el envío de datos a actualizar
+            var urlActualizarCliente = url.concat('actualizarCliente.php');
+            $.ajax({
+                type: "POST",
+                url: urlActualizarCliente,
+                /*data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente },  */
+                data: { id_cliente: id_cliente,
+                        input_nombre: $("#input_nombre").val(), 
+                        input_variado: $("#input_variado").val(),
+                        input_tlf1: $("#input_tlf1").val(),
+                        input_tlf2: $("#input_tlf2").val(),
+                        input_email1: $("#input_email1").val(),
+                        input_email2: $("#input_email2").val(),
+                        //envio_nombre: $("#envio_nombre").val(),
+                        envio_calle: $("#envio_calle").val(),
+                        envioCP: $("#envioCP").val(),
+                        envio_ciudad: $("#envio_ciudad").val(),
+                        //fact_nombre: $("#fact_nombre").val(),
+                        fact_calle: $("#fact_calle").val(),
+                        factCP: $("#factCP").val(),
+                        factNIF: $("#factNIF").val(),
+                        fact_ciudad: $("#fact_ciudad").val(),},  
+                success: function(data)
+                {
+                    if (data == 1) {
+                        alert ('CLIENTE MODIFICADO');
+                    }
+                    else {
+                        alert ('Ha ocurrido un error al actualizar el cliente')
+                    }
+                       
                 }
-                else {
-                    alert ('Ha ocurrido un error al actualizar el cliente')
-                }
-                   
-            }
-        }); 
+            }); 
 
-        //Volver a poner el texto de los dos botones a 'Guardar';
-        $('#guardar_cliente1').text('Guardar');
-        $('#guardar_cliente2').text('Guardar');
+            //Volver a poner el texto de los dos botones a 'Guardar';
+            $('#guardar_cliente1').text('Guardar');
+            $('#guardar_cliente2').text('Guardar');
+            
+            event.preventDefault();
+
+            //Vaciar las variables globales de cliente, coches y direcciones a actualizar
+            /*id_cliente = 0;
+            $.each (id_coches, function() {
+                id_coches.pop();
+            });
+            $.each (id_direcciones, function() {
+                id_direcciones.pop();
+            });*/
+        }
         
+        //Caso de nueva inserción
+        else
+        {
+            var urlAltaCliente = url.concat('altaCliente.php');
+            console.log(urlAltaCliente);
+            $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
+                console.log(resp);
+                if(resp==-1){
+                    //Ya existe este cliente
+                    alert("Ya existe este cliente");
+                }
+                else if (resp==-2){
+                    alert("Introduce al menos un coche");
+                    event.preventDefault();
+                }
+                else{
+                    //Todas las tablas involucradas en la inserción OK
+                    alert("Datos dados de alta correctamente");
+                }
+            });
+        }
+    }
+    else{
+        alert('Revisa los campos requeridos (poner borde rojo');
         event.preventDefault();
-
-        //Vaciar las variables globales de cliente, coches y direcciones a actualizar
-        /*id_cliente = 0;
-        $.each (id_coches, function() {
-            id_coches.pop();
-        });
-        $.each (id_direcciones, function() {
-            id_direcciones.pop();
-        });*/
     }
-    
-    //Caso de nueva inserción
-    else
-    {
-        var urlAltaCliente = url.concat('altaCliente.php');
-        console.log(urlAltaCliente);
-        $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
-            console.log(resp);
-            if(resp==-1){
-                //Ya existe este cliente
-                alert("Ya existe este cliente");
-            }
-            else if (resp==-2){
-                alert("Introduce al menos un coche");
-            }
-            else{
-                //Todas las tablas involucradas en la inserción OK
-                alert("Datos dados de alta correctamente");
-            }
-        });
-    }
-    
 }
 
 function agregarBBDD(){

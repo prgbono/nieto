@@ -157,21 +157,28 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-xs-1">Tlf principal</label>
-                                <div class="col-xs-5">
+                                <label class="control-label col-xs-1">Tlf</label>
+                                <div class="col-xs-4">
                                     <input type="text" name="input_tlf1" id="input_tlf1" class="form-control" placeholder="Tlf principal">
                                 </div>
-                                <label class="control-label col-xs-1">Tlf secundario</label>
+                                <!-- <label class="control-label col-xs-1">Tlf secundario</label>
                                 <div class="col-xs-5">
                                     <input type="text" name="input_tlf2" id="input_tlf2" class="form-control" placeholder="Tlf secundario">
-                                </div>
+                                </div> -->
                                 <!-- <label class="control-label col-xs-1">Tlf auxiliar</label>
                                 <div class="col-xs-3">
                                     <input type="text" name="tlf3" class="form-control" placeholder="Tlf auxiliar">
                                 </div> -->
+                                <label class="control-label col-xs-1">Email</label>
+                                <div class="col-xs-6">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="text" name="input_email1" id="input_email1" class="form-control" placeholder="Email 1">
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="control-label col-xs-1">Email 1</label>
                                 <div class="col-xs-5">
                                     <div class="input-group">
@@ -186,7 +193,7 @@
                                         <input type="text" name="input_email2" id="input_email2" class="form-control" placeholder="Email 2">
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </fieldset>
                         <br>
                         <fieldset>
