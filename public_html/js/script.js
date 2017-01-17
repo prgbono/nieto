@@ -68,6 +68,21 @@ function setEvents(){
     $("#btn_enviar").on("click", enviar_Ppto);
     $("#btn_generarPedido").on("click", generarPedido);
     
+    //Validar inputs de nuevo presupuesto y pedidos {UDS, cambio, pvp y dto}
+    for (var i=0; i<10; i++){
+        $('#uds'+i).numeric();
+        $('#cambio'+i).numeric('.'); 
+        $('#pvp'+i).numeric('.');
+        $('#dto'+i).numeric();
+        $('#udsPed'+i).numeric();
+        $('#cambioPed'+i).numeric('.'); 
+        $('#pvpPed'+i).numeric('.');
+        $('#dtoPed'+i).numeric();
+    }
+    $('#transporte_newPpto').numeric('.');
+    $('#transporte_Ped').numeric('.');
+    
+    
     
 }
 
@@ -858,16 +873,41 @@ function validar_nuevo_cliente(){
         $("#input_coche0").parent().addClass('has-error');
         ok = false;
     }
+    else{
+        $("#input_coche0").parent().removeClass('has-error');
+        $("#input_coche0").parent().addClass('has-success');
+    }
     if ($("#input_tlf1").val().search(/^\+?[0-9]{5,}$/)==-1) {
         $("#input_tlf1").parent().addClass('has-error');
         ok = false;
+    }
+    else{
+        $("#input_tlf1").parent().removeClass('has-error');
+        $("#input_tlf1").parent().addClass('has-success');
     }
     if ($("#input_email1").val().search(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-z]{2,}$/i)==-1) {
         $("#input_email1").parent().addClass('has-error');
         ok = false;
     }
+    else{
+        $("#input_email1").parent().removeClass('has-error');
+        $("#input_email1").parent().addClass('has-success');
+    }
     return ok;
 }
+
+/*function validar_presupuesto(){
+    var ok = true;
+    if ($("#uds"+i).val().search(/^\D+$/)==-1) {
+        $("#input_nombre").parent().addClass('has-error');
+        ok = false;
+    }
+    else{
+        $("#input_nombre").parent().removeClass('has-error');
+        $("#input_nombre").parent().addClass('has-success');
+    }
+    return ok;
+}*/
 
 function altaCliente(){
     var msj = '';

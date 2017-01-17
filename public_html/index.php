@@ -10,6 +10,7 @@
         <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
         
         <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/jquery.numeric.js"></script>
         <!-- esta es la forma en la que se carga en IMF -->
         <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
         <script src="js/jquery-ui.min.js"></script>
@@ -20,7 +21,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         
         <script src="js/bootstrap.min.js"></script>
-        <!--  --><script src="js/fastclick.js" type="text/javascript"></script>
+        <script src="js/fastclick.js" type="text/javascript"></script>
         
         <!--<script src="js/navegacion.js" type="text/javascript"></script>-->
         <!--<script src="js/table-fixed-header.js"></script>-->
@@ -93,7 +94,7 @@
                             <div class="form-group">
                                 <label class="col-xs-1 control-label">Nombre</label>
                                 <div class="col-xs-11">
-                                    <input type="text" class="form-control" name="input_nombre" id="input_nombre" placeholder="Nombre cliente">
+                                    <input type="text" class="form-control" name="input_nombre" id="input_nombre" placeholder="Nombre cliente" onblur="validar_nuevo_cliente();">
                                 </div>
                             </div>
                             
@@ -103,7 +104,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-xs-1">Coche principal</label>
                                     <div class="col-xs-7">
-                                        <input type="text" name="coche0" id="input_coche0" class="form-control" placeholder="Modelo">
+                                        <input type="text" name="coche0" id="input_coche0" class="form-control" placeholder="Modelo" onblur="validar_nuevo_cliente();">
                                     </div>
                                     <div class="col-xs-3">
                                         <input type="text" name="bas0" id="input_bas0" class="form-control" placeholder="Bastidor">
@@ -141,13 +142,13 @@
                             </div>
 <!--                        form para el caso de añadir otro coche-->
                             <div id="addCocheOculto"><div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" class="form-control" placeholder="Modelo"></div><div class="col-xs-3"><input type="text" class="form-control" placeholder="Bastidor"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Año"></div></div><div class="col-md-1 pull-right"><div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar coche" id="btn_addCoche"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancel_coche"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div>
-                                    
+
                             </div>    
-                            <div class="form-group">
+                            <!--<div class="form-group">
                                 <div class="col-xs-2 col-xs-offset-1">
                                     <button id="addCoche" class="btn btn-primary">Añadir Coche</button>
                                 </div>
-                            </div> 
+                            </div> -->
                             
                             <div class="form-group">
                                 <label class="control-label col-xs-1">Variado</label>
@@ -159,7 +160,7 @@
                             <div class="form-group">
                                 <label class="control-label col-xs-1">Tlf</label>
                                 <div class="col-xs-4">
-                                    <input type="text" name="input_tlf1" id="input_tlf1" class="form-control" placeholder="Tlf principal">
+                                    <input type="text" name="input_tlf1" id="input_tlf1" class="form-control" placeholder="Tlf principal" onblur="validar_nuevo_cliente();">
                                 </div>
                                 <!-- <label class="control-label col-xs-1">Tlf secundario</label>
                                 <div class="col-xs-5">
@@ -173,7 +174,7 @@
                                 <div class="col-xs-6">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" name="input_email1" id="input_email1" class="form-control" placeholder="Email 1">
+                                        <input type="text" name="input_email1" id="input_email1" class="form-control" placeholder="Email 1" onblur="validar_nuevo_cliente();">
                                     </div>
                                 </div>
                             </div>
@@ -437,7 +438,7 @@
                                             <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="DTO">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="total[]" id="total<?php echo $i;?>" class="form-control" placeholder="Total" readonly>
+                                            <input type="number" name="total[]" id="total<?php echo $i;?>" class="form-control" placeholder="Total" readonly>
                                         </div>
                                     </div>
                                 <?php 
@@ -1282,7 +1283,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div>
-                                        <input type="text" class="form-control" placeholder="PVP transporte">
+                                        <input type="text" class="form-control" id="transporte_Ped" placeholder="PVP transporte">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1545,7 +1546,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div>
-                                        <input type="text" class="form-control" placeholder="PVP transporte">
+                                        <input type="text" class="form-control" placeholder="Cuál es este form?">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
