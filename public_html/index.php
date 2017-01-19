@@ -1604,7 +1604,7 @@
                             </div>
                             <!--  <label class="control-label col-xs-1">GBP</label>-->
                             <div class="col-md-1">
-                                <input type="text" name="gbp" class="form-control" placeholder="GBP Price">
+                                <input type="text" name="gbp" id="gbp" class="form-control" placeholder="GBP Price">
                             </div>    
                             <div class="col-md-1">
                                 <div style="text-align: center" class="btn-group">

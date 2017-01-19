@@ -81,6 +81,7 @@ function setEvents(){
     }
     $('#transporte_newPpto').numeric('.');
     $('#transporte_Ped').numeric('.');
+    $('#gbp').numeric('.');
     
     
     
