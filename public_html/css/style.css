@@ -34,7 +34,7 @@ header .menu{
 
 .col{
     float:left;
-    width: 12.5%;  //100 dividido entre el número de eltos del menú
+    width: 12.5%;  /*100 dividido entre el número de eltos del menú*/
     text-align: center;
     line-height: 50px;
 }
@@ -73,9 +73,7 @@ main{
     padding: 20px;
 }
 
-
 div.FixedHeader_Cloned table { margin: 0 !important }
-
 
 /*CABECERAS DE LAS TABLAS FIJAS*/
 .table{
@@ -105,7 +103,7 @@ div.FixedHeader_Cloned table { margin: 0 !important }
   z-index: 1020;  10 less than .navbar-fixed to prevent any overlap 
 }*/
 thead {
-  background-color: rgba(0,0,0,.5); //#eaeaea;
+  background-color: rgba(0,0,0,.5); 
 }
 
 tbody input{
@@ -171,6 +169,10 @@ hr {
 /*#form_newPpto #articulos label{
     color:#C4C4C4;    
 }*/
+
+.sep{
+    padding-bottom: 10px;
+}
 
 
 

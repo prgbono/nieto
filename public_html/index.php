@@ -11,6 +11,7 @@
         
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/jquery.numeric.js"></script>
+        <!--<script src="js/numeral.min.js"></script>-->
         <!-- esta es la forma en la que se carga en IMF -->
         <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
         <script src="js/jquery-ui.min.js"></script>
@@ -499,19 +500,19 @@
                                     
                                 </div>
                                 <div class="col-md-3">
-                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7 sep">
                                             <label>SUBTOTAL:</label>
                                         </div>
                                         <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                             <input name="subtotal" id="subtotal" class="form-control" readonly>
                                         </div>
-                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7 sep">
                                             <label>IVA(%):</label>
                                         </div>
                                         <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
                                             <label><input type="text" name="iva_newPpto" id="iva_newPpto" class="form-control" placeholder="21" onblur="calcularTotalTotal($('#subtotal').val())"></label>
                                         </div>
-                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7 sep">
                                             <label>TOTAL:</label>
                                         </div>
                                         <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">

@@ -82,8 +82,10 @@ function setEvents(){
     $('#transporte_newPpto').numeric('.');
     $('#transporte_Ped').numeric('.');
     $('#gbp').numeric('.');
-    
-    
+    $('#input_anio0').numeric();
+    $('#input_anio1').numeric();
+    $('#input_anio2').numeric();
+    $('#input_tlf1').numeric();
     
 }
 
@@ -922,14 +924,13 @@ function altaCliente(){
             $.ajax({
                 type: "POST",
                 url: urlActualizarCliente,
-                /*data: { form: $("#form_nuevo_cliente").serialize(), coches_array: $("#coches :input").serializeArray(), id_cliente: id_cliente },  */
                 data: { id_cliente: id_cliente,
                         input_nombre: $("#input_nombre").val(), 
                         input_variado: $("#input_variado").val(),
                         input_tlf1: $("#input_tlf1").val(),
-                        input_tlf2: $("#input_tlf2").val(),
+                        //input_tlf2: $("#input_tlf2").val(),
                         input_email1: $("#input_email1").val(),
-                        input_email2: $("#input_email2").val(),
+                        //input_email2: $("#input_email2").val(),
                         //envio_nombre: $("#envio_nombre").val(),
                         envio_calle: $("#envio_calle").val(),
                         envioCP: $("#envioCP").val(),
@@ -943,6 +944,7 @@ function altaCliente(){
                 {
                     if (data == 1) {
                         alert ('CLIENTE MODIFICADO');
+                        contenedor.style.left = "-100%";
                     }
                     else {
                         alert ('Ha ocurrido un error al actualizar el cliente')
@@ -954,26 +956,14 @@ function altaCliente(){
             //Volver a poner el texto de los dos botones a 'Guardar';
             $('#guardar_cliente1').text('Guardar');
             $('#guardar_cliente2').text('Guardar');
-            
             event.preventDefault();
-
-            //Vaciar las variables globales de cliente, coches y direcciones a actualizar
-            /*id_cliente = 0;
-            $.each (id_coches, function() {
-                id_coches.pop();
-            });
-            $.each (id_direcciones, function() {
-                id_direcciones.pop();
-            });*/
         }
         
         //Caso de nueva inserción
         else
         {
             var urlAltaCliente = url.concat('altaCliente.php');
-            console.log(urlAltaCliente);
             $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
-                console.log(resp);
                 if(resp==-1){
                     //Ya existe este cliente
                     alert("Ya existe este cliente");
@@ -985,8 +975,10 @@ function altaCliente(){
                 else{
                     //Todas las tablas involucradas en la inserción OK
                     alert("Datos dados de alta correctamente");
+                    contenedor.style.left = "-100%";
                 }
             });
+            event.preventDefault();
         }
     }
     else{
@@ -1027,7 +1019,6 @@ function insertar_nuevoPpto(){
         alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
     }
     else{
-        console.log('submit 956');
         $('#form_newPpto').submit();
     }
 }
@@ -1036,7 +1027,6 @@ function imprimir_Ppto(){
     /*event.preventDefault();*/
     $('#form_newPpto').attr('action', 'PDFS/dompdf.php');
     $('#form_newPpto').attr('target', '_blank');
-    console.log('submit 965');
     $('#form_newPpto').submit();
 }
 
@@ -1044,7 +1034,6 @@ function enviar_Ppto(){
     console.log('enviar_Ppto');
     $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
     //$('#form_newPpto').attr('target', '_blank');
-    console.log('submit 973');
     $('#form_newPpto').submit();
 }
 
@@ -1067,9 +1056,10 @@ function validar_guardar_ppto(){
     if (ok){
         //pasarle el currencyFormat a todos los inputs que corresponda
         for (i = 0; i < 10; i++){
-            $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),",","."));
-            $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),",","."));
-            $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),",","."));
+
+            $('#precio'+i).val(CurrencyFormat(parseFloat($('#precio'+i).val()),".",""));
+            $('#cambio'+i).val(CurrencyFormat(parseFloat($('#cambio'+i).val()),".",""));
+            $('#pvp'+i).val(CurrencyFormat(parseFloat($('#pvp'+i).val()),".",""));
             if ($('#pvp'+i).val()=='NaN.00'){
                 $('#pvp'+i).val(0);
             }
@@ -1082,7 +1072,7 @@ function validar_guardar_ppto(){
             $('#total'+i).val(function(index, value) {
                return value.replace(',', '.');
             });
-            /*$('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),",","."));*/
+            /*$('#total'+i).val(CurrencyFormat(parseFloat($('#total'+i).val()),".",""));*/
         }
     }
     return (ok);
@@ -1466,11 +1456,11 @@ function cargarArticulos(id_ppto){
                 $('#descripcion'+i).val(json.Articulos[i].descripcion);
                 $('#ref'+i).val(json.Articulos[i].referencia);
                 $('#precio'+i).val(json.Articulos[i].precio);
-                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].uds),",","."));
-                $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),",","."));
-                $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),",","."));
+                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].uds),".",""));
+                $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),".",""));
+                $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",""));
                 $('#dto'+i).val(json.Articulos[i].dto);
-                $('#total'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),",","."));
+                $('#total'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",""));
             });
         }
     });
@@ -1538,13 +1528,14 @@ function calcularTotal (uds, fila){
         var uds = $('#uds'+fila).val();*/
         
         //TOTAL = (PRECIO * CAMBIO  - (PRECIO * DTO)/100 ) * UNIDADES
-        $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),',','.'));
-        /*$('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
+        $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#precio'+fila).val()*$('#cambio'+fila).val()))-(($('#precio'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),'.',''));
+        /*$('#total'+fila).html(CurrencyFormat(((($('#precio'+fila).html()*$('#cambio'+fila).val()))-(($('#precio'+fila).html()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),'.',''));*/
+        console.log('Pasa if');
     }
     else{
         console.log('PVP no vacío');
-        $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),',','.'));
-        /*$('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),',','.'));*/
+        $('#total'+fila).val(CurrencyFormat(parseFloat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val()),'.',''));
+        /*$('#total'+fila).html(CurrencyFormat(((($('#pvp'+fila).val()*$('#cambio'+fila).val()))-(($('#pvp'+fila).val()*$('#dto'+fila).val())/100))*$('#uds'+fila).val(),'.',''));*/
     } 
 }
 
@@ -1560,7 +1551,7 @@ function calcularSubtotal(){
         }
     }
     /*$('#subtotal').html(CurrencyFormat(parseFloat(subtotal),",","."));*/
-    $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),",","."));
+    $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),".",""));
     calcularTotalTotal(subtotal);
 }
 
@@ -1568,7 +1559,7 @@ function calcularTotalTotal(subtotal){
     /*console.log('calcularTotalTotal, subtotal: '+subtotal);
     console.log('iva marcado: '+$('#iva_newPpto').val());*/
     $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
-    $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),",","."));
+    $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",""));
 }
 
 function generarPedido(){
