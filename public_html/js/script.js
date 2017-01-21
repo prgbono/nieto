@@ -28,6 +28,7 @@ function main(){
     //Artículos e id's a localStorage
     /*getArticulos();*/
     setEvents();
+    comboClientesPed();
     $(".buscadores").show();
 }    
 
@@ -182,6 +183,8 @@ function nuevoCliente(){
 
 
 function nuevoPpto(cliente){
+    comboClientes();
+    comboClientesNewPpto();
     id_cliente = cliente;
     contenedor.style.left = "-300%";
     $(".buscadores").hide();
@@ -195,6 +198,7 @@ function nuevoPpto(cliente){
     submenu[7].className="col";
     if (!(cliente === undefined || cliente === null)) {
         //console.log("Aquí viene de listado: "+cliente);
+        //$('#cliente_newPpto').val(cliente);
         var urlDatosCliente = url.concat('datosCliente.php');
         $.ajax({
             url: urlDatosCliente,
@@ -334,7 +338,6 @@ function listar_clientes(){
     var tablaClientes = '';
     $.getJSON(urlListarClientes, function(json){
         $.each(json.Clientes, function(i, cliente){
-
            tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
         });
         $('#listadoClientes').html(tablaClientes);
@@ -602,6 +605,7 @@ function listar_pedidos(cliente){
     var total=0;
     //total = parseInt(total);
     //id_cliente = cliente;
+    $('#cliSeleccionadoPed').val(cliente);
     $.ajax({
         url: urlListarPedidos,
         type: 'POST',
@@ -717,6 +721,7 @@ function listar_pptos(cliente){
                 //Meter el JSON en la tabla de 'listado Presupuestos'    
                 tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto_'+ppto.id_ppto+'" type="button" onclick="editarPpto('+ppto.id_ppto+')" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
             });
+            $('#cliSeleccionadoPpto').val(cliente);
             $('#listadoPptos').html(tablaPptos);
         }
     });
@@ -782,9 +787,9 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
         console.log(pantalla);
-        comboClientes();
+        //comboClientes();
         $("[id*=cambio]").val('0.65');    
-        comboClientesNewPpto();
+        //comboClientesNewPpto();
         $('#client_id').val('');
         nuevoPpto();
     };
@@ -794,7 +799,7 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=5;
         console.log(pantalla);
-        comboClientesPed();
+        //comboClientesPed();
         $('#client_id').val('');
         listadoPed(id_cliente);
     };
@@ -945,6 +950,15 @@ function altaCliente(){
                     if (data == 1) {
                         alert ('CLIENTE MODIFICADO');
                         contenedor.style.left = "-100%";
+                        submenu[0].className="col";
+                        submenu[1].className="col activo";
+                        submenu[2].className="col";
+                        submenu[3].className="col";
+                        submenu[4].className="col";
+                        submenu[5].className="col";
+                        submenu[6].className="col";
+                        submenu[7].className="col";
+                        listar_clientes();
                     }
                     else {
                         alert ('Ha ocurrido un error al actualizar el cliente')
@@ -962,27 +976,85 @@ function altaCliente(){
         //Caso de nueva inserción
         else
         {
+            console.log('Nueva inserción de cliente');
             var urlAltaCliente = url.concat('altaCliente.php');
+              /*$.ajax({
+                type: "POST",
+                url: urlActualizarCliente,
+                data: { id_cliente: id_cliente,
+                        input_nombre: $("#input_nombre").val(), 
+                        input_variado: $("#input_variado").val(),
+                        input_tlf1: $("#input_tlf1").val(),
+                        //input_tlf2: $("#input_tlf2").val(),
+                        input_email1: $("#input_email1").val(),
+                        //input_email2: $("#input_email2").val(),
+                        //envio_nombre: $("#envio_nombre").val(),
+                        envio_calle: $("#envio_calle").val(),
+                        envioCP: $("#envioCP").val(),
+                        envio_ciudad: $("#envio_ciudad").val(),
+                        //fact_nombre: $("#fact_nombre").val(),
+                        fact_calle: $("#fact_calle").val(),
+                        factCP: $("#factCP").val(),
+                        factNIF: $("#factNIF").val(),
+                        fact_ciudad: $("#fact_ciudad").val(),},  
+                success: function(data)
+                {
+                    if (data == -1) {
+                        //Ya existe este cliente
+                        alert("Ya existe este cliente");
+                        event.preventDefault();
+                    }
+                    else if (data==-2){
+                        alert("Introduce al menos un coche");    
+                    }
+
+                    else{
+                        //Todas las tablas involucradas en la inserción OK
+                        alert("Datos dados de alta correctamente");
+                        contenedor.style.left = "-100%";
+                        submenu[0].className="col";
+                        submenu[1].className="col activo";
+                        submenu[2].className="col";
+                        submenu[3].className="col";
+                        submenu[4].className="col";
+                        submenu[5].className="col";
+                        submenu[6].className="col";
+                        submenu[7].className="col";
+                        listar_clientes();
+                    }  
+                }
+            }); */
+
+
             $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
                 if(resp==-1){
                     //Ya existe este cliente
                     alert("Ya existe este cliente");
+                    event.preventDefault();
                 }
                 else if (resp==-2){
                     alert("Introduce al menos un coche");
-                    event.preventDefault();
+                    
                 }
                 else{
                     //Todas las tablas involucradas en la inserción OK
                     alert("Datos dados de alta correctamente");
                     contenedor.style.left = "-100%";
+                    submenu[0].className="col";
+                    submenu[1].className="col activo";
+                    submenu[2].className="col";
+                    submenu[3].className="col";
+                    submenu[4].className="col";
+                    submenu[5].className="col";
+                    submenu[6].className="col";
+                    submenu[7].className="col";
+                    listar_clientes();
                 }
             });
-            event.preventDefault();
         }
     }
     else{
-        alert('Revisa los campos requeridos (poner borde rojo');
+        alert('Revisa los campos requeridos');
         event.preventDefault();
     }
 }
