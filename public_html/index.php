@@ -35,28 +35,28 @@
     <body>
         <header>
             <div class="menu">
-                <div class="col activo" style="background-color: #CFB480"> 
+                <div class="col activo" style="background-color: #CFB480; cursor: pointer"> 
                     Nuevo Cliente
                 </div>
-                <div class="col" style="background-color: #7F6538">
+                <div class="col" style="background-color: #7F6538; cursor: pointer">
                     Listado Clientes
                 </div>
-                <div class="col"  style="background-color: #362B18">
+                <div class="col"  style="background-color: #362B18; cursor: pointer">
                     Listado Presupuestos
                 </div>
-                <div class="col" style="background-color: #DBAE18">
+                <div class="col" style="background-color: #DBAE18; cursor: pointer">
                     Nuevo Presupuesto
                 </div>
-                <div class="col" style="background-color: #FF9717">
+                <div class="col" style="background-color: #FF9717; cursor: pointer">
                     Listado Pedidos
                 </div>
-                <div class="col" style="background-color: #E85900">
+                <div class="col" style="background-color: #E85900; cursor: pointer">
                     Pedidos anul.
                 </div>
-                <div class="col" style="background-color: #3A3C42">
+                <div class="col" style="background-color: #3A3C42; cursor: pointer">
                     Base de datos
                 </div>
-                <div class="col" style="background-color: #E81C00">
+                <div class="col" style="background-color: #E81C00; cursor: pointer">
                     Pérdidas
                 </div>
             </div>
