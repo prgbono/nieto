@@ -33,6 +33,7 @@ function main(){
     comboClientes();
     comboClientesNewPpto();
     $(".buscadores").show();
+    submenu[1].onclick();
 }    
 
 function setEvents(){
@@ -339,12 +340,12 @@ function cancelEditAnul(){
 function listar_clientes(){
     var urlListarClientes = url.concat('listarClientes.php');
     var tablaClientes = '';
-    $.getJSON(urlListarClientes, function(json){
+    $.post(urlListarClientes, function(json){
         $.each(json.Clientes, function(i, cliente){
            tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.coche + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td>' + cliente.ciudad + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
         });
         $('#listadoClientes').html(tablaClientes);
-    });  
+    },'json');  
 }
 
 function editarCliente (cliente){
@@ -679,14 +680,14 @@ function listar_pedidos(cliente){
 function listar_bbdd(){
     var urlListarbbdd = url.concat('bbdd.php');
     var tablaBbdd = '';
-    $.getJSON(urlListarbbdd, function(json){
+    $.post(urlListarbbdd, function(json){
         $.each(json.Piezas, function(i, pieza){
         //Meter el JSON en la tabla de 'listado Clientes'
         tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
            
         });
         $('#listadoBbdd').html(tablaBbdd);
-    });  
+    },'json');  
 }
 
 function listar_pptos(cliente){
@@ -712,12 +713,32 @@ function listar_pptos(cliente){
     });
 }
 
+/*function listarClientes(){
+    console.log('listadoClientes');
+    //Identifico la pantalla para el filtro del buscador y limpio éste
+        pantalla=2;
+        console.log(pantalla);
+        $('#client_id').val('');
+        contenedor.style.left = "-100%";
+        $(".buscadores").show();
+        submenu[0].className="col";
+        submenu[1].className="col activo";
+        submenu[2].className="col";
+        submenu[3].className="col";
+        submenu[4].className="col";
+        submenu[5].className="col";
+        submenu[6].className="col";
+        submenu[7].className="col";
+        listar_clientes();
+}*/
+
 function navegacion(){
     //Cargar la lista de clientes en la pantalla por defecto 'Listado Presupuestos'
     /*comboClientesPpto();*/
     //BOtones
     //var submenu = document.getElementsByClassName('col');
     contenedor = document.getElementById("contenedor");
+    
     //PAra depurar consola=document.getElementById("consola");
     
     //FastClick
@@ -741,6 +762,8 @@ function navegacion(){
         $('#client_id').val('');
         nuevoCliente();
     };
+//  Listado de clientes
+    //submenu[1].onclick = listarClientes();
     submenu[1].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=2;
@@ -757,7 +780,6 @@ function navegacion(){
         submenu[6].className="col";
         submenu[7].className="col";
         listar_clientes();
-//        ocultarNewPed();
     };
 //  Listado de presupuestos
     submenu[2].onclick= function(){
