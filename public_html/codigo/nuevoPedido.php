@@ -67,14 +67,8 @@ if($_POST)
 
 }
 
-/*$totalTotal = str_replace(',','.',$totalTotal);
-$subtotal = str_replace(',','.',$subtotal);*/
-
-
 /*.-UPDATE EN LA TABLA DE PEDIDOS*/
 if (!$id_ppto){
-    /*Ppto nuevo*/
-    /******************************************/
     //TODO Cojo el último ppto pero puede que no le haya dado a guardar y entonces se lía (se pone generado a un ppto que no es!!!)
     $ppto =  mysqli_query($link, "SELECT MAX(id_ppto) as maxId_ppto FROM pruebas_presupuestos"); 
     $maxPpto = mysqli_fetch_assoc($ppto);
@@ -87,9 +81,6 @@ mysqli_query($link, $query);
 
 ?>
 <script language="javascript">
-    console.log('<?php echo $id_ppto; ?>');
-	/*console.log('<?php echo $mensaje; ?>');*/
-	/*window.location='/index.php';*/
     window.location='/nieto/public_html/index.php';
 </script> 
 <?php

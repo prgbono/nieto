@@ -4,34 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <!--<meta http-equiv="Content-Type" content="text/html">-->
-        
         <link href="css/style.css" rel="stylesheet" type="text/css"/> 
         <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
-        
         <script src="js/jquery-1.11.2.min.js"></script>
         <script src="js/jquery.numeric.js"></script>
-        <!--<script src="js/numeral.min.js"></script>-->
-        <!-- esta es la forma en la que se carga en IMF -->
-        <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
         <script src="js/jquery-ui.min.js"></script>
-        <!-- <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script> -->
-
-
-        <!--<link href="css/tablas.css" rel="stylesheet" type="text/css"/>--> 
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-        
         <script src="js/bootstrap.min.js"></script>
         <script src="js/fastclick.js" type="text/javascript"></script>
-        
-        <!--<script src="js/navegacion.js" type="text/javascript"></script>-->
-        <!--<script src="js/table-fixed-header.js"></script>-->
-        <!--<script src="js/jquery.fixedheadertable.min"></script>-->
         <script src="js/script.js"></script>
-        <!--<script src="js/cabeceras.js"></script>-->
-
     </head>
-    
     <body>
         <header>
             <div class="menu">
@@ -72,14 +54,6 @@
                 <ul id="client_list"></ul>
               </div>
             </div>
-<!--            <div class="col-lg-6" id="buscador_cli">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">Buscar clientes</button>
-                </span>
-                <input type="text" class="form-control">
-              </div>
-            </div>-->
         </div>
                 
         <main>
@@ -143,14 +117,7 @@
                             </div>
 <!--                        form para el caso de añadir otro coche-->
                             <div id="addCocheOculto"><div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" class="form-control" placeholder="Modelo"></div><div class="col-xs-3"><input type="text" class="form-control" placeholder="Bastidor"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Año"></div></div><div class="col-md-1 pull-right"><div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar coche" id="btn_addCoche"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancel_coche"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div>
-
                             </div>    
-                            <!--<div class="form-group">
-                                <div class="col-xs-2 col-xs-offset-1">
-                                    <button id="addCoche" class="btn btn-primary">Añadir Coche</button>
-                                </div>
-                            </div> -->
-                            
                             <div class="form-group">
                                 <label class="control-label col-xs-1">Variado</label>
                                 <div class="col-xs-11">
@@ -163,14 +130,6 @@
                                 <div class="col-xs-4">
                                     <input type="text" name="input_tlf1" id="input_tlf1" class="form-control" placeholder="Tlf principal" onblur="validar_nuevo_cliente();">
                                 </div>
-                                <!-- <label class="control-label col-xs-1">Tlf secundario</label>
-                                <div class="col-xs-5">
-                                    <input type="text" name="input_tlf2" id="input_tlf2" class="form-control" placeholder="Tlf secundario">
-                                </div> -->
-                                <!-- <label class="control-label col-xs-1">Tlf auxiliar</label>
-                                <div class="col-xs-3">
-                                    <input type="text" name="tlf3" class="form-control" placeholder="Tlf auxiliar">
-                                </div> -->
                                 <label class="control-label col-xs-1">Email</label>
                                 <div class="col-xs-6">
                                     <div class="input-group">
@@ -179,35 +138,10 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group">
-                                <label class="control-label col-xs-1">Email 1</label>
-                                <div class="col-xs-5">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" name="input_email1" id="input_email1" class="form-control" placeholder="Email 1">
-                                    </div>
-                                </div>
-                                <label class="control-label col-xs-1">Email 2</label>
-                                <div class="col-xs-5">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" name="input_email2" id="input_email2" class="form-control" placeholder="Email 2">
-                                    </div>
-                                </div>
-                            </div> -->
                         </fieldset>
                         <br>
                         <fieldset>
                             <legend>Dirección de envío</legend>
-                            <!-- <div class="form-group">
-                                <div class="col-xs-1">
-                                    <label class="col-xs-1 control-label">Nombre</label>
-                                </div>
-                                <div class="col-xs-11">
-                                    <input type="text" name="envio_nombre" id="envio_nombre" class="form-control" placeholder="Nombre">
-                                </div>
-                            </div> -->
                             <div class="form-group">
                                 <div class="col-xs-1">
                                     <label class="col-xs-1 control-label">Calle</label>
@@ -236,14 +170,6 @@
                         
                         <fieldset>
                             <legend>Datos de facturación</legend>
-                            <!-- <div class="form-group">
-                                <div class="col-xs-1">
-                                    <label class="col-xs-1 control-label">Nombre</label>
-                                </div>
-                                <div class="col-xs-11">
-                                    <input type="text" class="form-control" name="fact_nombre" id="fact_nombre" placeholder="Nombre">
-                                </div>
-                            </div> -->
                             <div class="form-group">
                                 <div class="col-xs-1">
                                     <label class="col-xs-1 control-label">Calle</label>
@@ -1164,119 +1090,7 @@
                                 <?php 
                                 } ?>
                                     
-                            </div>    
-                        <!-- </fieldset>                                                
-
-                        <fieldset> -->
-                            <!-- <legend>Artículos</legend>    
-                            <div class="form-group" id="articulosPed">
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" placeholder="Descripcion">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Ref">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="check">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="UDS">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Precio">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Cambio">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="PVP">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="DTO">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Total">
-                                </div>
-                                <div class="col-xs-1">
-                                    <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="articulos form-group">
-                                <div class="col-xs-3">
-                                    <input type="text" class="form-control" placeholder="Descripcion">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Ref">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="check">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="UDS">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Precio">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Cambio">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="PVP">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="DTO">
-                                </div>
-                                <div class="col-xs-1">
-                                    <input type="text" class="form-control" placeholder="Total">
-                                </div>
-                                <div class="col-xs-1">
-                                    <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </div>
-                            </div> -->                            
-                            
-                            <!-- <div id="addArticuloOcultoPed">
-                                <div class="form-group">
-                                    <div class="col-xs-4">
-                                        <input type="text" class="form-control" placeholder="Descripcion">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="Ref">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="check">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="UDS">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="Precio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="Cambio">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="PVP">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="DTO">
-                                    </div>
-                                    <div class="col-xs-1">
-                                        <input type="text" class="form-control" placeholder="Total">
-                                    </div> 
-                                </div>
-                                    <div class="col-md-1 pull-right"><div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar" id="btn_addArticuloPed"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancelArticuloPed"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div></div>
-
-                            <div class="form-group">
-                                <div class="col-xs-1">
-                                    <button class="btn btn-primary" id="addArticuloPed">Añadir Artículo</button>
-                                </div>
-                            </div> -->
-                            
+                            </div>        
 
                             <div class="row">
                                 <div class="col-md-7">
@@ -1631,22 +1445,6 @@
                                 </tr>
                             </thead>
                             <tbody id="listadoBbdd">
-                                <!--                                <tr>
-                                    <td>1667CWP</td>
-                                    <td>LH FRONT A PILLAR MOULDING (RGHJKDR78)</td>
-                                    <td>FARO FRONTAL IZQUIERDO</td>
-                                    <td>52,11</td>
-                                    <td style="text-align: center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn-primary btn-xs" title="Editar">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>-->
                             </tbody>
                         </table>
                         <table class="table table-condensed table-bordered table-striped header-fixed"></table>
@@ -1721,25 +1519,6 @@
                     </div>
                 </div>
             </div>
-            
-            <!--Modal de confirmación-->
-            <!-- <div class="modal fade" id="confirm" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-sm">  
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title">Eliminar</h4>
-                    </div>
-                    <div class="modal-body">
-                      ¿Seguro?
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                      <button type="button" class="btn btn-danger">Eliminar</button>
-                    </div>
-                  </div>
-                </div>
-            </div> -->
-
 
             <div id="confirm2" title="Eliminar" style="display: none">
               <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>No se podrá recuperar. <br>¿Estás seguro?</p>
