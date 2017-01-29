@@ -74,6 +74,9 @@ function setEvents(){
     $('#input_anio1').numeric();
     $('#input_anio2').numeric();
     $('#input_tlf1').numeric();
+    $('#envioCP').numeric();
+    $('#factCP').numeric();
+    
     
 }
 function addBBDD(){
@@ -362,10 +365,8 @@ function autocomplet() {
             console.log(pantalla);
             listar_pptos();
             break;
-            
         case 4:
             console.log(pantalla);
-            console.log('En pantalla = 4 Nuevo presupuesto');
             break;
         case 5:
             console.log(pantalla);
