@@ -331,7 +331,7 @@
                                         <label class="header">PVP</label>
                                     </div>
                                     <div class="col-xs-1">
-                                        <label class="header">DTO</label>
+                                        <label class="header">DTO(%)</label>
                                     </div>
                                     <div class="col-xs-1">
                                         <label class="header">TOTAL</label>
