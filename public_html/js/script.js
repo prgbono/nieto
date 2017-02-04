@@ -337,7 +337,7 @@ function editarCliente (cliente){
 //Autocompletar en buscador, en cada cambio del texto del buscador
 function autocomplet() {
     var urlPantalla='';
-    var min = 3; // min caracteres para buscar
+    var min = 2; // min caracteres para buscar
     var keyword = $('#client_id').val();
     switch (pantalla) {    
         case 1: 
@@ -365,7 +365,26 @@ function autocomplet() {
             
         case 3:
             console.log(pantalla);
-            listar_pptos();
+            if (keyword.length >= min) {
+                var urlListarPptos = url.concat('listarPresupuestos.php');
+                var tablaPptos = '';
+                console.log(keyword);
+                
+                $.ajax({
+                    url: urlListarPptos,
+                    type: 'POST',
+                    data: {keyword: keyword},
+                    dataType: 'json',
+                    success: function (json) {
+                        //alert(json);
+                        $.each(json.Presupuestos, function (i, ppto) {
+                            //Meter el JSON en la tabla de 'listado Presupuestos'  
+                            tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto_'+ppto.id_ppto+'" type="button" onclick="editarPpto('+ppto.id_ppto+')" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                        });
+                        $('#listadoPptos').html(tablaPptos);
+                    }
+                });
+            }
             break;
         case 4:
             console.log(pantalla);
