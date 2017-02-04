@@ -43,7 +43,7 @@ function setEvents(){
     $("#btn_cancelNewPed").on("click", cancelNewPed);
     $(".btn_listadoPptosCliente").on("click", listadoPptos(id_cliente));
     $(".btn_listadoPedCliente").on("click", listadoPed(id_cliente));
-    $("#btn_cancelNewPpto").on("click", cancelar_Ppto);
+    /*$("#btn_cancelNewPpto").on("click", cancelar_Ppto);*/
     $("#btn_editar_anul").on("click", editarAnul);
     $("#btn_cancelEditAnul").on("click", cancelEditAnul);
     $("#btn_addArticuloAnul").on("click", addArticuloAnul);
@@ -202,10 +202,10 @@ function sleep(milliseconds) {
     }
   }
 }
-function cancelar_Ppto(){
+/*function cancelar_Ppto(){
     $('#form_newPpto').attr('action', '');
     listadoPptos();
-}
+}*/
 function listadoPptos(cliente){
     contenedor.style.left = "-200%";
     $(".buscadores").show();
