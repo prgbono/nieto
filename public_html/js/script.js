@@ -160,6 +160,7 @@ function nuevoPpto(cliente){
     submenu[5].className="col";
     submenu[6].className="col";
     submenu[7].className="col";
+    resetNuevoPpto();
     if (!(cliente === undefined || cliente === null)) {
         var urlDatosCliente = url.concat('datosCliente.php');
         $.ajax({
@@ -171,7 +172,8 @@ function nuevoPpto(cliente){
                 var now = new Date();
                 var today = now.getDate()  + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
                 $('#fecha_newPpto').val(today);
-                $('#cliente_newPpto').val(json.nombre);
+                getVehiculos(json.id_cliente);
+                $("#cliente_newPpto").val(json.id_cliente);    
                 $('#vehiculo_newPpto').val(json.modelo);
                 $('#bastidor_newPpto').val(json.bastidor);
                 $('#id_cliente').val(cliente);
@@ -650,6 +652,7 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
         console.log(pantalla);  
+        resetNuevoPpto();
         $('#client_id').val('');
         nuevoPpto();
     };
@@ -762,6 +765,9 @@ function altaCliente(){
                 url: urlActualizarCliente,
                 data: { id_cliente: id_cliente,
                         input_nombre: $("#input_nombre").val(), 
+                        input_coche: $("#input_coche0").val(),
+                        input_bastidor: $("#input_bas0").val(),
+                        input_anio_coche: $("#input_anio0").val(),
                         input_variado: $("#input_variado").val(),
                         input_tlf1: $("#input_tlf1").val(),
                         input_email1: $("#input_email1").val(),
@@ -1368,5 +1374,22 @@ function generarPedido(){
         $('#form_newPpto').submit();
     }
 }
+
+function resetNuevoPpto(){
+    //$('#form_newPpto')[0].reset();
+    $("[id*=descripcion]").val(''); 
+    $("[id*=ref]").val(''); 
+    $("[id*=precio]").val(''); 
+    //$("[id*=cambio]").val(''); 
+    $("[id*=uds]").val(''); 
+    $("[id*=pvp]").val(''); 
+    $("[id*=dto]").val(''); 
+    $("[id*=total]").val(''); 
+    $("[id=asunto_newPpto]").val(''); 
+    $("[id=transporte_newPpto]").val(''); 
+    $("[id=subtotal]").val(''); 
+    $("[id=totalTotal]").val(''); 
+}
+    
 
 
