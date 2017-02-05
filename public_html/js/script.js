@@ -639,6 +639,13 @@ function navegacion(){
         $('#guardar_cliente1').text('Guardar');
         $('#guardar_cliente2').text('Guardar');
         $('#client_id').val('');
+        $('#form_nuevo_cliente')[0].reset();
+        $('#input_coche0').val('');
+        $('#input_coche0').attr("placeholder","modelo");
+        $('#input_bas0').val('');
+        $('#input_bas0').attr("placeholder","bastidor");
+        $('#input_anio0').val('');
+        $('#input_anio0').attr("placeholder","año");
         nuevoCliente();
     };
     submenu[1].onclick= function(){
@@ -1117,7 +1124,8 @@ function eliminarPed(id_ped, idCli){
     var urlEliminarPed = url.concat('eliminarPed.php');
     $.post(urlEliminarPed,{"id_ped":id_ped}, function(resp){
        if (resp == 1){
-           listar_pedidos(idCli);
+           //listar_pedidos(idCli);
+           listar_pedidos();
        }
        else{
            alert("Error al eliminar pedido");
