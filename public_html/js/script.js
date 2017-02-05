@@ -337,7 +337,7 @@ function editarCliente (cliente){
 //Autocompletar en buscador, en cada cambio del texto del buscador
 function autocomplet() {
     var urlPantalla='';
-    var min = 2; // min caracteres para buscar
+    var min = 0; // min caracteres para buscar
     var keyword = $('#client_id').val();
     switch (pantalla) {    
         case 1: 
@@ -821,6 +821,7 @@ function altaCliente(){
             $('#guardar_cliente1').text('Guardar');
             $('#guardar_cliente2').text('Guardar');
             event.preventDefault();
+            $(".buscadores").show();
         }
         
         //Caso de nueva inserción
