@@ -79,6 +79,7 @@ function setEvents(){
     $("[id*=cambio]").val('0.65');  
     
 }
+
 function addBBDD(){
     $(".form_addBBDD").show();
 }
