@@ -1,7 +1,9 @@
 $(document).ready(main);
 //LOCALHOST
-var url = "http://localhost:8888/nietoBack/";
+//var url = "http://localhost:8888/nietoBack/";
 //PRODUCCIÓN
+var url = "http://admin.nietogranturismo.com/nietoBack/";
+
 
 var pantalla = 1;
 var id_cliente = 0;

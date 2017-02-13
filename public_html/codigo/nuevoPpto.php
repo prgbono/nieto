@@ -2,10 +2,10 @@
 
 header('Access-Control-Allow-Origin: *');
 //PARA PRODUCCIÓN
-//include ('../nietoBack/inc/conexion.php');
+include ('../nietoBack/inc/conexion.php');
 
 //Para localhost (MAMP)
-include ('../../../nietoBack/inc/conexion.php');
+//include ('../../../nietoBack/inc/conexion.php');
 
 extract($_POST); 
 
@@ -132,9 +132,11 @@ mysqli_query($link, $query2);
 
 ?>
 <script language="javascript">
-	/*console.log('<?php echo $mensaje; ?>');
-	window.location='/index.php';*/
-    window.location='/nieto/public_html/index.php';
+    //LOCALHOST
+    //window.location='/nieto/public_html/index.php';
+
+    //PRODUCCIÓN
+    window.location='/admin/index.php';    
 </script> 
 <?php
 
