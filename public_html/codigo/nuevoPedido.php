@@ -85,7 +85,7 @@ mysqli_query($link, $query);
     //window.location='/nieto/public_html/index.php';
 
     //PRODUCCIÓN
-    window.location='/admin/index.php';    
+    window.location='http://admin.nietogranturismo.com/';    
 </script> 
 <?php
 

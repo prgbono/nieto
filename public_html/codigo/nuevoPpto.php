@@ -69,7 +69,7 @@ $subtotal = str_replace(',','.',$subtotal);
 if ($id_ppto){
     $mensaje = 'MOFIDICACIÓN';
     /*1.-MODIFICAR EN LA TABLA DE PRESUPUESTOS*/
-    $query= "UPDATE pruebas_presupuestos SET fecha = STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), 
+    $query= "UPDATE pruebas_presupuestos SET fecha = STR_TO_DATE('$fecha_newPpto', '%d-%m-%Y'), 
         id_coche = '".$vehiculo_newPpto."', id_cliente = '".$cliente_newPpto."', asunto = '$asunto_newPpto', 
         total = '$totalTotal', transporte = '$transporte_newPpto', canarias = '".$canarias_newPpto."', 
         subtotal = '$subtotal', iva = '".$iva_newPpto."' WHERE id_ppto = '$id_ppto' ";
@@ -88,7 +88,8 @@ else{
     $mensaje = 'INSERCIÓN';
     
     /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
-    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."')";
+    //Para localhost el formato debe ser '%d/%m/%Y' instead of '%d-%m-%Y'
+    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d-%m-%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."')";
     /*echo $query."\n";*/
     mysqli_query($link, $query);
 
@@ -98,7 +99,7 @@ else{
     $id_ppto = $maxPpto['maxId_ppto'];
 
     /*-INSERTAR EN LA TABLA DE PEDIDOS con generado = False*/
-    $query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'N')";
+    $query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d-%m-%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'N')";
     /*echo $query;*/
     mysqli_query($link, $query);
     /* 3.- ESCRIBIR la tabla de detalles (Acción común con la modificación)*/
@@ -125,8 +126,10 @@ foreach ($descripcion as $clave=>$valor)
     $query2.= "(".$id_ppto.",'$valor', '".$ref[$clave]."', ".$uds[$clave].", '".$precio[$clave]."', '".$cambio[$clave]."', '".$pvp[$clave]."', '".$dto[$clave]."', '".$total[$clave]."'),";
 }
 $query2 = substr($query2, 0, -1);
-/*    echo $query;
+
+/*echo $query;
 echo $query2;*/
+
 mysqli_query($link, $query2); 
        
 
@@ -136,7 +139,7 @@ mysqli_query($link, $query2);
     //window.location='/nieto/public_html/index.php';
 
     //PRODUCCIÓN
-    window.location='/admin/index.php';    
+    window.location='http://admin.nietogranturismo.com/';    
 </script> 
 <?php
 
