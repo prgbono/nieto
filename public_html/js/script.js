@@ -1148,6 +1148,19 @@ function eliminarBBDD(id_bbdd){
     });    
 }
 
+function cambiosAplicados() {
+    $("#confirm3").dialog({
+      resizable: false,
+      height:140,
+      modal: true,
+      buttons: {
+        Cerrar: function() {
+          $(this).dialog("close");
+        }
+      }
+    })
+}
+
 function confirmar(cod, id, idCli) {
     $("#confirm2").dialog({
       resizable: false,
@@ -1212,7 +1225,7 @@ function confirmar(cod, id, idCli) {
             }
           $(this).dialog( "close" );
         },
-        Cancel: function() {
+        Cancelar: function() {
           $(this).dialog( "close" );
         }
       }
@@ -1247,8 +1260,7 @@ function aplicar_cambios(id_pedido){
                 //anul:  anul},  
         success: function(result)
         {
-            console.log(result);
-               
+            cambiosAplicados();
         }
     }); 
 }
@@ -1364,13 +1376,24 @@ function calcularTotal (uds, fila){
     var uds =  $('#uds'+fila).val();
     var pvp =  $('#pvp'+fila).val();
 
+    /*console.log('calcularTotal');
+    console.log('precio: '+precio);
+    console.log('cambio: '+cambio);
+    console.log('dto: '+dto);
+    console.log('uds: '+uds);
+    console.log('pvp: ' +pvp);*/
+
+
     //TOTAL = PRECIO * CAMBIO * UDS * (100 - DTO)/100)
-    if (($('#pvp'+fila).val() == "") || ($('#pvp'+fila).val() === '0,00')){
+    if (($('#pvp'+fila).val() == "") || ($('#pvp'+fila).val() === '0.00')){
+        /*console.log('calculo con precio pq pvp es 0');*/
         $('#total'+fila).val(CurrencyFormat(parseFloat(precio * cambio * uds * (100 - dto)/100),'.',''));
     }
     else{
+        /*console.log('calculo con pvp pq no es 0');*/
         $('#total'+fila).val(CurrencyFormat(parseFloat(pvp * cambio * uds * (100 - dto)/100),'.',''));
     } 
+    /*console.log($('#total'+fila).val());*/
 }
 
 

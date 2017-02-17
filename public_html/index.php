@@ -1523,6 +1523,9 @@
             <div id="confirm2" title="Eliminar" style="display: none">
               <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>No se podrá recuperar. <br>¿Estás seguro?</p>
             </div>
+            <div id="confirm3" title="Pedido modificado" style="display: none">
+              <p><span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>Cambios aplicados</p>
+            </div>
         </main>  
         
     </body>
