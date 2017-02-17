@@ -23,6 +23,7 @@ function main(){
     comboClientesNewPpto();
     $(".buscadores").show();
     submenu[1].onclick();
+    datapickerSpanish();
 }    
 
 function setEvents(){
@@ -682,6 +683,7 @@ function navegacion(){
         console.log(pantalla);  
         resetNuevoPpto();
         $('#client_id').val('');
+        $('#cliente_newPpto').val('');
         nuevoPpto();
     };
 
@@ -1319,7 +1321,7 @@ function cargarArticulos(id_ppto){
                 $('#descripcion'+i).val(json.Articulos[i].descripcion);
                 $('#ref'+i).val(json.Articulos[i].referencia);
                 $('#precio'+i).val(json.Articulos[i].precio);
-                $('#uds'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].uds),".",""));
+                $('#uds'+i).val(parseInt(json.Articulos[i].uds));
                 $('#cambio'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),".",""));
                 $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",""));
                 $('#dto'+i).val(json.Articulos[i].dto);
@@ -1430,6 +1432,9 @@ function generarPedido(){
 
 function resetNuevoPpto(){
     //$('#form_newPpto')[0].reset();
+    var now = new Date();
+    var today = now.getDate()  + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+    $('#fecha_newPpto').val(today);
     $("[id*=descripcion]").val(''); 
     $("[id*=ref]").val(''); 
     $("[id*=precio]").val(''); 
@@ -1443,6 +1448,30 @@ function resetNuevoPpto(){
     $("[id=subtotal]").val(''); 
     $("[id=totalTotal]").val(''); 
 }
-    
+ 
+function datapickerSpanish(){
+    $.datepicker.regional['es'] = {
+    closeText: 'Cerrar',
+    prevText: '< Ant',
+    nextText: 'Sig >',
+    currentText: 'Hoy',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    weekHeader: 'Sm',
+    dateFormat: 'dd/mm/yy',
+    firstDay: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+    $(function () {
+        $("#fecha_newPpto").datepicker();
+    }); 
+}   
+ 
 
 

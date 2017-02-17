@@ -1530,10 +1530,10 @@
         
     </body>
     
-    <script>
+    <!-- <script>
         $("#fecha_newPpto").datepicker();
         $("#fecha_newPpto").datepicker("option", "dateFormat", "dd/mm/yy");
-    </script>
+    </script> -->
     
 </html>
 
