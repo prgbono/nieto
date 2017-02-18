@@ -3,15 +3,12 @@
 header('Content-Type: text/html; charset=utf-8');
 // Cargamos la librería dompdf que hemos instalado en la carpeta dompdf
 require_once ('../dompdf/dompdf_config.inc.php');
-// Cargamos las librerías de base de datos
-//G4SECURITY
-//include '../nietoBack/inc/conexion.php';
 //MAMP
-include ('../../../nietoBack/inc/conexion.php');
+//include ('../../../nietoBack/inc/conexion.php');
+//PRODUCCIÓN
+include ('../nietoBack/inc/conexion.php');
 
 extract($_POST); 
-
-/*$canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;*/
 $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 
 //Datos de cliente (si viene cliente informado)

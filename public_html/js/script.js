@@ -184,6 +184,7 @@ function nuevoPpto(cliente){
             }
         });
     }
+    $('html,body').scrollTop(0);
 }
 function editarPpto(id_ppto){
     contenedor.style.left = "-300%";
@@ -196,6 +197,7 @@ function editarPpto(id_ppto){
     submenu[5].className="col";
     submenu[6].className="col";
     submenu[7].className="col";
+    $('html,body').scrollTop(0);
     cargarPpto(id_ppto);
 }
 function sleep(milliseconds) {
@@ -221,6 +223,7 @@ function listadoPptos(cliente){
     submenu[5].className="col";
     submenu[6].className="col";
     submenu[7].className="col";
+    $('html,body').scrollTop(0);
     listar_pptos(cliente);
 }
 function listadoPed(cliente){
@@ -234,6 +237,7 @@ function listadoPed(cliente){
     submenu[5].className="col";
     submenu[6].className="col";
     submenu[7].className="col";
+    $('html,body').scrollTop(0);
     listar_pedidos(cliente);
 }
 function mostrarNewPed(){
@@ -253,6 +257,7 @@ function ocultarEditAnul(){
     $("#editAnul").hide();
 }
 function editarPedido(){
+    $('html,body').scrollTop(0);
     mostrarNewPed();
 }
 function editarAnul(){
@@ -336,6 +341,7 @@ function editarCliente (cliente){
             });
         }
     });
+    $('html,body').scrollTop(0);
 }
 
 //Autocompletar en buscador, en cada cambio del texto del buscador
@@ -639,6 +645,7 @@ function navegacion(){
     submenu[0].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=1;
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         console.log(pantalla);
         $('#guardar_cliente1').text('Guardar');
         $('#guardar_cliente2').text('Guardar');
@@ -655,6 +662,7 @@ function navegacion(){
     submenu[1].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=2;
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         console.log(pantalla);
         $('#client_id').val('');
         contenedor.style.left = "-100%";
@@ -673,6 +681,7 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=3;
         console.log(pantalla);
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         $('#client_id').val('');
         listadoPptos(id_cliente);
         
@@ -680,6 +689,7 @@ function navegacion(){
     submenu[3].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=4;
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         console.log(pantalla);  
         resetNuevoPpto();
         $('#client_id').val('');
@@ -690,6 +700,7 @@ function navegacion(){
 //  Listado de pedidos    
     submenu[4].onclick= function(){
         pantalla=5;
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         console.log(pantalla);
         $('#client_id').val('');
         listadoPed(id_cliente);
@@ -698,6 +709,7 @@ function navegacion(){
     submenu[5].onclick= function(){
         pantalla=6;
         console.log(pantalla);
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         $('#client_id').val('');
         
         contenedor.style.left = "-500%";
@@ -717,6 +729,7 @@ function navegacion(){
         pantalla=7;
         console.log(pantalla);
         $('#client_id').val('');
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         contenedor.style.left = "-600%";
         $(".form_addPerdida").hide();
         submenu[0].className="col";
@@ -732,6 +745,7 @@ function navegacion(){
 //  Pérdidas    
     submenu[7].onclick= function(){
         pantalla=8;
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
         console.log(pantalla);
         $('#client_id').val('');
         contenedor.style.left = "-700%";
@@ -1450,7 +1464,8 @@ function resetNuevoPpto(){
 }
  
 function datapickerSpanish(){
-    $.datepicker.regional['es'] = {
+    $.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
+    $.datepicker.setDefaults({
     closeText: 'Cerrar',
     prevText: '< Ant',
     nextText: 'Sig >',
@@ -1466,8 +1481,7 @@ function datapickerSpanish(){
     isRTL: false,
     showMonthAfterYear: false,
     yearSuffix: ''
-    };
-    $.datepicker.setDefaults($.datepicker.regional['es']);
+    });
     $(function () {
         $("#fecha_newPpto").datepicker();
     }); 
