@@ -85,7 +85,24 @@ if (!$id_ppto){
 $query= "UPDATE pruebas_pedidos SET generado = 'S' WHERE id_ppto = $id_ppto";
 mysqli_query($link, $query);
 
-//Enviar correo
+/*Enviar correo
+Obtener datos necesarios para formar el correo:
+Modelo del coche*/
+$coche = "SELECT pruebas_coches.modelo FROM pruebas_coches WHERE pruebas_coches.id_coche = '$vehiculo_newPpto'";
+$result = mysqli_query($link, $coche);
+$coche= mysqli_fetch_assoc($result);
+$coche=$coche['modelo']; 
+
+//Datos del cliente
+$datosCli = "SELECT pruebas_clientes.nombre, pruebas_clientes.tlf1, pruebas_direcciones.calle, pruebas_direcciones.cp, pruebas_direcciones.ciudad FROM pruebas_clientes INNER JOIN pruebas_direcciones ON pruebas_clientes.id_cliente =pruebas_direcciones.id_cliente WHERE pruebas_clientes.id_cliente = '$cliente_newPpto' and pruebas_direcciones.E_F = 'E'";
+$result = mysqli_query($link, $datosCli);
+$datosCli= mysqli_fetch_assoc($result);
+$nombre=$datosCli['nombre']; 
+$calle=$datosCli['calle'];
+$cp=$datosCli['cp'];
+$ciudad=$datosCli['ciudad'];
+$tlf1=$datosCli['tlf1'];
+
 $mail = new PHPMailer(); 
 $mail->IsSMTP();
 $mail->SMTPAuth = true;
@@ -108,90 +125,52 @@ foreach ($descripcion as $clave=>$valor)
 {
   if (!$descripcion[$clave]==''){
     if($pvp[$clave]==''){
-      $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
-      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
-      <td class="pvp">'.$precio[$clave].'</td>
-      <td class="uds">'.$uds[$clave].'</td>
-      <td class="importe">'.$total[$clave].'</td>
+      $articulos .= '<tr>
+        <td class="desc"'.$descripcion[$clave].'</td>
+        <td class="ref">'.$ref[$clave].'</td>
+        <td class="uds">'.$uds[$clave].'</td>  
       </tr>';
     }
     else{
-      $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
-      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
-      <td class="pvp">'.$pvp[$clave].'</td>
-      <td class="uds">'.$uds[$clave].'</td>
-      <td class="importe">'.$total[$clave].'</td>
+      $articulos .= '<tr>
+        <td class="desc"'.$descripcion[$clave].'</td>
+        <td class="ref">'.$ref[$clave].'</td>
+        <td class="uds">'.$uds[$clave].'</td>
       </tr>';
     }
   }
 }
 
-$html='
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Presupuesto NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com</title>
-    <link href="../css/presupuesto_style.css" rel="stylesheet" type="text/css"/>  
-  </head>
-  <body>
-  <div class="contenido">
-    <header class="clearfix">
-      <h1>Presupuesto</h1> 
-      <div id="project">
-        <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
-        <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
-        <div><span>FECHA </span>'.$fecha_newPpto.'</div>
-      </div>
-    </header>
-    <main>
-      <table>
+
+$body = '<p>Hello Peter, <br>I want to order for a '.$coche.':</p>
+    <table>
         <thead>
           <tr>
-            <th class="ref">REFERENCIA</th>
-            <th class="desc" style="width:50%">DESCRIPCIÓN</th>
-            <th>PVP</th>
-            <th>UDS</th>
-            <th>IMPORTE</th>
+            <th>DESCRIPCIÓN / Description</th>
+            <th>Referencia / Reference</th>
+            <th>Cantidad / Amount</th>
           </tr>
         </thead>
         <tbody>'.$articulos.'
-          <tr>
-            <td colspan="4" class="grand total">SUBTOTAL</td>
-            <td class="grand">'.$subtotal.'€</td>
-          </tr>
-          <tr>
-            <td colspan="4">IVA</td>
-            <td>'.$iva_newPpto.'%</td>
-          </tr>
-          <tr>
-            <td colspan="4"><strong>TOTAL</strong></td>
-            <td><strong>'.$totalTotal.'€</strong></td>
-          </tr>
         </tbody>
-      </table>
-      <br />
-      <br />
-      <div id="notices">
-        <div>Comentarios:</div>
-        <div class="notice">'.utf8_encode($asunto_newPpto).'</div>
-      </div>
-    </main>
-    <footer>
-      NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com
-    </footer>
-  </div>
-  </body>
-</html>';
+    </table>
+    <p>Please send it without any logos of Flying Spares and by UPS (if it\'s not possible with UPS, please let me know before send it) to:</p>
+    <p>'.$nombre.'<br>
+    '.$calle.'<br>   
+    CP:'.$cp.', $ciudad,  (Spain)<br>
+    '.$tlf1.'</p>
+    <p>Thanks for your attention<br>
+    David<br>
+    NietoGranTurismo</p>';
 
 //Asignamos asunto y cuerpo del mensaje
 //El cuerpo del mensaje lo ponemos en formato html, haciendo 
 //que se vea en negrita
 $mail->Subject = "Nieto GranTurismo. Order.";
-$mail->Body = $html;
-//$mail->Body += "<p>I want to order for a $COCHE .-</p>";
+$mail->Body = $body;
 
 //Definimos AltBody por si el destinatario del correo no admite email con formato html 
-$mail->AltBody = "Mensaje de prueba mandado con phpmailer en formato solo texto";
+//$mail->AltBody = "Mensaje de prueba mandado con phpmailer en formato solo texto";
 
 //se envia el mensaje, si no ha habido problemas 
 //la variable $exito tendra el valor true
@@ -205,7 +184,6 @@ while ((!$exito) && ($intentos < 5)) {
   $exito = $mail->Send();
   $intentos=$intentos+1;  
 }
- 
     
 if(!$exito)
 {
@@ -232,7 +210,7 @@ else
     //window.location='/nieto/public_html/index.php';
 
     //PRODUCCIÓN
-    //window.location='http://admin.nietogranturismo.com/';    
+    window.location='http://admin.nietogranturismo.com/';    
 </script> 
 <?php
 
