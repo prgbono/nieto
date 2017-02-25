@@ -1,5 +1,5 @@
 <?php
-
+//require_once ('../dompdf/dompdf_config.inc.php');
 header('Access-Control-Allow-Origin: *');
 //PARA PRODUCCIÓN
 include ('../nietoBack/inc/conexion.php');

@@ -85,6 +85,15 @@ if (!$id_ppto){
 $query= "UPDATE pruebas_pedidos SET generado = 'S' WHERE id_ppto = $id_ppto";
 mysqli_query($link, $query);
 
+//Obtengo las descripciones de los productos en inglés
+foreach ($ref as $clave=>$valor)
+{
+  $query = "SELECT title FROM pruebas_bbdd WHERE part_number = '$ref[$clave]'";
+  $result = mysqli_query($link, $query);
+  $result= mysqli_fetch_assoc($result);
+  $descripcion[$clave] = $result['title'];
+}
+
 /*Enviar correo
 Obtener datos necesarios para formar el correo:
 Modelo del coche*/
@@ -181,8 +190,8 @@ while ((!$exito) && ($intentos < 5)) {
     
 if(!$exito)
 {
-  echo "Problemas enviando correo electrónico a ".$valor;
-  echo "<br/>".$mail->ErrorInfo; 
+  /*echo "Problemas enviando correo electrónico a ".$valor;
+  echo "<br/>".$mail->ErrorInfo; */
   ?>
   <script language="javascript">
   console.log('Mensaje NO enviado');

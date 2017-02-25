@@ -46,6 +46,7 @@ foreach ($descripcion as $clave=>$valor)
   }
 }
 
+$file_location = $_SERVER['DOCUMENT_ROOT']."/presupuestos/".$id_ppto.".pdf";
 
 $html='
 <html>
@@ -57,7 +58,7 @@ $html='
   <body>
   <div class="contenido">
     <header class="clearfix">
-      <h1>Presupuesto</h1> 
+      <h1>NIETO GRAN TURISMO - Presupuesto</h1>
       <div id="project">
         <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
         <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
@@ -98,7 +99,11 @@ $html='
       </div>
     </main>
     <footer>
-      NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com
+      <i><p>
+      Nieto GranTurismo - Rolls Royce & Bentley - Piezas y recambios <br>
+      David Nieto Hernandez, CIF:45653917K C/Costa de la luz N.5 9.A, 41005 Sevilla<br>
+      Telefono: 954 091 856 / 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com <br>
+      Datos bancarios.- Caja de Ingenieros: ES95 3025 0007 79 1433213370</p></i>
     </footer>
   </div>
   </body>
@@ -110,12 +115,14 @@ $pdf->set_paper("A4", "portrait");
 /*$pdf->set_paper("A4", "landscape");*/
 $pdf->load_html($html); 
 /*$pdf->load_html(utf8_decode($html)); */
-/*$pdf->load_html(utf8_decode($pruebas)); */
+
 $pdf->render();
 //ASÍ SE DESCARGA
 /*$pdf->stream('NietoPresupuesto.pdf');*/
 
 //ASÍ SE VE EN EL VISOR DEL BROWSER
 $pdf->stream('NietoPresupuesto.pdf', array("Attachment" => "0"));
+
+
 
 ?>

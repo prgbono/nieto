@@ -1177,6 +1177,19 @@ function cambiosAplicados() {
     })
 }
 
+/*function mail_enviado() {
+    $(".mail_enviado").dialog({
+      resizable: false,
+      height:140,
+      modal: true,
+      buttons: {
+        Cerrar: function() {
+          $(this).dialog("close");
+        }
+      }
+    })
+}*/
+
 function confirmar(cod, id, idCli) {
     $("#confirm2").dialog({
       resizable: false,

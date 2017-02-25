@@ -1526,6 +1526,9 @@
             <div id="confirm3" title="Pedido modificado" style="display: none">
               <p><span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>Cambios aplicados</p>
             </div>
+            <!-- <div class="mail_enviado" title="Mail" style="display: none">
+                <p><span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>Correo enviado correctamente</p>
+            </div> -->
         </main>  
         
     </body>
