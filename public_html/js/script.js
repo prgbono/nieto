@@ -80,7 +80,6 @@ function setEvents(){
     $('#envioCP').numeric();
     $('#factCP').numeric();
     $("[id*=cambio]").val('0.65');  
-    
 }
 
 function addBBDD(){
@@ -1001,6 +1000,9 @@ function getRefPVP (sp_title, fila){
                     $('#ref'+fila).val(json.pruebasBBDD[0].part_number);
                     $('#precio'+fila).val(json.pruebasBBDD[0].gbp);
                     $('#uds'+fila).focus();
+                    $('#cambio'+fila).val('0.65');
+                    //pvp = precio / cambio
+                    $('#pvp'+fila).val(CurrencyFormat(parseFloat($('#precio'+fila).val()/$('#cambio'+fila).val()),".",""));
                 }
             }
         });    
@@ -1398,6 +1400,13 @@ function CurrencyFormat(number, decimalcharacter, thousandseparater)
     return sign + integer + decimalcharacter + fraction;
 }
 
+function calcularPVP (cambio, fila){
+    //Calculo de PVP = precio / cambio
+    var precio = $('#precio'+fila).val();
+    var cambio = $('#cambio'+fila).val();
+    $('#pvp'+fila).val(CurrencyFormat(parseFloat(precio / cambio),".",""));
+}
+
 function calcularTotal (uds, fila){
     var precio = $('#precio'+fila).val();
     var cambio =  $('#cambio'+fila).val();
@@ -1415,14 +1424,12 @@ function calcularTotal (uds, fila){
 
     //TOTAL = PRECIO * CAMBIO * UDS * (100 - DTO)/100)
     if (($('#pvp'+fila).val() == "") || ($('#pvp'+fila).val() === '0.00')){
-        /*console.log('calculo con precio pq pvp es 0');*/
         $('#total'+fila).val(CurrencyFormat(parseFloat(precio * cambio * uds * (100 - dto)/100),'.',''));
     }
-    else{
-        /*console.log('calculo con pvp pq no es 0');*/
-        $('#total'+fila).val(CurrencyFormat(parseFloat(pvp * cambio * uds * (100 - dto)/100),'.',''));
+    else //TOTAL = PVP * UDS * (100 - DTO)/100)
+    {
+        $('#total'+fila).val(CurrencyFormat(parseFloat(pvp * uds * (100 - dto)/100),'.',''));
     } 
-    /*console.log($('#total'+fila).val());*/
 }
 
 
