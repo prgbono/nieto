@@ -91,7 +91,7 @@ else{
     /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
     //Para localhost el formato debe ser '%d/%m/%Y' instead of '%d-%m-%Y'
     $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."')";
-    /*echo $query."\n";*/
+    //echo $query."\n";
     mysqli_query($link, $query);
 
     //Obtengo el id_ppto recién insentado para usarlo en la tabla de detalles_presupuestos
@@ -100,9 +100,10 @@ else{
     $id_ppto = $maxPpto['maxId_ppto'];
 
     /*-INSERTAR EN LA TABLA DE PEDIDOS con generado = False*/
-    $query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'N')";
+    //OPERACIÓN PASADA A GENERAR PEDIDO
+    /*$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'N')";
     
-    mysqli_query($link, $query);
+    mysqli_query($link, $query);*/
     /* 3.- ESCRIBIR la tabla de detalles (Acción común con la modificación)*/
 
 }
@@ -140,7 +141,7 @@ mysqli_query($link, $query2);
     //window.location='/nieto/public_html/index.php';
 
     //PRODUCCIÓN
-    window.location='http://admin.nietogranturismo.com/';    
+    window.location='http://admin.nietogranturismo.com/';
 </script> 
 <?php
 

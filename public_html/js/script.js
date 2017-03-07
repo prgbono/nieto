@@ -80,6 +80,14 @@ function setEvents(){
     $('#envioCP').numeric();
     $('#factCP').numeric();
     $("[id*=cambio]").val('0.65');  
+    $("#canarias_newPpto").change(function() {
+        if(this.checked) {
+            ivaOff();
+        }
+        else{
+            ivaOn();
+        }
+    });
 }
 
 function addBBDD(){
@@ -682,6 +690,7 @@ function navegacion(){
         console.log(pantalla);
         $('html, body').animate({ scrollTop: 0 }, 'slow');
         $('#client_id').val('');
+        //$("#btn_generarPedido").prop("disabled", false);
         listadoPptos(id_cliente);
         
     };
@@ -693,6 +702,7 @@ function navegacion(){
         resetNuevoPpto();
         $('#client_id').val('');
         $('#cliente_newPpto').val('');
+        //$("#btn_generarPedido").prop("disabled", true);
         nuevoPpto();
     };
 
@@ -916,6 +926,7 @@ function insertar_nuevoPpto(){
     }
     else{
         $('#form_newPpto').submit();
+        //$("#btn_generarPedido").prop("disabled", false);
     }
 }
 
@@ -1506,6 +1517,23 @@ function datapickerSpanish(){
         $("#fecha_newPpto").datepicker();
     }); 
 }   
+
+function ivaOff(){
+    console.log($('#canarias_newPpto').prop("checked"));
+    $('#iva_newPpto').val(0);
+    $('#iva_newPpto').prop('readonly', true);
+    $('#asunto_newPpto').val('ENVÍO PARA CANARIAS');
+    $('#totalTotal').val($('#subtotal').val());
+}
+
+function ivaOn(){
+    console.log($('#canarias_newPpto').prop("checked"));
+    $('#iva_newPpto').prop('readonly', false);
+    $('#iva_newPpto').val(21);
+    $('#asunto_newPpto').val('');
+    calcularTotalTotal($('#subtotal').val());
+}
+
  
 
 

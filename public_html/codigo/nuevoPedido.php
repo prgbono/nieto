@@ -73,17 +73,20 @@ if($_POST)
 
 }
 
-/*.-UPDATE EN LA TABLA DE PEDIDOS*/
-if (!$id_ppto){
-    //TODO Cojo el último ppto pero puede que no le haya dado a guardar y entonces se lía (se pone generado a un ppto que no es!!!)
-    $ppto =  mysqli_query($link, "SELECT MAX(id_ppto) as maxId_ppto FROM pruebas_presupuestos"); 
-    $maxPpto = mysqli_fetch_assoc($ppto);
-    $id_ppto = $maxPpto['maxId_ppto'];
-}
-
-
-$query= "UPDATE pruebas_pedidos SET generado = 'S' WHERE id_ppto = $id_ppto";
+/*-INSERTAR EN LA TABLA DE PEDIDOS*/
+$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d-%m-%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'S')";
 mysqli_query($link, $query);
+
+/*//TODO:Comprobar que no se haya enviado ya este pedido
+$query= "SELECT * FROM pruebas_pedidos WHERE id_ppto='$id_ppto'";
+$result = mysqli_query($link, $query);
+if(mysqli_num_rows($result)==0){
+    //Primera vez que se envía este presupuesto. Guardar en pruebas_pedidos
+    
+}else{
+    //Presupuesto ya enviado. Advertirlo
+}*/
+
 
 //Obtengo las descripciones de los productos en inglés
 foreach ($ref as $clave=>$valor)
