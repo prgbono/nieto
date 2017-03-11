@@ -702,6 +702,8 @@ function navegacion(){
         resetNuevoPpto();
         $('#client_id').val('');
         $('#cliente_newPpto').val('');
+        $('#vehiculo_newPpto').val('');
+        $('#bastidor_newPpto').val('');
         //$("#btn_generarPedido").prop("disabled", true);
         nuevoPpto();
     };
@@ -737,6 +739,7 @@ function navegacion(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
         pantalla=7;
         console.log(pantalla);
+        hideBBDD();
         $('#client_id').val('');
         $('html, body').animate({ scrollTop: 0 }, 'slow');
         contenedor.style.left = "-600%";
@@ -976,7 +979,7 @@ function validar_guardar_ppto(){
 }
 
 function getDescripciones (fila){
-    var min = 3; // min caracteres para buscar
+    var min = 2; // min caracteres para buscar
     urlDescripciones = url.concat('getDescripciones.php');
     var keyword = $('#descripcion'+fila).val();
     if (keyword.length >= min) {
