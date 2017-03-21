@@ -138,10 +138,12 @@ $mail->Username = "paco@nietogranturismo.com";
 $mail->Password = "Biturbo5"; 
 $mail->Port = 587; 
 $mail->From = "paco@nietogranturismo.com";
-$mail->FromName = "Paco NietoGranTurismo";
+$mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 //Indicamos cual es la dirección de destino del correo
 $mail->AddAddress($correo);
+$mail->AddBCC('pacoriosgalan@gmail.com');
+$mail->AddBCC('davidoski@hotmail.com');
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";
 
 $body = '<p>Buenas<br>

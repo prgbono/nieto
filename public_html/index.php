@@ -127,15 +127,19 @@
 
                             <div class="form-group">
                                 <label class="control-label col-xs-1">Tlf</label>
-                                <div class="col-xs-4">
+                                <div class="col-xs-2">
                                     <input type="text" name="input_tlf1" id="input_tlf1" class="form-control" placeholder="Tlf principal" onblur="validar_nuevo_cliente();">
                                 </div>
                                 <label class="control-label col-xs-1">Email</label>
-                                <div class="col-xs-6">
+                                <div class="col-xs-4">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
                                         <input type="text" name="input_email1" id="input_email1" class="form-control" placeholder="Email 1" onblur="validar_nuevo_cliente();">
                                     </div>
+                                </div>
+                                <label class="control-label col-xs-1">Ciudad</label>
+                                <div class="col-xs-3">
+                                    <input type="text" name="input_ciudad" id="input_ciudad" class="form-control" placeholder="Ciudad" onblur="validar_nuevo_cliente();">
                                 </div>
                             </div>
                         </fieldset>
@@ -214,12 +218,12 @@
                         <table class="table table-condensed table-bordered table-striped cabecera_fija">
                             <thead>
                                 <tr>
-                                    <th class="col-xs-2">NOMBRE</th>
+                                    <th class="col-xs-3">NOMBRE</th>
                                     <th class="col-xs-2">COCHE PRINCIPAL</th>
                                     <th class="col-xs-2">VARIADO</th>
                                     <th class="col-xs-1">TELEFONO 1</th>
                                     <th class="col-xs-1">EMAIL</th>
-                                    <th class="col-xs-1">CIUDAD</th>
+                                    <!-- <th class="col-xs-1">CIUDAD</th> -->
                                     <th class="col-xs-3">OPCIONES</th>
                                 </tr>
                             </thead>
@@ -359,7 +363,7 @@
                                             <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularPVP(this.value, <?php echo $i;?>); calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="Cambio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="PVP">
+                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="PVP" readonly>
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="DTO">
