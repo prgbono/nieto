@@ -91,8 +91,10 @@ function setEvents(){
 }
 
 function addBBDD(){
+    $('#formBBDD')[0].reset();
     $(".form_addBBDD").show();
 }
+
 function addPerdida(){
     $(".form_addPerdida").show();
 }
@@ -505,7 +507,7 @@ function autocomplet() {
                     success:function(json){
                         var tablaBbdd = '';
                         $.each(json.Piezas, function(i, pieza){
-                            tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                            tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.id_bbdd+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
                             });
                         $('#listadoBbdd').html(tablaBbdd);
                      }
@@ -607,7 +609,7 @@ function listar_bbdd(){
     $.post(urlListarbbdd, function(json){
         $.each(json.Piezas, function(i, pieza){
         //Meter el JSON en la tabla de 'listado Clientes'
-        tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+        tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.id_bbdd+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
            
         });
         $('#listadoBbdd').html(tablaBbdd);
@@ -909,14 +911,18 @@ function agregarBBDD(){
         data: $("#formBBDD").serialize(),
         success: function(data)
         {
+            //console.log(data);
             if(data==-1){
-                alert('Ya existe ese Part Number');
+                //listar_bbdd();
+                hideBBDD();
+                alert('Producto actualizado');
+                $('#formBBDD')[0].reset();
             }
             else {
                 alert('Producto insertado correctamente');
             }
         }
-    });  
+    });
 }
 
 function insertar_nuevoPpto(){
@@ -1001,6 +1007,26 @@ function getDescripciones (fila){
             }
         });
     }
+}
+
+function editBBDD(id_bbdd){
+    urlgetAnArticleFromBBDD = url.concat('getAnArticleFromBBDD.php');
+    $.ajax({
+        url: urlgetAnArticleFromBBDD,
+        type: 'POST',   
+        data: {id_bbdd: id_bbdd},
+        dataType: 'json',
+        success:function(json){
+            if ((typeof json.Articulo[0] !== 'undefined') && json.Articulo[0]){
+                console.log('getArticle Success: ' +json.Articulo);
+                $('#partNumber').val(json.Articulo[0].part_number);
+                $('#title').val(json.Articulo[0].title);
+                $('#titulo').val(json.Articulo[0].sp_title);
+                $('#gbp').val(json.Articulo[0].gbp);
+                $(".form_addBBDD").show();
+            }
+        }
+    }); 
 }
 
 function getRefPVP (sp_title, fila){

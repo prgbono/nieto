@@ -119,18 +119,18 @@ foreach ($descripcion as $clave=>$valor)
 {
   if (!$descripcion[$clave]==''){
     if($pvp[$clave]==''){
-      $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
-      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
-      <td class="pvp">'.$precio[$clave].'</td>
+      $articulos .= '<tr><td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
+      <td class="ref">'.$ref[$clave].'</td>
       <td class="uds">'.$uds[$clave].'</td>
+      <td class="pvp">'.$precio[$clave].'</td>
       <td class="importe">'.$total[$clave].'</td>
       </tr>';
     }
     else{
-      $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
-      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
-      <td class="pvp">'.$pvp[$clave].'</td>
+      $articulos .= '<tr><td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
+      <td class="ref">'.$ref[$clave].'</td>
       <td class="uds">'.$uds[$clave].'</td>
+      <td class="pvp">'.$pvp[$clave].'</td>
       <td class="importe">'.$total[$clave].'</td>
       </tr>';
     }
@@ -160,36 +160,36 @@ $html='
       <table>
         <thead>
           <tr>
-            <th class="ref">REFERENCIA</th>
             <th class="desc" style="width:50%">DESCRIPCIÓN</th>
-            <th>PVP</th>
+            <th class="ref">REFERENCIA</th>
             <th>UDS</th>
+            <th>PVP</th>
             <th>IMPORTE</th>
           </tr>
         </thead>
         <tbody>'.$articulos.'
-          <tr>
-            <td colspan="4" class="grand total">SUBTOTAL</td>
-            <td class="grand">'.$subtotal.'€</td>
-          </tr>
-          <tr>
-            <td colspan="4">IVA</td>
-            <td>'.$iva_newPpto.'%</td>
-          </tr>
-          <tr>
-            <td colspan="4"><strong>TOTAL</strong></td>
-            <td><strong>'.$totalTotal.'€</strong></td>
-          </tr>
+          <div id="notices">
+            <div>Comentarios:</div>
+            <div class="notice">'.utf8_encode($asunto_newPpto).'</div>
+          </div>  
         </tbody>
       </table>
-      <br />
-      <br />
-      <div id="notices">
-        <div>Comentarios:</div>
-        <div class="notice">'.utf8_encode($asunto_newPpto).'</div>
-      </div>
+      
     </main>
     <footer>
+      <tr>
+        <td colspan="4" class="grand total">SUBTOTAL</td>
+        <td class="grand">'.$subtotal.'€</td>
+      </tr>
+      <tr>
+        <td colspan="4">IVA</td>
+        <td>'.$iva_newPpto.'%</td>
+      </tr>
+      <tr>
+        <td colspan="4"><strong>TOTAL</strong></td>
+        <td><strong>'.$totalTotal.'€</strong></td>
+      </tr>
+      <hr style="color: #ccc;" />
       <i><p>
       Nieto GranTurismo - Rolls Royce & Bentley - Piezas y recambios <br>
       David Nieto Hernandez, CIF:45653917K C/Costa de la luz N.5 9.A, 41005 Sevilla<br>

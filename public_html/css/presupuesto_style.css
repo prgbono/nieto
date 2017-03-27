@@ -1,4 +1,4 @@
-*{padding: 0px; margin: 0px; -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box; }
+*{padding: 0px; margin: 0px; -webkit-box-sizing: border-box;  -moz-box-sizing: border-box; box-sizing: border-box; margin-top:-5px;}
 
 .clearfix:after {
   content: "";
@@ -131,6 +131,16 @@ table td.grand {
 #notices .notice {
   color: #5D6975;
   font-size: 0.8em;
+}
+
+.bottom{
+  position: absolute;
+  bottom: 120px;
+}
+
+.bottom label{
+  display:block;
+  text-align:right;
 }
 
 footer {

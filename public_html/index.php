@@ -1411,15 +1411,15 @@
                         <div class="form-group">
 <!--                            <label class="control-label col-xs-1">Part Number</label>-->
                             <div class="col-md-2">
-                                <input type="text" name="partNumber" class="form-control" placeholder="Part Number">
+                                <input type="text" id="partNumber" name="partNumber" class="form-control" placeholder="Part Number">
                             </div>
 <!--                            <label class="control-label col-xs-1">Title</label>-->
                             <div class="col-md-4">
-                                <input type="textarea" name="title" class="form-control" placeholder="Title">
+                                <input type="textarea" id="title" name="title" class="form-control" placeholder="Title">
                             </div>
 <!--                            <label class="control-label col-xs-1">Título</label>-->
                             <div class="col-md-4">
-                                <input type="textarea" name="titulo" class="form-control" placeholder="Título">
+                                <input type="textarea" id="titulo" name="titulo" class="form-control" placeholder="Título">
                             </div>
                             <!--  <label class="control-label col-xs-1">GBP</label>-->
                             <div class="col-md-1">
