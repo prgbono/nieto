@@ -119,18 +119,18 @@ foreach ($descripcion as $clave=>$valor)
 {
   if (!$descripcion[$clave]==''){
     if($pvp[$clave]==''){
-      $articulos .= '<tr><td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
-      <td class="ref">'.$ref[$clave].'</td>
-      <td class="uds">'.$uds[$clave].'</td>
+      $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
+      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
       <td class="pvp">'.$precio[$clave].'</td>
+      <td class="uds">'.$uds[$clave].'</td>
       <td class="importe">'.$total[$clave].'</td>
       </tr>';
     }
     else{
-      $articulos .= '<tr><td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
-      <td class="ref">'.$ref[$clave].'</td>
-      <td class="uds">'.$uds[$clave].'</td>
+      $articulos .= '<tr><td class="ref">'.$ref[$clave].'</td>
+      <td class="desc" style="width:50%">'.$descripcion[$clave].'</td>
       <td class="pvp">'.$pvp[$clave].'</td>
+      <td class="uds">'.$uds[$clave].'</td>
       <td class="importe">'.$total[$clave].'</td>
       </tr>';
     }
@@ -160,26 +160,33 @@ $html='
       <table>
         <thead>
           <tr>
-            <th class="desc" style="width:50%">DESCRIPCIÓN</th>
             <th class="ref">REFERENCIA</th>
-            <th>UDS</th>
+            <th class="desc" style="width:50%">DESCRIPCIÓN</th>
             <th>PVP</th>
+            <th>UDS</th>
             <th>IMPORTE</th>
           </tr>
         </thead>
         <tbody>'.$articulos.'
+          <tr>
+            <td colspan="4" class="grand total">SUBTOTAL</td>
+            <td class="grand">'.$subtotal.'€</td>
+          </tr>
+          <tr>
+            <td colspan="4">IVA</td>
+            <td>'.$iva_newPpto.'%</td>
+          </tr>
+          <tr>
+            <td colspan="4"><strong>TOTAL</strong></td>
+            <td><strong>'.$totalTotal.'€</strong></td>
+          </tr>
         </tbody>
       </table>
       <br />
-      <br />      
+      <br />
       <div id="notices">
         <div>Comentarios:</div>
         <div class="notice">'.utf8_encode($asunto_newPpto).'</div>
-      </div>
-      <div class="bottom">
-        <label>SUBTOTAL   '.$subtotal.'€</label>
-        <label>IVA   '.$iva_newPpto.'%</label>
-        <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
       </div>
     </main>
     <footer>
