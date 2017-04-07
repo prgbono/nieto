@@ -273,6 +273,7 @@
                             <!-- Inputs oculto para pasar el id_cliente y el id_ppto-->
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <input type="hidden" name="id_ppto" id="id_ppto">
+                            <input type="hidden" name="mailText" id="mailText">
                             
                             <div class="form-group">
                                 <div class="col-xs-1">
@@ -457,7 +458,8 @@
                             <div class="btn-group">
                                 <button class="btn btn-primary center-block" id="btn_guardar_newPpto" style="background-color: #CFB480">Guardar</button>
                                 <button class="btn btn-primary center-block" id="btn_imprimir" style="background-color: #7F6538">Imprimir</button>
-                                <button class="btn btn-primary center-block" id="btn_enviar" style="background-color: #362B18">Enviar</button>
+                                <button class="btn btn-primary center-block" id="btn_enviar" style="background-color: #362B18" data-toggle="modal" data-target="#mailModal">Enviar</button>
+                                <!-- <button class="btn btn-primary center-block" data-toggle="modal" data-target="#mailModal" style="background-color: #362B18">Enviar</button> -->
                                 <button class="btn btn-primary center-block" style="background-color: #DBAE18">Copiar en nuevo</button>
                                 <!--<button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   -->
                             </div>
@@ -1533,6 +1535,35 @@
             <!-- <div class="mail_enviado" title="Mail" style="display: none">
                 <p><span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>Correo enviado correctamente</p>
             </div> -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Correo electrónico</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <!-- <div class="form-group">
+                        <label for="recipient-name" class="control-label">Dirección:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div> -->
+                      <div class="form-group">
+                        <label for="message-text" class="control-label">Mensaje:</label>
+                        <textarea class="form-control" id="message-text"  style="height: 10em"></textarea>
+                      </div>
+                      <p>* Se adjuntará el documento PDF del presupuesto</p>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="enviarCorreo">Enviar correo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         </main>  
         
     </body>

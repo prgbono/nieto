@@ -46,7 +46,7 @@ function setEvents(){
     $("#btn_cancelNewPed").on("click", cancelNewPed);
     $(".btn_listadoPptosCliente").on("click", listadoPptos(id_cliente));
     $(".btn_listadoPedCliente").on("click", listadoPed(id_cliente));
-    /*$("#btn_cancelNewPpto").on("click", cancelar_Ppto);*/
+    //*$("#btn_cancelNewPpto").on("click", cancelar_Ppto);*/
     $("#btn_editar_anul").on("click", editarAnul);
     $("#btn_cancelEditAnul").on("click", cancelEditAnul);
     $("#btn_addArticuloAnul").on("click", addArticuloAnul);
@@ -58,8 +58,10 @@ function setEvents(){
     $("#btn_addBBDD").on("click", agregarBBDD);
     $("#btn_guardar_newPpto").on("click", insertar_nuevoPpto);
     $("#btn_imprimir").on("click", imprimir_Ppto);
-    $("#btn_enviar").on("click", enviar_Ppto);
+    $("#btn_enviar").on("click", mostrarModal);
+    $("#enviarCorreo").on("click", enviar_Ppto);
     $("#btn_generarPedido").on("click", generarPedido);
+    
     for (var i=0; i<10; i++){
         $('#uds'+i).numeric();
         $('#cambio'+i).numeric('.'); 
@@ -948,12 +950,36 @@ function imprimir_Ppto(){
     $('#form_newPpto').submit();
 }
 
+function mostrarModal(){
+    console.log('mostrarModal');
+    var defaultText = 'Buenas.\nAdjunto envío el presupuesto solicitado.\n\nUn cordial saludo,\nDavid\nNietoGranTurismo';
+    $('#message-text').val(defaultText);
+    event.preventDefault();
+    //mostrarModalMail();
+    
+
+    /*var button = $(event.relatedTarget) // Button that triggered the modal
+    var recipient = button.data('whatever') // Extract info from data-* attributes*/
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    /*var modal = $(this)
+    modal.find('.modal-title').text('New message to ' + recipient)
+    modal.find('.modal-body input').val(recipient);*/
+    
+    
+}
+
 function enviar_Ppto(){
     console.log('enviar_Ppto');
+    //cargar los valores por defecto (sólo texto mensaje) en mostrarModal(); por ahora no el correo
+    //Añadir el nuevo valor del correo al formulario y enviarlo
+
     $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
-    //$('#form_newPpto').attr('target', '_blank');
+    $('#mailText').val($('#message-text').val());
+    //$('#form_newPpto').attr('target', '_blank');    
     $('#form_newPpto').submit();
 }
+
 
 function validar_guardar_ppto(){
        /*Validación del formulario del presupuesto
@@ -1220,19 +1246,6 @@ function cambiosAplicados() {
       }
     })
 }
-
-/*function mail_enviado() {
-    $(".mail_enviado").dialog({
-      resizable: false,
-      height:140,
-      modal: true,
-      buttons: {
-        Cerrar: function() {
-          $(this).dialog("close");
-        }
-      }
-    })
-}*/
 
 function confirmar(cod, id, idCli) {
     $("#confirm2").dialog({
