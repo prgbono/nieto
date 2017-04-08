@@ -207,7 +207,7 @@ $mail->Timeout=30;
 //Indicamos cual es la dirección de destino del correo
 $mail->AddAddress($correo);
 $mail->AddBCC('pacoriosgalan@gmail.com');
-//$mail->AddBCC('davidoski@hotmail.com');
+$mail->AddBCC('davidoski@hotmail.com');
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";
 
 $body = ($_POST['mailText'] != 'Buenas. Adjunto envío el presupuesto solicitado. Un cordial saludo, David NietoGranTurismo 

@@ -129,11 +129,11 @@ foreach ($descripcion as $clave=>$valor)
 }
 $query2 = substr($query2, 0, -1);
 
-/*echo $query;
+/*echo $mensaje;
+echo $query;
 echo $query2;*/
 
 mysqli_query($link, $query2); 
-       
 
 ?>
 <script language="javascript">

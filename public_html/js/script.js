@@ -61,6 +61,8 @@ function setEvents(){
     $("#btn_enviar").on("click", mostrarModal);
     $("#enviarCorreo").on("click", enviar_Ppto);
     $("#btn_generarPedido").on("click", generarPedido);
+    $("#btn_copiar_en_nuevo").on("click", copiar_en_nuevo);
+    $("#copiar_presupuesto").on("click", copiar_presupuesto);
     
     for (var i=0; i<10; i++){
         $('#uds'+i).numeric();
@@ -198,6 +200,7 @@ function nuevoPpto(cliente){
     $('html,body').scrollTop(0);
 }
 function editarPpto(id_ppto){
+    $('#selectClientes').val(0);
     contenedor.style.left = "-300%";
     $(".buscadores").show();
     submenu[0].className="col";
@@ -951,33 +954,60 @@ function imprimir_Ppto(){
 }
 
 function mostrarModal(){
-    console.log('mostrarModal');
     var defaultText = 'Buenas.\nAdjunto envío el presupuesto solicitado.\n\nUn cordial saludo,\nDavid\nNietoGranTurismo';
     $('#message-text').val(defaultText);
     event.preventDefault();
-    //mostrarModalMail();
-    
-
-    /*var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipient = button.data('whatever') // Extract info from data-* attributes*/
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    /*var modal = $(this)
-    modal.find('.modal-title').text('New message to ' + recipient)
-    modal.find('.modal-body input').val(recipient);*/
-    
-    
 }
 
 function enviar_Ppto(){
-    console.log('enviar_Ppto');
-    //cargar los valores por defecto (sólo texto mensaje) en mostrarModal(); por ahora no el correo
-    //Añadir el nuevo valor del correo al formulario y enviarlo
-
     $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
     $('#mailText').val($('#message-text').val());
-    //$('#form_newPpto').attr('target', '_blank');    
     $('#form_newPpto').submit();
+}
+
+function copiar_en_nuevo(){
+    console.log('copiar_en_nuevo');
+    $('#form_newPpto').attr('action', 'codigo/copiar_en_nuevo.php');
+
+    //Validar datos antes de llamr al Ajax
+    if (!validar_guardar_ppto()){
+        alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
+    }
+    else{
+        $('#form_newPpto').submit();
+    }
+}
+
+function copiar_presupuesto(){
+    event.preventDefault();
+    $('#form_newPpto').attr('action', 'codigo/copiarPpto.php');
+
+    //Validar datos antes de llamr al Ajax
+    if (!validar_guardar_ppto()){
+        alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
+    }
+    else{
+        if ($('#selectClientes').val() == 0){
+            alert ('Por favor, selecciona un cliente válido');
+        }
+        else {
+            $('#clienteCopiarPpto').val($('#selectClientes').val());   
+            var urlCochesCliente = url.concat('cochesCliente.php');
+            var vehiculo = '';
+            $.ajax({
+                url: urlCochesCliente,
+                async: false,
+                type: 'POST',
+                data: {cliente: $('#selectClientes').val()},
+                dataType: 'json',
+                success:function(json){
+                    $('#vehCopiarPpto').val(json.Coches[0].id_coche);
+                }
+
+            });
+            $('#form_newPpto').submit();
+        }
+    }
 }
 
 
@@ -1536,6 +1566,8 @@ function resetNuevoPpto(){
     $("[id=transporte_newPpto]").val(''); 
     $("[id=subtotal]").val(''); 
     $("[id=totalTotal]").val(''); 
+    $('#selectClientes').val(0);
+
 }
  
 function datapickerSpanish(){

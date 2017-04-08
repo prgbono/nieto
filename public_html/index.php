@@ -274,6 +274,9 @@
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <input type="hidden" name="id_ppto" id="id_ppto">
                             <input type="hidden" name="mailText" id="mailText">
+                            <input type="hidden" name="vehCopiarPpto" id="vehCopiarPpto">
+                            <input type="hidden" name="clienteCopiarPpto" id="clienteCopiarPpto">
+
                             
                             <div class="form-group">
                                 <div class="col-xs-1">
@@ -284,10 +287,10 @@
                                 </div>
                                 <div class="col-xs-4"></div>
                                 <div class="col-xs-2">
-                                    <button class="btn btn-primary">Copiar presupuesto</button>
+                                    <button class="btn btn-primary" id="copiar_presupuesto">Copiar presupuesto</button>
                                 </div>
                                 <div class="col-xs-3">
-                                    <select class="form-control" placeholder="Aquí aparecerán los clientes en una lista" id="selectClientes"></select>
+                                    <select class="form-control" placeholder="Selecciona cliente..." id="selectClientes"></select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -459,8 +462,7 @@
                                 <button class="btn btn-primary center-block" id="btn_guardar_newPpto" style="background-color: #CFB480">Guardar</button>
                                 <button class="btn btn-primary center-block" id="btn_imprimir" style="background-color: #7F6538">Imprimir</button>
                                 <button class="btn btn-primary center-block" id="btn_enviar" style="background-color: #362B18" data-toggle="modal" data-target="#mailModal">Enviar</button>
-                                <!-- <button class="btn btn-primary center-block" data-toggle="modal" data-target="#mailModal" style="background-color: #362B18">Enviar</button> -->
-                                <button class="btn btn-primary center-block" style="background-color: #DBAE18">Copiar en nuevo</button>
+                                <button class="btn btn-primary center-block" id="btn_copiar_en_nuevo" style="background-color: #DBAE18">Copiar en nuevo</button>
                                 <!--<button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   -->
                             </div>
                             <div class="btn-group pull-right">
