@@ -1408,24 +1408,35 @@
                 </div>
                 <div class="page">
 <!--                    Base de datos-->
-                    <div class="center-block">
-                        <button id="addBBDD" name="addBBDD" class="btn btn-primary">Agregar</button>
+                    <div class="row center-block">
+                        <div class="col-md-1">
+                            <button id="addBBDD" name="addBBDD" class="btn btn-primary">Agregar</button>
+                        </div>
+                        <div class="col-md-11">
+                            <form enctype="multipart/form-data" name="excel" id="excel" method="post" action="codigo/actualizarBBDD.php">
+                            <!-- <form enctype="multipart/form-data" name="excel" id="excel" method="post"> -->
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <input type="file" name="CSVdoc" class="pull-right">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button id="excelBBDD" class="btn btn-primary">Actualizar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div> 
                     <form class="form-horizontal form_addBBDD" role="form" id="formBBDD">
                         <div class="form-group">
-<!--                            <label class="control-label col-xs-1">Part Number</label>-->
                             <div class="col-md-2">
                                 <input type="text" id="partNumber" name="partNumber" class="form-control" placeholder="Part Number">
                             </div>
-<!--                            <label class="control-label col-xs-1">Title</label>-->
                             <div class="col-md-4">
                                 <input type="textarea" id="title" name="title" class="form-control" placeholder="Title">
                             </div>
-<!--                            <label class="control-label col-xs-1">Título</label>-->
                             <div class="col-md-4">
                                 <input type="textarea" id="titulo" name="titulo" class="form-control" placeholder="Título">
                             </div>
-                            <!--  <label class="control-label col-xs-1">GBP</label>-->
                             <div class="col-md-1">
                                 <input type="text" name="gbp" id="gbp" class="form-control" placeholder="GBP Price">
                             </div>    

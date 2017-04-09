@@ -63,6 +63,7 @@ function setEvents(){
     $("#btn_generarPedido").on("click", generarPedido);
     $("#btn_copiar_en_nuevo").on("click", copiar_en_nuevo);
     $("#copiar_presupuesto").on("click", copiar_presupuesto);
+    $("#excelBBDD").on("click", actualizarExcelBBDD);
     
     for (var i=0; i<10; i++){
         $('#uds'+i).numeric();
@@ -760,7 +761,7 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col activo";
         submenu[7].className="col";
-        listar_bbdd();
+        //listar_bbdd();
     };
 //  Pérdidas    
     submenu[7].onclick= function(){
@@ -1083,6 +1084,24 @@ function editBBDD(id_bbdd){
             }
         }
     }); 
+}
+
+function actualizarExcelBBDD(){
+    //event.preventDefault();
+    $('#excel').submit();
+
+    /*urlExcelBBDD = url.concat('actualizarBBDD.php');
+    $.ajax({
+        url: urlExcelBBDD,
+        type: 'POST',   
+        data: $("#excel").serialize(),
+        dataType: 'json',
+        success:function(res){
+            console.log(res);
+        }
+    });    */
+    
+    
 }
 
 function getRefPVP (sp_title, fila){
