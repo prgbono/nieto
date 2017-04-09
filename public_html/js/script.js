@@ -761,7 +761,7 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col activo";
         submenu[7].className="col";
-        //listar_bbdd();
+        listar_bbdd();
     };
 //  Pérdidas    
     submenu[7].onclick= function(){
