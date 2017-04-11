@@ -6,24 +6,20 @@ include ('../nietoBack/inc/conexion.php');
 
 extract($_POST); 
 
-//echo $_FILES['CSVdoc']['tmp_name'];
-//echo $_FILES['CSVdoc']['name'];
-//echo $_FILES['CSVdoc']['size'];
+$sql= "DELETE FROM bbdd";
+mysqli_query($link, $sql);
 
 $file = $_FILES['CSVdoc']['tmp_name'];
 $handle = fopen($file, "r");
 $c = 0;
-while(($filesop = fgetcsv($handle, 1000, ",")) !== false)
+while(($filesop = fgetcsv($handle, 1000, ";")) !== false)
 {
-	$part_number = $filesop[1];
-	$title = $filesop[2];
-	$sp_title = $filesop[3];
-	$gbp = $filesop[4];
+	$part_number = $filesop[0];
+	$title = $filesop[1];
+	$sp_title = $filesop[2];
+	$gbp = $filesop[3];
 
-	//$sql = mysql_query("INSERT INTO csv (name, email) VALUES ('$name','$email')");
-	$sql= "DELETE FROM bbdd";
-	mysqli_query($link, $sql);
-	$sql= "INSERT INTO bbdd (part_number, title, sp_title, gbp) VALUES ('$partNumber', '$title', '$titulo', '$gbp')";
+	$sql= "INSERT INTO bbdd (part_number, title, sp_title, gbp) VALUES ('$part_number', '$title', '$sp_title', '$gbp')";
 	mysqli_query($link, $sql);
 }
 
@@ -33,3 +29,8 @@ if($sql){
 	echo "KO";
 }
 ?>
+
+<script language="javascript">
+    window.location='http://admin.nietogranturismo.com/';
+</script> 
+<?php
