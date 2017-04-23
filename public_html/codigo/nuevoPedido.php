@@ -185,11 +185,11 @@ $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->Host = "smtp.nietogranturismo.com"; 
-$mail->Username = "paco@nietogranturismo.com";
-$mail->Password = "Biturbo6"; 
+$mail->Username = "comercial@nietogranturismo.com";
+$mail->Password = "Ferrari1"; 
 $mail->Port = 587; 
 
-$mail->From = "paco@nietogranturismo.com";
+$mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";
 
 //el valor por defecto 10 de Timeout es un poco escaso dado que voy a usar una cuenta gratuita, por tanto lo pongo a 30  
@@ -197,10 +197,9 @@ $mail->Timeout=30;
 
 //Indicamos cual es la dirección de destino del correo
 $mail->AddAddress('davidoski@hotmail.com');
-//$mail->AddAddress('p.rios.utopia@gmail.com');
 //Copia/s oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
-//$mail->AddBCC('prgbono@hotmail.com');
+
 
 
 $articulos = '';

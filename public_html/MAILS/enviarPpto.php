@@ -10,14 +10,14 @@ include ('../nietoBack/inc/conexion.php');
 
 extract($_POST); 
 
-if($_POST)
+/*if($_POST)
 {
   foreach ($_POST as $clave=>$valor)
   {
   echo "El valor de $clave es: $valor"."\n";
       echo "<br>";
   }
-}
+}*/
 
 /*GUARDAR PPTO (mismo código que código/nuevoPpto)*/
 $canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;
@@ -59,6 +59,8 @@ else{
     $id_ppto = $maxPpto['maxId_ppto'];
 
 }
+
+//echo $mensaje;
 
 //Con esto tengo en cada array exactamente lo que ha metido el usuario. Independientemente si ha metido alguna descripción y después no unidades. TENGO LOS ARRAYS SIN POSICIONES VACÍAS.
 $descripcion=array_filter($descripcion);
@@ -198,14 +200,15 @@ $mail = new PHPMailer();
 $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->Host = "smtp.nietogranturismo.com"; 
-$mail->Username = "paco@nietogranturismo.com";
-$mail->Password = "Biturbo6"; 
+$mail->Username = "comercial@nietogranturismo.com";
+$mail->Password = "Ferrari1"; 
 $mail->Port = 587; 
-$mail->From = "paco@nietogranturismo.com";
+$mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 //Indicamos cual es la dirección de destino del correo
 $mail->AddAddress($correo);
+//Copia Oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
 $mail->AddBCC('davidoski@hotmail.com');
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";

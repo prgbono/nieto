@@ -513,7 +513,7 @@ function autocomplet() {
                     success:function(json){
                         var tablaBbdd = '';
                         $.each(json.Piezas, function(i, pieza){
-                            tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.id_bbdd+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                            tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.part_number+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.part_number+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
                             });
                         $('#listadoBbdd').html(tablaBbdd);
                      }
@@ -615,7 +615,7 @@ function listar_bbdd(){
     $.post(urlListarbbdd, function(json){
         $.each(json.Piezas, function(i, pieza){
         //Meter el JSON en la tabla de 'listado Clientes'
-        tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.id_bbdd+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.id_bbdd+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+        tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.part_number+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.part_number+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
            
         });
         $('#listadoBbdd').html(tablaBbdd);
@@ -1066,12 +1066,12 @@ function getDescripciones (fila){
     }
 }
 
-function editBBDD(id_bbdd){
+function editBBDD(part_number){
     urlgetAnArticleFromBBDD = url.concat('getAnArticleFromBBDD.php');
     $.ajax({
         url: urlgetAnArticleFromBBDD,
         type: 'POST',   
-        data: {id_bbdd: id_bbdd},
+        data: {part_number: part_number},
         dataType: 'json',
         success:function(json){
             if ((typeof json.Articulo[0] !== 'undefined') && json.Articulo[0]){
@@ -1271,9 +1271,9 @@ function eliminarPed(id_ped, idCli){
     });
 }
 
-function eliminarBBDD(id_bbdd){
+function eliminarBBDD(part_number){
     var urlEliminarBBDD = url.concat('eliminarBBDD.php');
-    $.post(urlEliminarBBDD,{"id_bbdd":id_bbdd}, function(resp){
+    $.post(urlEliminarBBDD,{"part_number":part_number}, function(resp){
        if (resp == 1){
            listar_bbdd();
        }
