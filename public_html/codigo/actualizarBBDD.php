@@ -6,7 +6,7 @@ include ('../nietoBack/inc/conexion.php');
 
 extract($_POST); 
 
-$sql= "DELETE FROM bbdd";
+$sql= "DELETE FROM pruebas_bbdd";
 mysqli_query($link, $sql);
 
 $file = $_FILES['CSVdoc']['tmp_name'];
@@ -19,18 +19,12 @@ while(($filesop = fgetcsv($handle, 1000, ";")) !== false)
 	$sp_title = $filesop[2];
 	$gbp = $filesop[3];
 
-	$sql= "INSERT INTO bbdd (part_number, title, sp_title, gbp) VALUES ('$part_number', '$title', '$sp_title', '$gbp')";
+	$sql= "INSERT INTO pruebas_bbdd (part_number, title, sp_title, gbp) VALUES ('$part_number', '$title', '$sp_title', '$gbp')";
 	mysqli_query($link, $sql);
 }
 
-if($sql){
-	echo "OK";
-}else{
-	echo "KO";
-}
-?>
 
+?>
 <script language="javascript">
     window.location='http://admin.nietogranturismo.com/';
 </script> 
-<?php

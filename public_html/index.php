@@ -1409,13 +1409,28 @@
                 </div>
                 <div class="page">
 <!--                    Base de datos-->
+                    <!-- Con opciones de Edición
                     <div class="row center-block">
                         <div class="col-md-1">
                             <button id="addBBDD" name="addBBDD" class="btn btn-primary">Agregar</button>
                         </div>
                         <div class="col-md-11">
                             <form enctype="multipart/form-data" name="excel" id="excel" method="post" action="codigo/actualizarBBDD.php">
-                            <!-- <form enctype="multipart/form-data" name="excel" id="excel" method="post"> -->
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <input type="file" name="CSVdoc" class="pull-right">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button id="excelBBDD" class="btn btn-primary">Actualizar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>  -->
+                    <!-- Sin opciones de Edición -->
+                    <div class="row center-block">
+                        <div>
+                            <form enctype="multipart/form-data" name="excel" id="excel" method="post" action="codigo/actualizarBBDD.php">
                                 <div class="row">
                                     <div class="col-md-11">
                                         <input type="file" name="CSVdoc" class="pull-right">
@@ -1427,6 +1442,7 @@
                             </form>
                         </div>
                     </div> 
+                    <!-- Con opciones de edición
                     <form class="form-horizontal form_addBBDD" role="form" id="formBBDD">
                         <div class="form-group">
                             <div class="col-md-2">
@@ -1452,16 +1468,37 @@
                                 </div>              
                             </div>
                         </div>
+                    </form> -->
+                    <!-- Sin opciones de edición -->
+                    <form class="form-horizontal form_addBBDD" role="form" id="formBBDD">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                <input type="text" id="partNumber" name="partNumber" class="form-control" placeholder="Part Number">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="textarea" id="title" name="title" class="form-control" placeholder="Title">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="textarea" id="titulo" name="titulo" class="form-control" placeholder="Título">
+                            </div>
+                            <div class="col-md-1">
+                                <input type="text" name="gbp" id="gbp" class="form-control" placeholder="GBP Price">
+                            </div>    
+                        </div>
                     </form>
                     <div class="table-responsive" style="padding-top: 10px">
                         <table class="table table-condensed table-bordered table-striped cabecera_fija">
                             <thead class='header'>
                                 <tr>
-                                    <th class="col-md-2">PART NUMBER</th>
+                                    <!-- <th class="col-md-2">PART NUMBER</th>
                                     <th class="col-md-4">TITLE</th>
                                     <th class="col-md-4">TÍTULO</th>
                                     <th class="col-md-1">GBP PRICE (Exc VAT)</th>
-                                    <th class="col-md-1">OPCIONES</th>
+                                    <th class="col-md-1">OPCIONES</th> -->
+                                    <th class="col-md-1">PART NUMBER</th>
+                                    <th class="col-md-5">TITLE</th>
+                                    <th class="col-md-5">TÍTULO</th>
+                                    <th class="col-md-1">GBP PRICE (Exc VAT)</th>
                                 </tr>
                             </thead>
                             <tbody id="listadoBbdd">

@@ -518,7 +518,13 @@ function autocomplet() {
                     success:function(json){
                         var tablaBbdd = '';
                         $.each(json.Piezas, function(i, pieza){
-                            tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.part_number+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.part_number+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                            //Con opciones de edición
+                            /*tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.part_number+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.part_number+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                            });*/
+
+                            //Sin opciones de edición
+                            tablaBbdd += 
+                            '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td></tr>';
                             });
                         $('#listadoBbdd').html(tablaBbdd);
                      }
@@ -620,9 +626,15 @@ function listar_bbdd(){
     var tablaBbdd = '';
     $.post(urlListarbbdd, function(json){
         $.each(json.Piezas, function(i, pieza){
+        //Con opciones de edición
         //Meter el JSON en la tabla de 'listado Clientes'
-        tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.part_number+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.part_number+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+        /*tablaBbdd += '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editBBDD" type="button" class="btn-primary btn-xs" title="Editar" onClick="editBBDD('+pieza.part_number+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(8,'+pieza.part_number+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
            
+        });*/
+
+        //Sin opciones de edición
+        tablaBbdd += 
+        '<tr><td>' + pieza.part_number + '</td><td>' + pieza.title + '</td><td>' + pieza.sp_title+ '</td><td>' + pieza.gbp + '</td></tr>';
         });
         $('#listadoBbdd').html(tablaBbdd);
     },'json');  
@@ -768,7 +780,7 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col activo";
         submenu[7].className="col";
-        listar_bbdd();
+        //listar_bbdd();
     };
 //  Pérdidas    
     submenu[7].onclick= function(){
