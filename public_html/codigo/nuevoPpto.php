@@ -99,13 +99,6 @@ else{
     $maxPpto = mysqli_fetch_assoc($ppto);
     $id_ppto = $maxPpto['maxId_ppto'];
 
-    /*-INSERTAR EN LA TABLA DE PEDIDOS con generado = False*/
-    //OPERACIÓN PASADA A GENERAR PEDIDO
-    /*$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'N')";
-    
-    mysqli_query($link, $query);*/
-    /* 3.- ESCRIBIR la tabla de detalles (Acción común con la modificación)*/
-
 }
         
 //Con esto tengo en cada array exactamente lo que ha metido el usuario. Independientemente si ha metido alguna descripción y después no unidades. TENGO LOS ARRAYS SIN POSICIONES VACÍAS.

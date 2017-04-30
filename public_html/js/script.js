@@ -76,7 +76,7 @@ function setEvents(){
         $('#dtoPed'+i).numeric();
     }
     $('#transporte_newPpto').numeric('.');
-    $('#transporte_Ped').numeric('.');
+    $('#pvptrans_ped').numeric('.');
     $('#gbp').numeric('.');
     $('#input_anio0').numeric();
     $('#input_anio1').numeric();
@@ -168,6 +168,7 @@ function nuevoCliente(){
 }
 function nuevoPpto(cliente){
     id_cliente = cliente;
+    cliente = cliente;
     contenedor.style.left = "-300%";
     $(".buscadores").hide();
     submenu[0].className="col";
@@ -200,6 +201,7 @@ function nuevoPpto(cliente){
     }
     $('html,body').scrollTop(0);
 }
+
 function editarPpto(id_ppto){
     $('#selectClientes').val(0);
     contenedor.style.left = "-300%";
@@ -259,6 +261,7 @@ function mostrarNewPed(){
     $("#listPed").hide();
     $("#newPed").show();
 }
+
 function ocultarNewPed(){
     $("#listPed").show();
     $("#newPed").hide();
@@ -271,8 +274,9 @@ function ocultarEditAnul(){
     $("#listAnul").show();
     $("#editAnul").hide();
 }
-function editarPedido(){
+function editarPedido(id_ped){
     $('html,body').scrollTop(0);
+    cargarPedido(id_ped);
     mostrarNewPed();
 }
 function editarAnul(){
@@ -298,6 +302,7 @@ function listar_clientes(){
 }
 function editarCliente (cliente){
     id_cliente = cliente;
+    cliente = cliente;
     nuevoCliente();
     //Cambiarle el texto al botón de guardar por actualizar y cargar datos
     $('#guardar_cliente1').text('Actualizar');
@@ -435,7 +440,7 @@ function autocomplet() {
             var internacional = ped.inter == 'S'? 'checked' : '';
             var recogida = ped.recog == 'S'? 'checked' : '';
             var anulaciones = ped.anul == 'S'? 'checked' : '';
-            tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+            tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
 
             total+=parseInt(ped.total);
         });
@@ -448,7 +453,7 @@ function autocomplet() {
                             internacional = ped.inter == 'S'? 'checked' : '';
                             recogida = ped.recog == 'S'? 'checked' : '';
                             anulaciones = ped.anul == 'S'? 'checked' : '';
-                            tablaPedidos2 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+                            tablaPedidos2 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
 
                             total+=parseInt(ped.total);
                         });
@@ -463,7 +468,7 @@ function autocomplet() {
                             recogida = ped.recog == 'S'? 'checked' : '';
                             anulaciones = ped.anul == 'S'? 'checked' : '';
                         //Meter el JSON en la tabla de 'listado Presupuestos'   
-                        tablaPedidos3 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+                        tablaPedidos3 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
 
                             total+=parseInt(ped.total);
                         });
@@ -477,7 +482,7 @@ function autocomplet() {
                             internacional = ped.inter == 'S'? 'checked' : '';
                             recogida = ped.recog == 'S'? 'checked' : '';
                             anulaciones = ped.anul == 'S'? 'checked' : '';
-                        tablaPedidos4 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+                        tablaPedidos4 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
 
                             total+=parseInt(ped.total);
                         });
@@ -491,7 +496,7 @@ function autocomplet() {
                             recogida = ped.recog == 'S'? 'checked' : '';
                             anulaciones = ped.anul == 'S'? 'checked' : '';
                         //Meter el JSON en la tabla de 'listado Presupuestos'       
-                        tablaPedTotal += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+                        tablaPedTotal += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
                         });
                         $('#listadoPedTotal').html(tablaPedTotal); 
                     }
@@ -526,6 +531,7 @@ function autocomplet() {
     }
 }
 function listar_pedidos(cliente){
+    cliente = cliente;
     var urlListarPedidos = url.concat('listarPedidos.php');
     var tablaPedidos1 = '';
     var tablaPedidos2 = '';
@@ -545,7 +551,7 @@ function listar_pedidos(cliente){
                 var internacional = ped.inter == 'S'? 'checked' : '';
                 var recogida = ped.recog == 'S'? 'checked' : '';
                 var anulaciones = ped.anul == 'S'? 'checked' : '';      
-                 tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+                 tablaPedidos1 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
                 total+=parseInt(ped.total);
             });
             $('#total_TRI1').text(total +' €');
@@ -559,7 +565,7 @@ function listar_pedidos(cliente){
                 recogida = ped.recog == 'S'? 'checked' : '';
                 anulaciones = ped.anul == 'S'? 'checked' : '';
                 //Meter el JSON en la tabla de 'listado Presupuestos' 
-                tablaPedidos2 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+                tablaPedidos2 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
 
                 total+=parseInt(ped.total);
             });
@@ -573,7 +579,7 @@ function listar_pedidos(cliente){
                 internacional = ped.inter == 'S'? 'checked' : '';
                 recogida = ped.recog == 'S'? 'checked' : '';
                 anulaciones = ped.anul == 'S'? 'checked' : '';
-            tablaPedidos3 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+            tablaPedidos3 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
 
                 total+=parseInt(ped.total);
             });
@@ -587,7 +593,7 @@ function listar_pedidos(cliente){
                 recogida = ped.recog == 'S'? 'checked' : '';
                 anulaciones = ped.anul == 'S'? 'checked' : '';
             //Meter el JSON en la tabla de 'listado Presupuestos'       
-            tablaPedidos4 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
+            tablaPedidos4 += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';
                 
                 total+=parseInt(ped.total);
             });
@@ -601,7 +607,7 @@ function listar_pedidos(cliente){
                 recogida = ped.recog == 'S'? 'checked' : '';
                 anulaciones = ped.anul == 'S'? 'checked' : '';
             //Meter el JSON en la tabla de 'listado Presupuestos'  
-            tablaPedTotal += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido" onClick="editarPedido()" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';     
+            tablaPedTotal += '<tr><td><div class="row"><div class="col-md-2"><div class="row"><div class="col-xs-3">'+ped.id_pedido+'</div><div class="col-xs-5 col-xs-offset-1">'+ped.fecha+'</div><div class="col-xs-3">'+ped.id_fra+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-6">'+ped.id_coche+'</div><div class="col-xs-6">'+ped.id_cliente+'</div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2">'+ped.total+'</div><div class="col-xs-4"><div style="text-align: center" class="btn-group"><button id="btn_editar_pedido_'+ped.id_pedido+'" onClick="editarPedido('+ped.id_pedido+')" type="button" class="btn-primary btn-xs" title="Editar"><span class="glyphicon glyphicon-eye-open"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(4,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></div><div class="col-xs-2"><div><label> <input type="checkbox" id="fra_env_'+ped.id_pedido+'" '+enviada+'></label></div></div><div class="col-xs-2"><input type="checkbox" '+internacional+' id="inter_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" id="recog_'+ped.id_pedido+'" '+recogida+'></div></div></div><div class="col-md-3"><div class="row"><div class="col-xs-2"><input type="text" value="'+ped.fianza+'" id="fianza_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.pagado+'" id="pagado_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text"  value="'+ped.cambio+'" id="cambio_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="1" id="perdida_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="text" value="'+ped.beneficio+'" id="benef_'+ped.id_pedido+'"></div><div class="col-xs-2"><input type="checkbox" '+anulaciones+' id="anular_'+ped.id_pedido+'"></div></div></div><div class="col-md-1"><div class="row"><div class="col-xs-12"><button type="button" id="aplicar_'+ped.id_pedido+'" class="btn-primary btn-xs" onClick="aplicar_cambios('+ped.id_pedido+')">APLICAR</button></div></div></div></div></td></tr>';     
                 
             });
             $('#listadoPedTotal').html(tablaPedTotal);
@@ -627,6 +633,7 @@ function listar_pptos(cliente){
     var urlListarPptos = url.concat('listarPresupuestos.php');
     var tablaPptos = '';
     id_cliente = cliente;
+    cliente = cliente;
     
     $.ajax({
         url: urlListarPptos,
@@ -1068,6 +1075,7 @@ function getDescripciones (fila){
 
 function editBBDD(part_number){
     urlgetAnArticleFromBBDD = url.concat('getAnArticleFromBBDD.php');
+    part_number = part_number;
     $.ajax({
         url: urlgetAnArticleFromBBDD,
         type: 'POST',   
@@ -1106,6 +1114,7 @@ function actualizarExcelBBDD(){
 
 function getRefPVP (sp_title, fila){
     urlgetRefPvp = url.concat('getRefPvp.php');
+    sp_title = sp_title;
     if (sp_title != '') {
         $.ajax({
             url: urlgetRefPvp,
@@ -1163,6 +1172,7 @@ function comboClientes (){
 
 function getVehiculos(cliente){
     var urlCochesCliente = url.concat('cochesCliente.php');
+    cliente = cliente;
     $.ajax({
         url: urlCochesCliente,
         type: 'POST',
@@ -1186,6 +1196,7 @@ function getVehiculos(cliente){
 
 function getBastidor(id_vehiculo){
     var urlBastidor = url.concat('getBastidor.php');
+    id_vehiculo = id_vehiculo;
     $.ajax({
         url: urlBastidor,
         type: 'POST',
@@ -1369,6 +1380,7 @@ function confirmar(cod, id, idCli) {
 
 function aplicar_cambios(id_pedido){
     var fra_env, inter, recog, fianza, pagado, cambio, beneficio;
+    id_pedido = id_pedido;
     //comprobar los valores antes de enviar al Ajax
 
     if ($("#fra_env_"+id_pedido).is(':checked')) fra_env = 'S'; else fra_env = 'N';
@@ -1400,8 +1412,40 @@ function aplicar_cambios(id_pedido){
     }); 
 }
 
+function cargarPedido(id_ped){
+    id_ped = id_ped;
+    urlCargarPed = url.concat('cargarPedido.php');
+    //$('#id_ppto').val(id_ppto);
+    $.ajax({
+        url: urlCargarPed,
+        type: 'POST',
+        data: {id_ped: id_ped},
+        dataType: 'json',
+        success:function(json){
+            cargarArticulosAPedido(json.Pedido[0].id_ppto);
+            $('#cliente_ped').text(json.Pedido[0].cliente);
+            $('#fecha_ped').val(json.Pedido[0].fecha); 
+            $('#vehiculo_ped').val(json.Pedido[0].coche); 
+            $('#bas_ped').val(json.Pedido[0].bastidor);
+            $('#fra_ped').val(json.Pedido[0].id_fra); 
+            /*if (json.Pedido[0].anul=='N')
+                $('#p_ped').prop("checked", "checked");
+            else
+                $('#t_ped').prop("checked", "");*/
+            $('#eyt_ped').val(json.Pedido[0].asunto); 
+            $('#pvptrans_ped').val(json.Pedido[0].transporte);
+            $('#subtotal_ped').text(json.Pedido[0].subtotal);
+            $('#iva_ped').text(json.Pedido[0].iva);
+            $('#total_ped').text(json.Pedido[0].total);
+
+        }
+    });
+}
+
+
 function cargarPpto(id_ppto){
     urlCargarPpto = url.concat('listarPresupuestos.php');
+    id_ppto = id_ppto;
     $('#id_ppto').val(id_ppto);
     $.ajax({
         url: urlCargarPpto,
@@ -1429,6 +1473,7 @@ function cargarPpto(id_ppto){
 
 function cargarArticulos(id_ppto){
     urlCargarArticulo = url.concat('cargarArticulos.php');
+    id_ppto = id_ppto;
     $('#id_ppto').val(id_ppto);
 
     //limpiar los inputs antes de escribirlos con los valores recibidos
@@ -1459,6 +1504,44 @@ function cargarArticulos(id_ppto){
                 $('#pvp'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",""));
                 $('#dto'+i).val(json.Articulos[i].dto);
                 $('#total'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",""));
+            });
+        }
+    });
+}
+
+function cargarArticulosAPedido(id_ppto){
+    urlCargarArticulo = url.concat('cargarArticulos.php');
+    id_ppto = id_ppto;
+    //$('#id_ppto').val(id_ppto);
+
+    //limpiar los inputs antes de escribirlos con los valores recibidos
+    for (i = 0; i < 10; i++){
+        $('#descripcionPed'+i).val('');
+        $('#refPed'+i).val('');
+        $('#precioPed'+i).val('');
+        $('#udsPed'+i).val('');
+        $('#cambioPed'+i).val('');
+        $('#pvpPed'+i).val('');
+        $('#dtoPed'+i).val('');
+        $('#totalPed'+i).val('');    
+    }
+
+    $.ajax({
+        url: urlCargarArticulo,
+        type: 'POST',
+        data: {id_ppto: id_ppto},
+        dataType: 'json',
+        success:function(json){
+            /*console.log(json);*/
+            $.each(json.Articulos, function(i, articulo){
+                $('#descripcionPed'+i).val(json.Articulos[i].descripcion);
+                $('#refPed'+i).val(json.Articulos[i].referencia);
+                $('#precioPed'+i).val(json.Articulos[i].precio);
+                $('#udsPed'+i).val(parseInt(json.Articulos[i].uds));
+                $('#cambioPed'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),".",""));
+                $('#pvpPed'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",""));
+                $('#dtoPed'+i).val(json.Articulos[i].dto);
+                $('#totalPed'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",""));
             });
         }
     });

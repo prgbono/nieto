@@ -422,7 +422,7 @@
                             <legend>Detalles</legend>
                             <div class="row">
                                 <div class="col-md-7">
-                                    <textarea rows="3" class="form-control" name="asunto_newPpto" id="asunto_newPpto" placeholder="Asunto"></textarea>
+                                    <textarea rows="3" class="form-control" name="asunto_newPpto" id="asunto_newPpto" placeholder="Comentarios / Embalaje y transoporte"></textarea>
                                 </div>
                                 <div class="col-md-2">
                                     <div>
@@ -1008,21 +1008,22 @@
                                     <label class="control-label">Cliente</label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <label class="control-label">Nombre del cliente </label>
+                                    <label class="control-label" id="cliente_ped">Nombre del cliente </label>
+                                    <!-- <input type="text" class="form-control"> -->
                                 </div>
                                 <div class="col-xs-1">
                                     <label class="control-label">Fecha</label>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="fecha_ped" readonly>
                                 </div>
                                 <div class="col-xs-2"></div>
                                 <div class="col-xs-2">
                                     <div id="anulacion">
                                         Anular factura
                                         <div id="anulacion2">
-                                            <label><input type="checkbox">Parcial</label>
-                                            <label><input type="checkbox">Total</label>
+                                            <label><input type="checkbox" id="p_ped">Parcial</label>
+                                            <label><input type="checkbox" id="t_ped">Total</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1034,13 +1035,13 @@
                                     <label class="control-label">Vehículo</label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="vehiculo_ped" readonly>
                                 </div>
                                 <div class="col-xs-1">
                                     <label class="control-label">Bastidor</label>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" id="bas_ped" readonly>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -1048,13 +1049,13 @@
                                     <label class="control-label">Factura</label>
                                 </div>
                                 <div class="col-xs-3">
-                                    <input type="text" class="form-control" placeholder="fecha">
+                                    <input type="text" class="form-control" placeholder="fecha" id="fra_ped" readonly>
                                 </div>
                                 <div class="col-xs-1">
                                     <label class="control-label">Núm fra</label>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input type="text" class="form-control" placeholder="núm fra">
+                                    <input type="text" class="form-control" placeholder="núm fra" id="nfra_ped" readonly>
                                 </div>
                             </div>
                         </fieldset>
@@ -1066,34 +1067,34 @@
                                 for ($i = 0; $i <= 9; $i++) { ?>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <input type="text" name="descripcionPed[]" id="descripcionPed<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion">
+                                            <input type="text" name="descripcionPed[]" id="descripcionPed<?php echo $i;?>" class="descripcion form-control" placeholder="Descripcion" readonly>
                                         </div>
-                                        <div class="col-xs-1">
+                                        <div class="col-xs-2">
                                             <input type="text" name="refPed[]" id="refPed<?php echo $i;?>" class="form-control" placeholder="Ref" readonly>
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="precioPed[]" id="precioPed<?php echo $i;?>" class="form-control" placeholder="Precio" readonly>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="udsPed[]" id="udsPed<?php echo $i;?>" class="form-control" placeholder="UDS">
+                                            <input type="text" name="udsPed[]" id="udsPed<?php echo $i;?>" class="form-control" placeholder="UDS" readonly>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="cambioPed[]" id="cambioPed<?php echo $i;?>" class="form-control" placeholder="Cambio">
+                                            <input type="text" name="cambioPed[]" id="cambioPed<?php echo $i;?>" class="form-control" placeholder="Cambio" readonly>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvpPed[]" id="Pedpvp<?php echo $i;?>" class="form-control" placeholder="PVP">
+                                            <input type="text" name="pvpPed[]" id="pvpPed<?php echo $i;?>" class="form-control" placeholder="PVP" readonly>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="dtoPed[]" id="dtoPed<?php echo $i;?>" class="form-control" placeholder="DTO">
+                                            <input type="text" name="dtoPed[]" id="dtoPed<?php echo $i;?>" class="form-control" placeholder="DTO" readonly>
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="totalPed[]" id="totalPed<?php echo $i;?>" class="form-control" placeholder="Total" readonly>
                                         </div>
-                                        <div class="col-xs-1">
+                                        <!-- <div class="col-xs-1">
                                             <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 <?php 
                                 } ?>
@@ -1102,11 +1103,11 @@
 
                             <div class="row">
                                 <div class="col-md-7">
-                                    <textarea rows="3" class="form-control" placeholder="Embalaje y transporte"></textarea>
+                                    <textarea rows="3" class="form-control" placeholder="Embalaje y transporte" id="eyt_ped" readonly></textarea>
                                 </div>
                                 <div class="col-md-2">
                                     <div>
-                                        <input type="text" class="form-control" id="transporte_Ped" placeholder="PVP transporte">
+                                        <input type="text" class="form-control" id="pvptrans_ped" placeholder="PVP transporte" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -1114,19 +1115,19 @@
                                         <label>SUBTOTAL:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
-                                        <label>0.00</label>
+                                        <label id="subtotal_ped">0.00</label>
                                     </div>
                                     <div class="pull-left col-xs-4">
-                                        <label>IVA1:</label>
+                                        <label>IVA:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
-                                        <label>0.00</label>
+                                        <label id="iva_ped">0.00</label>
                                     </div>
                                     <div class="pull-left col-xs-4">
                                         <label>TOTAL:</label>
                                     </div>
                                     <div class="pull-right col-xs-offset-5">
-                                        <label>0.00</label>
+                                        <label id="total_ped">0.00</label>
                                     </div>
                                 </div>
                             </div>
@@ -1135,11 +1136,11 @@
                         
                         <div class="form-group text-center">
                             <div class="btn-group">
-                                <button class="btn btn-primary center-block">Guardar</button>
+                                <!-- <button class="btn btn-primary center-block">Guardar</button>
                                 <button class="btn btn-primary center-block">Imprimir</button>
                                 <button class="btn btn-primary center-block">Enviar Proveedor</button>
-                                <button class="btn btn-primary center-block">Enviar Cliente</button>
-                                <button class="btn btn-primary center-block" id="btn_cancelNewPed">Cancelar</button>
+                                <button class="btn btn-primary center-block">Enviar Cliente</button> -->
+                                <button class="btn btn-primary center-block" id="btn_cancelNewPed">Volver al listado</button>
                             </div>
                         </div>
                     </form>
