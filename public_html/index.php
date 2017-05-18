@@ -1608,7 +1608,7 @@
                       <p>* Se adjuntará el documento PDF del presupuesto</p>
                     </form>
                   </div>
-                  <div class="modal-footer">
+                  <div class="modal-footer" target="_blank">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="enviarCorreo">Enviar correo</button>
                   </div>

@@ -51,7 +51,7 @@ echo $query2;
 
 ?>
 <script language="javascript">
-    window.location='http://admin.nietogranturismo.com/';
+    window.location='http://admin.nietogranturismo.com/?p=cpt';
 </script> 
 <?php
 

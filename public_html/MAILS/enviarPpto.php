@@ -181,6 +181,7 @@ $html='
       <div class="bottom">
         <label>SUBTOTAL   '.$subtotal.'€</label>
         <label>IVA   '.$iva_newPpto.'%</label>
+        <label>Embalaje y transporte   '.$transporte_newPpto.'%</label>
         <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
       </div>
     </main>
@@ -207,10 +208,10 @@ $mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 //Indicamos cual es la dirección de destino del correo
-$mail->AddAddress($correo);
+/*$mail->AddAddress($correo);*/
 //Copia Oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
-$mail->AddBCC('davidoski@hotmail.com');
+/*$mail->AddBCC('davidoski@hotmail.com');*/
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";
 
 $body = ($_POST['mailText'] != 'Buenas. Adjunto envío el presupuesto solicitado. Un cordial saludo, David NietoGranTurismo 
@@ -237,7 +238,7 @@ $dompdf->render();
 $output = $dompdf->output();
 $file_to_save= $_SERVER['DOCUMENT_ROOT']."/presupuestos/".$id_ppto.".pdf";
 file_put_contents($file_to_save, $output);
-$mail->addAttachment("../presupuestos/".$id_ppto.".pdf", 'Presupuesto NietoGranTurismo - '.$cliente_newPpto.'.pdf');
+$mail->addAttachment("../presupuestos/".$id_ppto.".pdf", $id_ppto.' - Presupuesto NietoGranTurismo - '.$cliente_newPpto.'.pdf');
 //$mail->addAttachment($path, $name, $encoding, $type);
 //file_put_contents($file_to_save, $dompdf->output());
 
@@ -274,7 +275,7 @@ else
   ?>
   <script language="javascript">
   console.log('Mensaje enviado');
-  window.location='http://admin.nietogranturismo.com/';
+  window.location='http://admin.nietogranturismo.com/?p=env';
   </script> 
 <?php
 } 

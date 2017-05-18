@@ -51,7 +51,12 @@ echo $query2;
 
 ?>
 <script language="javascript">
-    window.location='http://admin.nietogranturismo.com/';
+	/*<script type='text/javascript'>*/
+    window.location='http://admin.nietogranturismo.com/?p=cen';
+    /*$(document).ready(function(){
+    	document.getElementById("contenedor").style.left = "-300%";
+    	console.log('contenedor -300');    
+    });*/
 </script> 
 <?php
 

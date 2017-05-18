@@ -196,7 +196,7 @@ $mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 
 //Indicamos cual es la dirección de destino del correo
-$mail->AddAddress('davidoski@hotmail.com');
+/*$mail->AddAddress('davidoski@hotmail.com');*/
 //Copia/s oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
 
@@ -285,7 +285,7 @@ else
     //window.location='/nieto/public_html/index.php';
 
     //PRODUCCIÓN
-    window.location='http://admin.nietogranturismo.com/';    
+    window.location='http://admin.nietogranturismo.com/?p=gpd';    
 </script> 
 <?php
 

@@ -4,8 +4,7 @@ $(document).ready(main);
 //PRODUCCIÓN
 var url = "http://admin.nietogranturismo.com/nietoBack/";
 
-
-var pantalla = 1;
+var pantalla;
 var id_cliente = 0;
 var id_coches = [];
 var id_direcciones = [];
@@ -22,7 +21,7 @@ function main(){
     comboClientes();
     comboClientesNewPpto();
     $(".buscadores").show();
-    submenu[1].onclick();
+    seleccionarPantalla();
     datapickerSpanish();
 }    
 
@@ -46,7 +45,6 @@ function setEvents(){
     $("#btn_cancelNewPed").on("click", cancelNewPed);
     $(".btn_listadoPptosCliente").on("click", listadoPptos(id_cliente));
     $(".btn_listadoPedCliente").on("click", listadoPed(id_cliente));
-    //*$("#btn_cancelNewPpto").on("click", cancelar_Ppto);*/
     $("#btn_editar_anul").on("click", editarAnul);
     $("#btn_cancelEditAnul").on("click", cancelEditAnul);
     $("#btn_addArticuloAnul").on("click", addArticuloAnul);
@@ -93,6 +91,108 @@ function setEvents(){
             ivaOn();
         }
     });
+}
+
+function seleccionarPantalla(){
+    //contenedor = document.getElementById("contenedor");
+    //Esto obliga a hacer todos los window.location como el de copiar_en_nuevo!!
+
+    /*console.log('URL: ',window.location.href);  
+    console.log('URLSearch: ',window.location.search);
+    console.log('URLSubstring: ',window.location.search.substring(3)); 
+*/
+    var pan = window.location.search.substring(3);
+    //TODO comprobar si puede coger otros valores pan {}
+    /*if (window.location.search.substring(3) === 'cen') {
+        pantalla = 3;*/
+        switch (pan) {    
+            case 'cen': //Viene de copiar_en_nuevo
+                var ultPpto = url.concat('ultPpto.php');
+                $.ajax({
+                    url: ultPpto,
+                    type: 'POST',
+                    dataType: 'json',
+                    success:function(json){
+                        $("#cliente_newPpto").val(json[0].id_cliente);   
+                        cargarPpto(json[0].id_ppto);
+                    }
+                });
+                contenedor.style.left = "-300%";
+                submenu[0].className="col";
+                submenu[1].className="col";
+                submenu[2].className="col";
+                submenu[3].className="col activo";
+                submenu[4].className="col";
+                submenu[5].className="col";
+                submenu[6].className="col";
+                submenu[7].className="col";
+                pantalla=4;
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            break;
+            case 'cpt': //Viene de copiarPpto
+                var ultPpto = url.concat('ultPpto.php');
+                $.ajax({
+                    url: ultPpto,
+                    type: 'POST',
+                    dataType: 'json',
+                    success:function(json){
+                        //console.log(json[0].id_ppto);
+                        $("#cliente_newPpto").val(json[0].id_cliente);   
+                        cargarPpto(json[0].id_ppto);
+                    }
+                });
+                contenedor.style.left = "-300%";
+                submenu[0].className="col";
+                submenu[1].className="col";
+                submenu[2].className="col";
+                submenu[3].className="col activo";
+                submenu[4].className="col";
+                submenu[5].className="col";
+                submenu[6].className="col";
+                submenu[7].className="col";
+                pantalla=4;
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            break;
+            case 'gua': //Viene de Guardar
+                /*Para cargar nuevamente el ppto habría que traer el id del mismo
+                contenedor.style.left = "-300%";
+                pantalla=4;*/
+                alert ('Presupuesto guardado');
+            break;
+            /*case 'imp': //Viene de Imprimir, tratar este caso???
+                console.log('DENTRO DEL CASE Impr');
+            break;*/
+            case 'env': //Viene de Enviar
+                /*Para cargar nuevamente el ppto habría que traer el id del mismo
+                contenedor.style.left = "-300%";
+                pantalla=4;*/
+                alert ('Presupuesto enviado');
+            break;
+            case 'gpd': //Viene de Generar pedido
+                //TODO modal para personalizar el correo y revisar la fecha de generación del pedido (coge la del ppto)
+                contenedor.style.left = "-400%";
+                submenu[0].className="col";
+                submenu[1].className="col";
+                submenu[2].className="col";
+                submenu[3].className="col";
+                submenu[4].className="col activo";
+                submenu[5].className="col";
+                submenu[6].className="col";
+                submenu[7].className="col";
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+                pantalla=5;
+                alert ('Correo enviado al proveedor');
+            break;
+        
+        }
+    /*}
+    else{
+        pantalla = 1;
+        submenu[1].onclick();
+    }*/ 
+
+
+    
 }
 
 function addBBDD(){
@@ -188,6 +288,7 @@ function nuevoPpto(cliente){
             data: {cliente: cliente},
             dataType: 'json',
             success:function(json){
+                console.log(json);
                 var now = new Date();
                 var today = now.getDate()  + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
                 $('#fecha_newPpto').val(today);
@@ -641,7 +742,6 @@ function listar_bbdd(){
 }
 
 function listar_pptos(cliente){
-    //console.log('En listar_pptos. Parámetro cliente: ', cliente);
     var urlListarPptos = url.concat('listarPresupuestos.php');
     var tablaPptos = '';
     id_cliente = cliente;
@@ -653,7 +753,6 @@ function listar_pptos(cliente){
         data: {cliente: id_cliente},
         dataType: 'json',
         success: function (json) {
-            /*console.log(json);*/
             $.each(json.Presupuestos, function (i, ppto) {
                 //Meter el JSON en la tabla de 'listado Presupuestos'  
                 tablaPptos += '<tr><td>' + ppto.id_ppto + '</td><td>' + ppto.fecha + '</td><td>' + ppto.id_cliente + '</td><td>' + ppto.id_coche + '</td><td>' + ppto.total + '</td><td style="text-align: center"><div class="btn-group"><button id="btn_editar_ppto_'+ppto.id_ppto+'" type="button" onclick="editarPpto('+ppto.id_ppto+')" class="btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(2,'+ppto.id_ppto+','+ppto.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
@@ -765,6 +864,7 @@ function navegacion(){
 //  BBDD    
     submenu[6].onclick= function(){
         //Identifico la pantalla para el filtro del buscador y limpio éste
+        listar_bbdd();
         pantalla=7;
         console.log(pantalla);
         hideBBDD();
@@ -780,7 +880,6 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col activo";
         submenu[7].className="col";
-        //listar_bbdd();
     };
 //  Pérdidas    
     submenu[7].onclick= function(){
@@ -894,7 +993,6 @@ function altaCliente(){
         //Caso de nueva inserción
         else
         {
-            console.log('Nueva inserción de cliente');
             var urlAltaCliente = url.concat('altaCliente.php');
             $.post(urlAltaCliente, $("#form_nuevo_cliente").serialize(), function(resp){
                 if(resp==-1){
@@ -936,7 +1034,6 @@ function agregarBBDD(){
         data: $("#formBBDD").serialize(),
         success: function(data)
         {
-            //console.log(data);
             if(data==-1){
                 //listar_bbdd();
                 hideBBDD();
@@ -986,7 +1083,6 @@ function enviar_Ppto(){
 }
 
 function copiar_en_nuevo(){
-    console.log('copiar_en_nuevo');
     $('#form_newPpto').attr('action', 'codigo/copiar_en_nuevo.php');
 
     //Validar datos antes de llamr al Ajax
@@ -995,6 +1091,7 @@ function copiar_en_nuevo(){
     }
     else{
         $('#form_newPpto').submit();
+        document.getElementById("contenedor").style.left = "-300%";
     }
 }
 
@@ -1095,7 +1192,6 @@ function editBBDD(part_number){
         dataType: 'json',
         success:function(json){
             if ((typeof json.Articulo[0] !== 'undefined') && json.Articulo[0]){
-                console.log('getArticle Success: ' +json.Articulo);
                 $('#partNumber').val(json.Articulo[0].part_number);
                 $('#title').val(json.Articulo[0].title);
                 $('#titulo').val(json.Articulo[0].sp_title);
@@ -1117,7 +1213,6 @@ function actualizarExcelBBDD(){
         data: $("#excel").serialize(),
         dataType: 'json',
         success:function(res){
-            console.log(res);
         }
     });    */
     
@@ -1271,7 +1366,6 @@ function eliminarPpto(id_ppto, idCli){
     $.post(urlEliminarPpto,{"id_ppto":id_ppto}, function(resp){
        if (resp == 1){
             //Tengo que distinguir aquí si el borrado viene de una lista filtrada por cliente o sin filtrar. Lo hago con la vble pantalla
-            console.log('pantalla:' +pantalla);
             if (pantalla==2) {listar_pptos(idCli);}
             else {listar_pptos();} 
        }
@@ -1506,7 +1600,6 @@ function cargarArticulos(id_ppto){
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
-            /*console.log(json);*/
             $.each(json.Articulos, function(i, articulo){
                 $('#descripcion'+i).val(json.Articulos[i].descripcion);
                 $('#ref'+i).val(json.Articulos[i].referencia);
@@ -1645,6 +1738,7 @@ function calcularSubtotal(){
 }
 
 function calcularTotalTotal(subtotal){
+    console.log('transporte: ', $('#transporte_newPpto'));
     $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
     $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",""));
 }
@@ -1709,15 +1803,13 @@ function datapickerSpanish(){
 }   
 
 function ivaOff(){
-    console.log($('#canarias_newPpto').prop("checked"));
     $('#iva_newPpto').val(0);
     $('#iva_newPpto').prop('readonly', true);
-    $('#asunto_newPpto').val('ENVÍO PARA CANARIAS');
+    $('#asunto_newPpto').val('ENVIO PARA CANARIAS');
     $('#totalTotal').val($('#subtotal').val());
 }
 
 function ivaOn(){
-    console.log($('#canarias_newPpto').prop("checked"));
     $('#iva_newPpto').prop('readonly', false);
     $('#iva_newPpto').val(21);
     $('#asunto_newPpto').val('');

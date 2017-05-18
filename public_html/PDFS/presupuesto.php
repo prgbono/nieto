@@ -88,6 +88,7 @@ $html='
       <div class="bottom">
         <label>SUBTOTAL   '.$subtotal.'€</label>
         <label>IVA   '.$iva_newPpto.'%</label>
+        <label>Embalaje y transporte   '.$transporte_newPpto.'€</label>
         <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
       </div>
     </main>
