@@ -13,7 +13,6 @@ $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 
 //Datos de cliente (si viene cliente informado)
 if (!$cliente_newPpto==''){
-  $pruebas = 'sdsdsdsd';
   $datosCli="SELECT pruebas_clientes.id_cliente, pruebas_clientes.nombre, pruebas_clientes.variado, pruebas_clientes.tlf1, pruebas_clientes.tlf2, pruebas_clientes.email, pruebas_clientes.email2, pruebas_clientes.ciudad, pruebas_coches.modelo, pruebas_coches.bastidor, pruebas_coches.anio FROM pruebas_clientes INNER JOIN pruebas_coches ON pruebas_clientes.id_cliente = pruebas_coches.id_cliente AND pruebas_clientes.id_cliente = '$cliente_newPpto'";
   $result = mysqli_query($link, $datosCli);
   $fila= mysqli_fetch_assoc($result);
@@ -45,6 +44,12 @@ foreach ($descripcion as $clave=>$valor)
     }
   }
 }
+$articulos = $articulos .'<tr><td class="desc" style="width:50%">Embalaje y transporte</td>
+  <td class="ref"></td>
+  <td class="uds"></td>
+  <td class="pvp"></td>
+  <td class="importe">'.$transporte_newPpto.'</td>
+  </tr>';
 
 $file_location = $_SERVER['DOCUMENT_ROOT']."/presupuestos/".$id_ppto.".pdf";
 
@@ -58,7 +63,13 @@ $html='
   <body>
   <div class="contenido">
     <header class="clearfix">
-      <img src="../img/logoNGT.png" alt="NietoGranTurismo" align="middle" height="169" width="606">
+      <div align="center">
+        <img src="../img/logoNGT.png" alt="NietoGranTurismo">
+      </div>
+      <div align="center">
+        <br />
+        <h3>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</h3>
+      </div>
       <div id="project">
         <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
         <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
@@ -88,7 +99,6 @@ $html='
       <div class="bottom">
         <label>SUBTOTAL   '.$subtotal.'€</label>
         <label>IVA   '.$iva_newPpto.'%</label>
-        <label>Embalaje y transporte   '.$transporte_newPpto.'€</label>
         <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
       </div>
     </main>

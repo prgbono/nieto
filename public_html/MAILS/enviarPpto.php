@@ -138,6 +138,12 @@ foreach ($descripcion as $clave=>$valor)
     }
   }
 }
+$articulos = $articulos .'<tr><td class="desc" style="width:50%">Embalaje y transporte</td>
+  <td class="ref"></td>
+  <td class="uds"></td>
+  <td class="pvp"></td>
+  <td class="importe">'.$transporte_newPpto.'</td>
+  </tr>';
 
 //$file_location = $_SERVER['DOCUMENT_ROOT']."/presupuestos/".$id_ppto.".pdf";
 
@@ -151,7 +157,13 @@ $html='
   <body>
   <div class="contenido">
     <header class="clearfix">
-      <img src="../img/logoNGT.png" alt="NietoGranTurismo" align="middle" height="169" width="606">
+      <div align="center">
+        <img src="../img/logoNGT.png" alt="NietoGranTurismo">
+      </div>
+      <div align="center">
+        <br />
+        <h3>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</h3>
+      </div>
       <div id="project">
         <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
         <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
@@ -181,7 +193,6 @@ $html='
       <div class="bottom">
         <label>SUBTOTAL   '.$subtotal.'€</label>
         <label>IVA   '.$iva_newPpto.'%</label>
-        <label>Embalaje y transporte   '.$transporte_newPpto.'%</label>
         <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
       </div>
     </main>
@@ -208,10 +219,10 @@ $mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 //Indicamos cual es la dirección de destino del correo
-/*$mail->AddAddress($correo);*/
+$mail->AddAddress($correo);
 //Copia Oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
-/*$mail->AddBCC('davidoski@hotmail.com');*/
+$mail->AddBCC('davidoski@hotmail.com');
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";
 
 $body = ($_POST['mailText'] != 'Buenas. Adjunto envío el presupuesto solicitado. Un cordial saludo, David NietoGranTurismo 

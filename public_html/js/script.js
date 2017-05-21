@@ -183,7 +183,10 @@ function seleccionarPantalla(){
                 pantalla=5;
                 alert ('Correo enviado al proveedor');
             break;
-        
+            default:
+                pantalla = 1;
+                submenu[1].onclick();
+            break;
         }
     /*}
     else{
@@ -1727,18 +1730,22 @@ function calcularTotal (uds, fila){
 
 function calcularSubtotal(){
     var subtotal = 0;
+    var trans = 0;
     var totalTotal = 0;
     for (i=0; i<10; i++){
         if ($('#descripcion'+i).val()!=''){
             subtotal = subtotal + parseFloat($('#total'+i).val().replace(',', '.'));
         }
     }
+    if ($('#transporte_newPpto').val() != "") {
+        trans = parseFloat($('#transporte_newPpto').val());
+        subtotal = subtotal + trans;
+    }
     $('#subtotal').val(CurrencyFormat(parseFloat(subtotal),".",""));
     calcularTotalTotal(subtotal);
 }
 
 function calcularTotalTotal(subtotal){
-    console.log('transporte: ', $('#transporte_newPpto'));
     $('#iva_newPpto').val() == '' ? totalTotal = subtotal*1.21 : totalTotal = subtotal * (1+($('#iva_newPpto').val()/100));
     $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",""));
 }

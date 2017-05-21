@@ -367,7 +367,7 @@
                                             <input type="text" name="cambio[]" id="cambio<?php echo $i;?>" onblur="calcularPVP(this.value, <?php echo $i;?>); calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="Cambio">
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="PVP" readonly>
+                                            <input type="text" name="pvp[]" id="pvp<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="PVP">
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="dto[]" id="dto<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="DTO">
@@ -429,7 +429,7 @@
                                         <label><input type="checkbox" name="canarias_newPpto" id="canarias_newPpto" type="checkbox">Canarias</label>
                                     </div>
                                     <div>
-                                        <input type="text" name="transporte_newPpto" class="form-control" id="transporte_newPpto" placeholder="PVP transporte">
+                                        <input type="text" name="transporte_newPpto" class="form-control" id="transporte_newPpto" placeholder="PVP transporte" onblur="calcularSubtotal()">
                                     </div>
                                     
                                 </div>
