@@ -1074,14 +1074,16 @@ function imprimir_Ppto(){
 }
 
 function mostrarModal(){
-    var defaultText = 'Buenas.\nAdjunto envío el presupuesto solicitado.\n\nUn cordial saludo,\nDavid\nNietoGranTurismo';
-    $('#message-text').val(defaultText);
+    var defaultText = 'Buenas.<br> Adjunto envío el presupuesto solicitado.<br><br>Un cordial saludo,<br>David<br>NietoGranTurismo';
+    /*$('#message-text').val(defaultText);*/
+    $(tinymce.get('message-text').getBody()).html(defaultText);
     event.preventDefault();
 }
 
 function enviar_Ppto(){
     $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
-    $('#mailText').val($('#message-text').val());
+    /*console.log('TINYMCE HTML: ',tinyMCE.get('message-text').getContent());*/
+    $('#mailText').val(tinyMCE.get('message-text').getContent());
     $('#form_newPpto').submit();
 }
 

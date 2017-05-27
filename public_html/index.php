@@ -13,6 +13,13 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/fastclick.js" type="text/javascript"></script>
         <script src="js/script.js"></script>
+        
+        <script src="tinymce/tinymce.min.js"></script>
+        <!-- <script type="text/javascript" src="tinymce/jquery.tinymce.min.js"></script>-->
+        <script>
+            tinymce.init({selector:'#message-text'});
+            console.log('tinyMCE');
+        </script> 
     </head>
     <body>
         <header>
@@ -1603,7 +1610,7 @@
                       </div> -->
                       <div class="form-group">
                         <label for="message-text" class="control-label">Mensaje:</label>
-                        <textarea class="form-control" id="message-text"  style="height: 10em"></textarea>
+                        <textarea class="form-control" id="message-text" name="message-text" style="height: 10em"></textarea>
                       </div>
                       <p>* Se adjuntará el documento PDF del presupuesto</p>
                     </form>
