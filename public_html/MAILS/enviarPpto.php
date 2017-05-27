@@ -10,14 +10,14 @@ include ('../nietoBack/inc/conexion.php');
 
 extract($_POST); 
 
-if($_POST)
+/*if($_POST)
 {
   foreach ($_POST as $clave=>$valor)
   {
   echo "El valor de $clave es: $valor"."\n";
       echo "<br>";
   }
-}
+}*/
 
 /*GUARDAR PPTO (mismo código que código/nuevoPpto)*/
 $canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;
@@ -219,13 +219,11 @@ $mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 //Indicamos cual es la dirección de destino del correo
-/*$mail->AddAddress($correo);*/
+$mail->AddAddress($correo);
 //Copia Oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
-/*$mail->AddBCC('davidoski@hotmail.com');*/
+$mail->AddBCC('davidoski@hotmail.com');
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";
-
-echo ('CONTENIDO: '.$_POST['mailText'] .'*****');
 
 $body = ($_POST['mailText'] != 'Buenas. Adjunto envío el presupuesto solicitado. Un cordial saludo, David NietoGranTurismo ') ? $_POST['mailText'] : '<p>Buenas<br>
 Adjunto envío el presupuesto solicitado.</p>
@@ -278,7 +276,7 @@ if(!$exito)
   ?>
   <script language="javascript">
   console.log('Mensaje NO enviado');
-  //window.location='http://admin.nietogranturismo.com/';
+  window.location='http://admin.nietogranturismo.com/';
   </script> 
   <?php 
 }
@@ -287,7 +285,7 @@ else
   ?>
   <script language="javascript">
   console.log('Mensaje enviado');
-  //window.location='http://admin.nietogranturismo.com/?p=env';
+  window.location='http://admin.nietogranturismo.com/?p=env';
   </script> 
 <?php
 } 

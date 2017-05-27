@@ -18,7 +18,6 @@
         <!-- <script type="text/javascript" src="tinymce/jquery.tinymce.min.js"></script>-->
         <script>
             tinymce.init({selector:'#message-text'});
-            console.log('tinyMCE');
         </script> 
     </head>
     <body>
