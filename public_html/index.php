@@ -18,6 +18,7 @@
         <!-- <script type="text/javascript" src="tinymce/jquery.tinymce.min.js"></script>-->
         <script>
             tinymce.init({selector:'#message-text'});
+            tinymce.init({selector:'#message-textGenerarPedido'});
         </script> 
     </head>
     <body>
@@ -280,6 +281,7 @@
                             <input type="hidden" name="id_cliente" id="id_cliente">
                             <input type="hidden" name="id_ppto" id="id_ppto">
                             <input type="hidden" name="mailText" id="mailText">
+                            <input type="hidden" name="mailTextGenerarPedido" id="mailTextGenerarPedido">
                             <input type="hidden" name="vehCopiarPpto" id="vehCopiarPpto">
                             <input type="hidden" name="clienteCopiarPpto" id="clienteCopiarPpto">
 
@@ -472,7 +474,7 @@
                                 <!--<button class="btn btn-primary center-block" id="btn_cancelNewPpto" style="background-color: #E81C00">Cancelar</button>   -->
                             </div>
                             <div class="btn-group pull-right">
-                                <button class="btn btn-primary center-block" id="btn_generarPedido" style="background-color: #FF9717">Generar pedido</button>
+                                <button class="btn btn-primary center-block" id="btn_generarPedido" style="background-color: #FF9717" data-toggle="modal" data-target="#mailModalGenerarPedido">Generar pedido</button>
                             </div>
                             
                             
@@ -1025,11 +1027,13 @@
                                 </div>
                                 <div class="col-xs-2"></div>
                                 <div class="col-xs-2">
-                                    <div id="anulacion">
-                                        Anular factura
-                                        <div id="anulacion2">
-                                            <label><input type="checkbox" id="p_ped">Parcial</label>
-                                            <label><input type="checkbox" id="t_ped">Total</label>
+                                    <!-- <div id="anulacion"> -->
+                                    <div>
+                                        Anulaciones / Pérdidas
+                                        <!-- <div id="anulacion2"> -->
+                                        <div>
+                                            <button class="btn btn-primary" id="btn_anular">Anular</button>
+                                            <button class="btn btn-primary" id="btn_perdida">Pérdida</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1062,6 +1066,8 @@
                                 </div>
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" placeholder="núm fra" id="nfra_ped" readonly>
+                                    <!-- <input type="hidden" name="id_ppto_en_ped" id="id_ppto_en_ped"> -->
+                                    <input type="text" class="form-control" placeholder="id_ppto_en_ped HIDDEN!!!" id="id_ppto_en_ped" readonly>
                                 </div>
                             </div>
                         </fieldset>
@@ -1599,7 +1605,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel">Correo electrónico</h4>
+                    <h4 class="modal-title" id="exampleModalLabel">Correo electrónico a cliente</h4>
                   </div>
                   <div class="modal-body">
                     <form>
@@ -1617,6 +1623,31 @@
                   <div class="modal-footer" target="_blank">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="enviarCorreo">Enviar correo</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Generar Pedido-->
+            <div class="modal fade" id="mailModalGenerarPedido" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabelGenerarPedido">Correo electrónico a proveedor</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="message-texttextGenerarPedido" class="control-label">Mensaje:</label>
+                        <textarea class="form-control" id="message-textGenerarPedido" name="message-textGenerarPedido" style="height: 10em"></textarea>
+                      </div>
+                      <p>* Irá incluído en el correo la tabla de artículos</p>
+                    </form>
+                  </div>
+                  <div class="modal-footer" target="_blank">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="enviarCorreoGenerarPedido">Enviar correo</button>
                   </div>
                 </div>
               </div>

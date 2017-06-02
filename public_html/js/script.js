@@ -58,7 +58,8 @@ function setEvents(){
     $("#btn_imprimir").on("click", imprimir_Ppto);
     $("#btn_enviar").on("click", mostrarModal);
     $("#enviarCorreo").on("click", enviar_Ppto);
-    $("#btn_generarPedido").on("click", generarPedido);
+    $("#btn_generarPedido").on("click", mostrarModalGenerarPedido);
+    $("#enviarCorreoGenerarPedido").on("click", generarPedido);
     $("#btn_copiar_en_nuevo").on("click", copiar_en_nuevo);
     $("#copiar_presupuesto").on("click", copiar_presupuesto);
     $("#excelBBDD").on("click", actualizarExcelBBDD);
@@ -91,6 +92,9 @@ function setEvents(){
             ivaOn();
         }
     });
+
+    $("#btn_anular").on("click", anulaciones);
+    $("#btn_perdida").on("click", perdidas);
 }
 
 function seleccionarPantalla(){
@@ -1087,6 +1091,28 @@ function enviar_Ppto(){
     $('#form_newPpto').submit();
 }
 
+function mostrarModalGenerarPedido(){
+    var defaultText = 'Hello Peter.<br> I would like to ask you for a new order.';
+    /*$('#message-text').val(defaultText);*/
+    $(tinymce.get('message-textGenerarPedido').getBody()).html(defaultText);
+    event.preventDefault();
+}
+
+function generarPedido(){
+    //Campos obligatorios para insertar pedido: los mismos que para ppto
+    event.preventDefault();
+    $('#form_newPpto').attr('target', '_self');
+    $('#form_newPpto').attr('action', 'codigo/nuevoPedido.php');
+    if (!validar_guardar_ppto()){
+        //TODO usar modales 
+        alert ('Un pedido debe tener fecha, cliente, vehículo y al menos el primer artículo');
+    }
+    else{
+        $('#mailTextGenerarPedido').val(tinyMCE.get('message-textGenerarPedido').getContent());
+        $('#form_newPpto').submit();
+    }
+}
+
 function copiar_en_nuevo(){
     $('#form_newPpto').attr('action', 'codigo/copiar_en_nuevo.php');
 
@@ -1548,6 +1574,9 @@ function cargarPedido(id_ped){
             $('#subtotal_ped').text(json.Pedido[0].subtotal);
             $('#iva_ped').text(json.Pedido[0].iva);
             $('#total_ped').text(json.Pedido[0].total);
+            //input hidden para el id_ppto
+            $('#id_ppto_en_ped').text(json.Pedido[0].id_ppto);
+            console.log('id_ppto_en_ped: ', json.Pedido[0].id_ppto);
 
         }
     });
@@ -1752,20 +1781,6 @@ function calcularTotalTotal(subtotal){
     $('#totalTotal').val(CurrencyFormat(parseFloat(totalTotal),".",""));
 }
 
-function generarPedido(){
-    //Campos obligatorios para insertar pedido: los mismos que para ppto
-    event.preventDefault();
-    $('#form_newPpto').attr('target', '_self');
-    $('#form_newPpto').attr('action', 'codigo/nuevoPedido.php');
-    if (!validar_guardar_ppto()){
-        //TODO usar modales 
-        alert ('Un pedido debe tener fecha, cliente, vehículo y al menos el primer artículo');
-    }
-    else{
-        $('#form_newPpto').submit();
-    }
-}
-
 function resetNuevoPpto(){
     //$('#form_newPpto')[0].reset();
     var now = new Date();
@@ -1825,6 +1840,16 @@ function ivaOn(){
     calcularTotalTotal($('#subtotal').val());
 }
 
+function anulaciones(){
+    //Obtener el id del pedido para obtener el id del presupuesto asociado. Esta en input HIDDEN
+    event.preventDefault();
+    console.log('anulaciones');
+}
+
+function perdidas(){
+    event.preventDefault();
+    console.log('perdidas');
+}
  
 
 

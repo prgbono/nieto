@@ -17,6 +17,15 @@ extract($_POST);
 
 /*if($_POST)
 {
+  foreach ($_POST as $clave=>$valor)
+  {
+  echo "El valor de $clave es: $valor"."\n";
+      echo "<br>";
+  }
+}*/
+
+/*if($_POST)
+{
     foreach ($_POST as $clave=>$valor)
     {
 		echo "El valor de $clave es: $valor"."\n";
@@ -217,7 +226,7 @@ foreach ($descripcion as $clave=>$valor)
 }
 
 
-$body = '<p>Hello Peter, <br>I want to order for a '.$coche.', year: '.$anio.', and #: '.$bastidor.':</p>
+$body = '<p>'.$mailTextGenerarPedido.'<br>This one would be for a '.$coche.', year: '.$anio.', and #: '.$bastidor.':</p>
 <table>
     <thead>
       <tr>
