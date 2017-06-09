@@ -95,6 +95,7 @@ function setEvents(){
 
     $("#btn_anular").on("click", anulaciones);
     $("#btn_perdida").on("click", perdidas);
+    $("#btn_cancelAnul").on("click", mostrarListAnul);
 }
 
 function seleccionarPantalla(){
@@ -325,6 +326,7 @@ function editarPpto(id_ppto){
     $('html,body').scrollTop(0);
     cargarPpto(id_ppto);
 }
+
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -856,7 +858,7 @@ function navegacion(){
         console.log(pantalla);
         $('html, body').animate({ scrollTop: 0 }, 'slow');
         $('#client_id').val('');
-        
+        mostrarListAnul();
         contenedor.style.left = "-500%";
         $(".form_addBBDD").hide(); 
         submenu[0].className="col";
@@ -1576,8 +1578,6 @@ function cargarPedido(id_ped){
             $('#total_ped').text(json.Pedido[0].total);
             //input hidden para el id_ppto
             $('#id_ppto_en_ped').text(json.Pedido[0].id_ppto);
-            console.log('id_ppto_en_ped: ', json.Pedido[0].id_ppto);
-
         }
     });
 }
@@ -1610,6 +1610,72 @@ function cargarPpto(id_ppto){
         }
     });
 }
+
+function cargarAnularPedido(id_ppto){
+    urlCargarPpto = url.concat('listarPresupuestos.php');
+    id_ppto = id_ppto;
+    $('#id_ppto').val(id_ppto);
+    $.ajax({
+        url: urlCargarPpto,
+        type: 'POST',
+        data: {id_ppto: id_ppto},
+        dataType: 'json',
+        success:function(json){
+            console.log(json.Presupuestos[0]);
+            $('#fecha_anul').val(json.Presupuestos[0].fecha);
+            $("#cliente_anul").val(json.Presupuestos[0].id_cliente);
+            $('#vehiculo_anul').val(json.Presupuestos[0].id_coche);
+            $('#asunto_anul').val(json.Presupuestos[0].asunto);
+            $('#transporte_anul').val(json.Presupuestos[0].transporte);
+            $('#subtotal_anul').text(json.Presupuestos[0].subtotal);
+            $('#iva_anul').text(json.Presupuestos[0].iva);
+            $('#totaltotal_anul').text(json.Presupuestos[0].total);
+            cargarArticulosAnulacion(id_ppto);
+        }
+    });
+}
+
+function cargarArticulosAnulacion(id_ppto){
+    urlCargarArticulosAnulacion = url.concat('cargarArticulosAnulacion.php');
+
+    //limpiar los inputs antes de escribirlos con los valores recibidos
+    for (i = 0; i < 10; i++){
+        $('#descripcion_anul'+i).val('');
+        $('#ref_anul'+i).val('');
+        $('#precio_anul'+i).val('');
+        $('#uds_anul'+i).val('');
+        $('#cambio_anul'+i).val('');
+        $('#pvp_anul'+i).val('');
+        $('#dto_anul'+i).val('');
+        $('#total_anul'+i).val('');    
+    }
+
+    console.log(id_ppto);
+    $.ajax({
+        url: urlCargarArticulosAnulacion,
+        type: 'POST',
+        data: {id_ppto: id_ppto},
+        dataType: 'json',
+        success:function(json){
+            console.log('cargarArticulosAnulacion json: ', json);
+            $.each(json.Articulos, function(i, articulo){
+                $('#descripcion_anul'+i).val(json.Articulos[i].descripcion);
+                $('#ref_anul'+i).val(json.Articulos[i].referencia);
+                $('#precio_anul'+i).val(json.Articulos[i].precio);
+                $('#uds_anul'+i).val(parseInt(json.Articulos[i].uds));
+                $('#cambio_anul'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].cambio),".",""));
+                $('#pvp_anul'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",""));
+                $('#dto_anul'+i).val(json.Articulos[i].dto);
+                $('#total_anul'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",""));
+                var anulaciones = json.Articulos[i].anul == 'S'? true : false;
+                $('#check_anul'+i).attr('checked', anulaciones);
+                if (anulaciones)articulo_anulado(i);
+                else articulo_no_anulado(i);
+            });
+        }
+    });
+}
+
 
 function cargarArticulos(id_ppto){
     urlCargarArticulo = url.concat('cargarArticulos.php');
@@ -1843,13 +1909,111 @@ function ivaOn(){
 function anulaciones(){
     //Obtener el id del pedido para obtener el id del presupuesto asociado. Esta en input HIDDEN
     event.preventDefault();
-    console.log('anulaciones');
+    mostrarEditAnul();
+    anularPedido($('#id_ppto_en_ped').text());
+}
+
+function mostrarEditAnul(){
+    $("#listAnul").hide();
+    $("#editAnul").show();
+}
+
+function mostrarListAnul(){
+    event.preventDefault();
+    $("#listAnul").show();
+    $("#editAnul").hide();
 }
 
 function perdidas(){
     event.preventDefault();
     console.log('perdidas');
 }
- 
+
+function anularPedido(id_ppto){
+    /*$('#selectClientes').val(0);*/
+    contenedor.style.left = "-500%";
+    $(".buscadores").show();
+    submenu[0].className="col";
+    submenu[1].className="col";
+    submenu[2].className="col";
+    submenu[3].className="col";
+    submenu[4].className="col";
+    submenu[5].className="col activo";
+    submenu[6].className="col";
+    submenu[7].className="col";
+    $('html,body').scrollTop(0);
+    /*cargarPpto(id_ppto);
+    $('#listAnul').hide();*/
+    cargarAnularPedido(id_ppto);
+}
+
+function checkAnular(fila){
+    /*si viene descripcion{
+        si viene check{}
+        else{}    
+    }
+    eoc nada*/
+    
+    if ($('#descripcion_anul'+fila).val() != ''){
+        /*TOTAL = TOTAL - (totalProducto * (1 + (IVA/100)))*/
+        var total = parseFloat($('#totaltotal_anul').val());
+        var total_producto = parseFloat($('#total_anul'+fila).val());
+        var iva = 1 + (parseFloat($('#iva_anul').val())/100);
+        if ($('#check_anul'+fila).is(':checked')){
+            /*BBDD, modificación, a la vuelta del ajax lo siguiente:*/ 
+
+            $('#subtotal_anul').val(CurrencyFormat($('#subtotal_anul').text(),".",""));
+            $('#subtotal_anul').val(CurrencyFormat($('#subtotal_anul').val() - $('#total_anul'+fila).val(),".",""));
+            $('#subtotal_anul').text($('#subtotal_anul').val());
+
+            $('#totaltotal_anul').val(CurrencyFormat($('#totaltotal_anul').text(),".",""));
+            $('#totaltotal_anul').text($('#totaltotal_anul').val());            
+            $('#iva_anul').val($('#iva_anul').text());
+            $('#iva_anul').text($('#iva_anul').val());   
+            $('#totaltotal_anul').val(CurrencyFormat(parseFloat(total - ( CurrencyFormat(  total_producto * iva,".",""  )    )),".",""));
+            $('#totaltotal_anul').text($('#totaltotal_anul').val());
+
+            $('#pvp_anul'+fila).val('-'+$('#pvp_anul'+fila).val());
+            $('#total_anul'+fila).val('-'+$('#total_anul'+fila).val());
+            $('#pvp_anul'+fila).addClass('anulaciones');
+            $('#total_anul'+fila).addClass('anulaciones');
+        } 
+        else{
+            $('#pvp_anul'+fila).val(CurrencyFormat($('#pvp_anul'+fila).val().substring(1,$('#pvp_anul'+fila).val().length),".",""));
+            $('#total_anul'+fila).val(CurrencyFormat($('#total_anul'+fila).val().substring(1,$('#total_anul'+fila).val().length),".",""));
+            $('#pvp_anul'+fila).removeClass('anulaciones');
+            $('#total_anul'+fila).removeClass('anulaciones');
+
+            $('#subtotal_anul').val(parseFloat($('#subtotal_anul').val()) + parseFloat($('#total_anul'+fila).val()),".","");            
+            $('#subtotal_anul').text($('#subtotal_anul').val());
+
+            $('#totaltotal_anul').val(CurrencyFormat($('#totaltotal_anul').text(),".",""));
+            $('#totaltotal_anul').text($('#totaltotal_anul').val());            
+            $('#iva_anul').val($('#iva_anul').text());
+            $('#iva_anul').text($('#iva_anul').val());   
+
+            $('#totaltotal_anul').val(CurrencyFormat(parseFloat(total + ( CurrencyFormat(  total_producto * iva,".",""  )    )),".",""));
+            $('#totaltotal_anul').text($('#totaltotal_anul').val());
+        }   
+    }
+    /*calcularSubtotalAnul();*/
+}
+
+function articulo_anulado(fila){
+    console.log('articulo_anulado');
+    $('#pvp_anul'+fila).val('-'+$('#pvp_anul'+fila).val());
+    $('#total_anul'+fila).val('-'+$('#total_anul'+fila).val());
+    $('#pvp_anul'+fila).addClass('anulaciones');
+    $('#total_anul'+fila).addClass('anulaciones');
+}
+
+function articulo_no_anulado(fila){
+    console.log('articulo_no_anulado');
+    $('#pvp_anul'+fila).val(CurrencyFormat($('#pvp_anul'+fila).val().substring(1,$('#pvp_anul'+fila).val().length),".",""));
+    $('#total_anul'+fila).val(CurrencyFormat($('#total_anul'+fila).val().substring(1,$('#total_anul'+fila).val().length),".",""));
+    $('#pvp_anul'+fila).removeClass('anulaciones');
+    $('#total_anul'+fila).removeClass('anulaciones');
+}
+
 
 

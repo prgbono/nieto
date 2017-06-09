@@ -1152,7 +1152,7 @@
                                 <button class="btn btn-primary center-block">Imprimir</button>
                                 <button class="btn btn-primary center-block">Enviar Proveedor</button>
                                 <button class="btn btn-primary center-block">Enviar Cliente</button> -->
-                                <button class="btn btn-primary center-block" id="btn_cancelNewPed">Volver al listado</button>
+                                <button class="btn btn-primary center-block" id="btn_cancelNewPed">Volver al listado de pedidos</button>
                             </div>
                         </div>
                     </form>
@@ -1214,7 +1214,197 @@
                         </table>
                         <table class="table table-condensed table-bordered table-striped header-fixed"></table>
                     </div>
+
                     <div id="editAnul">
+                        <form class="form-horizontal" role="form" id="form_anul" method="POST">
+                        <fieldset>
+                            <legend>Anulación</legend>
+                            <!-- Inputs oculto para pasar el id_cliente y el id_ppto-->
+                            <!-- <input type="hidden" name="id_cliente" id="id_cliente">
+                            <input type="hidden" name="id_ppto" id="id_ppto">
+                            <input type="hidden" name="mailText" id="mailText">
+                            <input type="hidden" name="mailTextGenerarPedido" id="mailTextGenerarPedido">
+                            <input type="hidden" name="vehCopiarPpto" id="vehCopiarPpto">
+                            <input type="hidden" name="clienteCopiarPpto" id="clienteCopiarPpto"> -->
+                            
+                            <div class="form-group">
+                                <div class="col-xs-1">
+                                    <label class="control-label">Fecha</label>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="text" name="fecha_anul" id="fecha_anul" class="form-control" readonly>
+                                </div>
+                                <div class="col-xs-1">
+                                    <label class="control-label">Cliente</label>
+                                </div>
+                                <div class="col-xs-4">
+                                    <input name="cliente_anul" id="cliente_anul" class="form-control" readonly>
+                                </div>
+                                <div class="col-xs-1">
+                                    <label class="control-label col-xs-1">Vehículo</label>
+                                </div>
+                                <div class="col-xs-3">
+                                    <input name="vehiculo_anul" id="vehiculo_anul" class="form-control" readonly>
+                                </div>
+                                <!-- <div class="col-xs-1">
+                                    <label class="control-label col-xs-1">Bastidor</label>
+                                </div>
+                                <div class="col-xs-2">
+                                    <input type="text" id="bastidor_anul" class="form-control">
+                                </div> -->
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Artículos</legend>    
+                            <div id="cabecera">
+                                <div class="form-group">
+                                    <div class="col-xs-4">
+                                        <label class="header">DESCRIPCIÓN</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">REF</label>                          
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">PRECIO</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">UDS</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">CAMBIO</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">PVP</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">DTO(%)</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">TOTAL</label>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label class="header">ANULAR</label>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            Artículos -->
+                            <div id="articulos_anul">
+                                <?php  
+                                for ($i = 0; $i <= 9; $i++) { ?>
+                                    <div class="form-group">
+                                        <div class="col-xs-4">
+                                            <input type="text" name="descripcion_anul[]" id="descripcion_anul<?php echo $i;?>" class="descripcion form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="ref_anul[]" id="ref_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="precio_anul[]" id="precio_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="uds_anul[]" id="uds_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="cambio_anul[]" id="cambio_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="pvp_anul[]" id="pvp_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="text" name="dto_anul[]" id="dto_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <input type="number" name="total_anul[]" id="total_anul<?php echo $i;?>" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-xs-1" style="text-align: center">
+                                            <input type="checkbox" name="check_anul[]" id="check_anul<?php echo $i;?>" onClick="checkAnular(<?php echo $i;?>)">
+                                        </div>
+                                    </div>
+                                <?php 
+                                } ?>
+                                    
+                            </div>    
+                        </fieldset>
+                        <!-- <fieldset>
+                            <legend>Detalles</legend>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <textarea rows="3" class="form-control" name="asunto_newPpto" id="asunto_newPpto" placeholder="Comentarios / Embalaje y transoporte"></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <label><input type="checkbox" name="canarias_newPpto" id="canarias_newPpto" type="checkbox">Canarias</label>
+                                    </div>
+                                    <div>
+                                        <input type="text" name="transporte_newPpto" class="form-control" id="transporte_newPpto" placeholder="PVP transporte" onblur="calcularSubtotal()">
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7 sep">
+                                            <label>SUBTOTAL:</label>
+                                        </div>
+                                        <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            <input name="subtotal" id="subtotal" class="form-control" readonly>
+                                        </div>
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7 sep">
+                                            <label>IVA(%):</label>
+                                        </div>
+                                        <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            <label><input type="text" name="iva_newPpto" id="iva_newPpto" class="form-control" placeholder="21" onblur="calcularTotalTotal($('#subtotal').val())"></label>
+                                        </div>
+                                        <div class="pull-left col-xs-7 col-sm-7 col-md-7 col-lg-7 sep">
+                                            <label>TOTAL:</label>
+                                        </div>
+                                        <div class="pull-right col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            <input name="totalTotal" id="totalTotal" class="form-control" readonly>
+                                        </div>
+                                </div>
+                            </div>
+                        </fieldset> -->
+                        <fieldset> 
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <textarea rows="3" class="form-control" placeholder="Embalaje y transporte" id="eyt_anul" readonly></textarea>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <input type="text" class="form-control" id="pvptrans_anul" placeholder="PVP transporte" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="pull-left col-xs-4">
+                                        <label>SUBTOTAL:</label>
+                                    </div>
+                                    <div class="pull-right col-xs-offset-5">
+                                        <label id="subtotal_anul">0.00</label>
+                                    </div>
+                                    <div class="pull-left col-xs-4">
+                                        <label>IVA:</label>
+                                    </div>
+                                    <div class="pull-right col-xs-offset-5">
+                                        <label id="iva_anul">0.00</label>
+                                    </div>
+                                    <div class="pull-left col-xs-4">
+                                        <label>TOTAL:</label>
+                                    </div>
+                                    <div class="pull-right col-xs-offset-5">
+                                        <label id="totaltotal_anul">0.00</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset> 
+                        <br>
+                        
+                        <div class="form-group text-center">
+                            <div class="btn-group">
+                                <button class="btn btn-primary center-block" id="btn_cancelAnul">Volver al listado de anulaciones</button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+
+                    <!-- <div id="editAnul">
                         <form class="form-horizontal" role="form">
                         <fieldset>
                             <legend>Editar anulación</legend>
@@ -1267,7 +1457,7 @@
                             <br>
                         <fieldset>
                             <legend>Artículos</legend>    
-<!--                            Artículos-->
+
                             <div class="form-group" id="articulosAnul">
                                 <div class="col-xs-3">
                                     <input type="text" class="form-control" placeholder="Descripcion">
@@ -1417,8 +1607,8 @@
                             </div>
                         </div>
                     </form>
-                    </div>
-                </div>
+                    </div>-->
+                </div> 
                 <div class="page">
 <!--                    Base de datos-->
                     <!-- Con opciones de Edición
