@@ -1068,12 +1068,10 @@ function insertar_nuevoPpto(){
     }
     else{
         $('#form_newPpto').submit();
-        //$("#btn_generarPedido").prop("disabled", false);
     }
 }
 
 function imprimir_Ppto(){
-    /*event.preventDefault();*/
     $('#form_newPpto').attr('action', 'PDFS/presupuesto.php');
     $('#form_newPpto').attr('target', '_blank');
     $('#form_newPpto').submit();
@@ -1669,7 +1667,7 @@ function cargarArticulosAnulacion(id_ppto){
                 $('#total_anul'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",""));
                 var anulaciones = json.Articulos[i].anul == 'S'? true : false;
                 $('#check_anul'+i).attr('checked', anulaciones);
-                if (anulaciones)articulo_anulado(i);
+                if (anulaciones) articulo_anulado(i);
                 else articulo_no_anulado(i);
             });
         }
@@ -1948,59 +1946,77 @@ function anularPedido(id_ppto){
 }
 
 function checkAnular(fila){
-    /*si viene descripcion{
-        si viene check{}
-        else{}    
-    }
-    eoc nada*/
-    
     if ($('#descripcion_anul'+fila).val() != ''){
         /*TOTAL = TOTAL - (totalProducto * (1 + (IVA/100)))*/
-        var total = parseFloat($('#totaltotal_anul').val());
-        var total_producto = parseFloat($('#total_anul'+fila).val());
-        var iva = 1 + (parseFloat($('#iva_anul').val())/100);
+        var anul = '';
+        var subtotal = Math.abs(parseFloat($('#subtotal_anul').text()));
+        var total = Math.abs(parseFloat($('#totaltotal_anul').text()));
+        var total_producto = Math.abs(parseFloat($('#total_anul'+fila).val()));
+        var iva = 1 + (parseFloat($('#iva_anul').text())/100);
+        var marcarAnulacion = url.concat('marcarAnulacion.php');
+        var referencia = $('#ref_anul'+fila).val();
+        var id_ppto = $('#id_ppto_en_ped').text();
+
         if ($('#check_anul'+fila).is(':checked')){
-            /*BBDD, modificación, a la vuelta del ajax lo siguiente:*/ 
+            console.log('MARCAR ANULACION');
+            anul = 1;
+            subtotal = Math.abs(CurrencyFormat(subtotal - total_producto,".",""));
+            total = Math.abs(CurrencyFormat(total - (total_producto * iva),".",""));
+            if ((total < 0.05) || (subtotal_anul < 0.05)) {
+                total = 0.00;
+                subtotal = 0.00;
+            }
+            console.log('SUBTOTAL: ', subtotal, 'total: ', total, 'total_producto: ', total_producto, 'iva: ', iva);
+            $.ajax({
+                url: marcarAnulacion,
+                type: 'POST',
+                data: {referencia: referencia, 
+                    id_ppto: id_ppto, 
+                    anul: anul,
+                    subtotal: subtotal,
+                    total: total
+                },
+                success:function(json){
+                    console.log(json);
+                    $('#subtotal_anul').text(subtotal);
+                    $('#totaltotal_anul').text(total);
+                    articulo_anulado(fila);
+                }
+            });
 
-            $('#subtotal_anul').val(CurrencyFormat($('#subtotal_anul').text(),".",""));
-            $('#subtotal_anul').val(CurrencyFormat($('#subtotal_anul').val() - $('#total_anul'+fila).val(),".",""));
-            $('#subtotal_anul').text($('#subtotal_anul').val());
-
-            $('#totaltotal_anul').val(CurrencyFormat($('#totaltotal_anul').text(),".",""));
-            $('#totaltotal_anul').text($('#totaltotal_anul').val());            
-            $('#iva_anul').val($('#iva_anul').text());
-            $('#iva_anul').text($('#iva_anul').val());   
-            $('#totaltotal_anul').val(CurrencyFormat(parseFloat(total - ( CurrencyFormat(  total_producto * iva,".",""  )    )),".",""));
-            $('#totaltotal_anul').text($('#totaltotal_anul').val());
-
-            $('#pvp_anul'+fila).val('-'+$('#pvp_anul'+fila).val());
-            $('#total_anul'+fila).val('-'+$('#total_anul'+fila).val());
-            $('#pvp_anul'+fila).addClass('anulaciones');
-            $('#total_anul'+fila).addClass('anulaciones');
         } 
         else{
-            $('#pvp_anul'+fila).val(CurrencyFormat($('#pvp_anul'+fila).val().substring(1,$('#pvp_anul'+fila).val().length),".",""));
-            $('#total_anul'+fila).val(CurrencyFormat($('#total_anul'+fila).val().substring(1,$('#total_anul'+fila).val().length),".",""));
-            $('#pvp_anul'+fila).removeClass('anulaciones');
-            $('#total_anul'+fila).removeClass('anulaciones');
-
-            $('#subtotal_anul').val(parseFloat($('#subtotal_anul').val()) + parseFloat($('#total_anul'+fila).val()),".","");            
-            $('#subtotal_anul').text($('#subtotal_anul').val());
-
-            $('#totaltotal_anul').val(CurrencyFormat($('#totaltotal_anul').text(),".",""));
-            $('#totaltotal_anul').text($('#totaltotal_anul').val());            
-            $('#iva_anul').val($('#iva_anul').text());
-            $('#iva_anul').text($('#iva_anul').val());   
-
-            $('#totaltotal_anul').val(CurrencyFormat(parseFloat(total + ( CurrencyFormat(  total_producto * iva,".",""  )    )),".",""));
-            $('#totaltotal_anul').text($('#totaltotal_anul').val());
+            console.log('DESMARCAR ANULACION');
+            anul = 0;
+            subtotal = Math.abs(CurrencyFormat(subtotal + total_producto,".",""));
+            total = Math.abs(CurrencyFormat(total + (total_producto * iva),".",""));
+            if ((total < 0.05) || (subtotal_anul < 0.05)) {
+                total = 0.00;
+                subtotal = 0.00;
+            }
+            console.log('SUBTOTAL: ', subtotal, 'total: ', total, 'total_producto: ', total_producto, 'iva: ', iva);
+            $.ajax({
+                url: marcarAnulacion,
+                type: 'POST',
+                data: {referencia: referencia, 
+                    id_ppto: id_ppto, 
+                    anul: anul,
+                    subtotal: subtotal,
+                    total: total
+                },
+                success:function(json){
+                    console.log(json);
+                    $('#subtotal_anul').text(subtotal);
+                    $('#totaltotal_anul').text(total);
+                    articulo_no_anulado(fila);
+                }
+            });
         }   
     }
-    /*calcularSubtotalAnul();*/
 }
 
 function articulo_anulado(fila){
-    console.log('articulo_anulado');
+    console.log('articulo_anulado, fila: ',fila);
     $('#pvp_anul'+fila).val('-'+$('#pvp_anul'+fila).val());
     $('#total_anul'+fila).val('-'+$('#total_anul'+fila).val());
     $('#pvp_anul'+fila).addClass('anulaciones');
@@ -2008,9 +2024,9 @@ function articulo_anulado(fila){
 }
 
 function articulo_no_anulado(fila){
-    console.log('articulo_no_anulado');
-    $('#pvp_anul'+fila).val(CurrencyFormat($('#pvp_anul'+fila).val().substring(1,$('#pvp_anul'+fila).val().length),".",""));
-    $('#total_anul'+fila).val(CurrencyFormat($('#total_anul'+fila).val().substring(1,$('#total_anul'+fila).val().length),".",""));
+    console.log('articulo_no_anulado, fila: ',fila);
+    $('#pvp_anul'+fila).val(Math.abs(CurrencyFormat(parseFloat($('#pvp_anul'+fila).val()),".","")));
+    $('#total_anul'+fila).val(Math.abs(CurrencyFormat(parseFloat($('#total_anul'+fila).val()),".","")));
     $('#pvp_anul'+fila).removeClass('anulaciones');
     $('#total_anul'+fila).removeClass('anulaciones');
 }
