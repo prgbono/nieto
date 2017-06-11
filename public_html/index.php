@@ -1067,7 +1067,7 @@
                                 <div class="col-xs-2">
                                     <input type="text" class="form-control" placeholder="núm fra" id="nfra_ped" readonly>
                                     <!-- <input type="hidden" name="id_ppto_en_ped" id="id_ppto_en_ped"> -->
-                                    <input type="text" class="form-control" placeholder="id_ppto_en_ped HIDDEN!!!" id="id_ppto_en_ped" readonly>
+                                    <input type="hidden" class="form-control" id="id_ppto_en_ped" readonly>
                                 </div>
                             </div>
                         </fieldset>
@@ -1176,8 +1176,8 @@
                                     <th class="col-md-1">APLICAR</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                            <tbody id='listadoAnulaciones'>
+                                <!-- <tr>
                                     <td>11074155</td>
                                     <td>2015-11-13</td>
                                     <td>2345</td>
@@ -1189,7 +1189,6 @@
                                             <button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_anul">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </button>
-                                            <!-- <button type="button" class="btn-danger btn-xs" title="Eliminar" data-toggle="modal" data-target="#confirm"> -->
                                             <button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(6,'esto es ejemplo')">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </button>
@@ -1209,7 +1208,7 @@
                                         </div>
                                     </td>
                                   </div>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                         <table class="table table-condensed table-bordered table-striped header-fixed"></table>
@@ -1219,13 +1218,6 @@
                         <form class="form-horizontal" role="form" id="form_anul" method="POST">
                         <fieldset>
                             <legend>Anulación</legend>
-                            <!-- Inputs oculto para pasar el id_cliente y el id_ppto-->
-                            <!-- <input type="hidden" name="id_cliente" id="id_cliente">
-                            <input type="hidden" name="id_ppto" id="id_ppto">
-                            <input type="hidden" name="mailText" id="mailText">
-                            <input type="hidden" name="mailTextGenerarPedido" id="mailTextGenerarPedido">
-                            <input type="hidden" name="vehCopiarPpto" id="vehCopiarPpto">
-                            <input type="hidden" name="clienteCopiarPpto" id="clienteCopiarPpto"> -->
                             
                             <div class="form-group">
                                 <div class="col-xs-1">

@@ -869,6 +869,7 @@ function navegacion(){
         submenu[5].className="col activo";
         submenu[6].className="col";
         submenu[7].className="col";
+        listar_pedidos_anulados();
     };
 //  BBDD    
     submenu[6].onclick= function(){
@@ -1486,8 +1487,7 @@ function confirmar(cod, id, idCli) {
                 console.log('Confirmar cod: ', cod, id);
                 break;
             case 6:
-                //Eliminar anulación. No probado
-                console.log('Confirmar cod: ', cod, id);
+                eliminarPedAnulacion(id, idCli);
                 break;
             case 7:
                 //Eliminar de editar anulacion. No probado
@@ -1619,7 +1619,6 @@ function cargarAnularPedido(id_ppto){
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
-            console.log(json.Presupuestos[0]);
             $('#fecha_anul').val(json.Presupuestos[0].fecha);
             $("#cliente_anul").val(json.Presupuestos[0].id_cliente);
             $('#vehiculo_anul').val(json.Presupuestos[0].id_coche);
@@ -1647,15 +1646,12 @@ function cargarArticulosAnulacion(id_ppto){
         $('#dto_anul'+i).val('');
         $('#total_anul'+i).val('');    
     }
-
-    console.log(id_ppto);
     $.ajax({
         url: urlCargarArticulosAnulacion,
         type: 'POST',
         data: {id_ppto: id_ppto},
         dataType: 'json',
         success:function(json){
-            console.log('cargarArticulosAnulacion json: ', json);
             $.each(json.Articulos, function(i, articulo){
                 $('#descripcion_anul'+i).val(json.Articulos[i].descripcion);
                 $('#ref_anul'+i).val(json.Articulos[i].referencia);
@@ -1665,9 +1661,9 @@ function cargarArticulosAnulacion(id_ppto){
                 $('#pvp_anul'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].pvp),".",""));
                 $('#dto_anul'+i).val(json.Articulos[i].dto);
                 $('#total_anul'+i).val(CurrencyFormat(parseFloat(json.Articulos[i].total),".",""));
-                var anulaciones = json.Articulos[i].anul == 'S'? true : false;
-                $('#check_anul'+i).attr('checked', anulaciones);
-                if (anulaciones) articulo_anulado(i);
+                var anulada = json.Articulos[i].anul == 'S'? true : false;
+                $('#check_anul'+i).attr('checked', anulada);
+                if (anulada) articulo_anulado(i);
                 else articulo_no_anulado(i);
             });
         }
@@ -1911,6 +1907,11 @@ function anulaciones(){
     anularPedido($('#id_ppto_en_ped').text());
 }
 
+function editarAnulaciones(id_pedido){
+    mostrarEditAnul();
+    anularPedido(id_pedido);
+}
+
 function mostrarEditAnul(){
     $("#listAnul").hide();
     $("#editAnul").show();
@@ -1958,7 +1959,6 @@ function checkAnular(fila){
         var id_ppto = $('#id_ppto_en_ped').text();
 
         if ($('#check_anul'+fila).is(':checked')){
-            console.log('MARCAR ANULACION');
             anul = 1;
             subtotal = Math.abs(CurrencyFormat(subtotal - total_producto,".",""));
             total = Math.abs(CurrencyFormat(total - (total_producto * iva),".",""));
@@ -1966,7 +1966,6 @@ function checkAnular(fila){
                 total = 0.00;
                 subtotal = 0.00;
             }
-            console.log('SUBTOTAL: ', subtotal, 'total: ', total, 'total_producto: ', total_producto, 'iva: ', iva);
             $.ajax({
                 url: marcarAnulacion,
                 type: 'POST',
@@ -1977,7 +1976,6 @@ function checkAnular(fila){
                     total: total
                 },
                 success:function(json){
-                    console.log(json);
                     $('#subtotal_anul').text(subtotal);
                     $('#totaltotal_anul').text(total);
                     articulo_anulado(fila);
@@ -1986,7 +1984,6 @@ function checkAnular(fila){
 
         } 
         else{
-            console.log('DESMARCAR ANULACION');
             anul = 0;
             subtotal = Math.abs(CurrencyFormat(subtotal + total_producto,".",""));
             total = Math.abs(CurrencyFormat(total + (total_producto * iva),".",""));
@@ -1994,7 +1991,6 @@ function checkAnular(fila){
                 total = 0.00;
                 subtotal = 0.00;
             }
-            console.log('SUBTOTAL: ', subtotal, 'total: ', total, 'total_producto: ', total_producto, 'iva: ', iva);
             $.ajax({
                 url: marcarAnulacion,
                 type: 'POST',
@@ -2005,7 +2001,6 @@ function checkAnular(fila){
                     total: total
                 },
                 success:function(json){
-                    console.log(json);
                     $('#subtotal_anul').text(subtotal);
                     $('#totaltotal_anul').text(total);
                     articulo_no_anulado(fila);
@@ -2016,7 +2011,6 @@ function checkAnular(fila){
 }
 
 function articulo_anulado(fila){
-    console.log('articulo_anulado, fila: ',fila);
     $('#pvp_anul'+fila).val('-'+$('#pvp_anul'+fila).val());
     $('#total_anul'+fila).val('-'+$('#total_anul'+fila).val());
     $('#pvp_anul'+fila).addClass('anulaciones');
@@ -2024,12 +2018,63 @@ function articulo_anulado(fila){
 }
 
 function articulo_no_anulado(fila){
-    console.log('articulo_no_anulado, fila: ',fila);
     $('#pvp_anul'+fila).val(Math.abs(CurrencyFormat(parseFloat($('#pvp_anul'+fila).val()),".","")));
     $('#total_anul'+fila).val(Math.abs(CurrencyFormat(parseFloat($('#total_anul'+fila).val()),".","")));
     $('#pvp_anul'+fila).removeClass('anulaciones');
     $('#total_anul'+fila).removeClass('anulaciones');
 }
+
+function listar_pedidos_anulados(){
+    var urlListarPedidosAnulados = url.concat('listarPedidosAnulados.php');
+    var listadoAnulaciones = '';
+    $.ajax({
+        url: urlListarPedidosAnulados,
+        type: 'POST',
+        //data: {cliente: cliente},
+        dataType: 'json',
+        success:function(json){
+            $.each(json.Anulaciones, function(i, ped){
+                var fra_enviada = ped.fra_env == 'S'? 'checked' : '';
+                listadoAnulaciones += '<tr><td>'+ped.id_pedido+'</td><td>'+ped.fecha+'</td><td>'+ped.id_fra+'</td>'+ped.id_pedido+'<td>Bentley 2000</td>'+ped.id_coche+'<td>'+ped.id_cliente+'</td><td>'+ped.total+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_anul_'+ped.id_pedido+'" onClick="editarAnulaciones('+ped.id_ppto+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(6,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></td><td><div style="text-align: center"><label><input type="checkbox" id="fra_enviada_anulaciones_'+ped.id_pedido+'" '+fra_enviada+'></label></div></td><td><div><input type="text" id="input_trimestre_'+ped.id_pedido+'" value="'+ped.trimestre+'"></div></td><td><div class="col-md-1"><button type="button" class="btn-primary btn-xs" onClick="aplicar_cambios_anulacion('+ped.id_pedido+')">APLICAR</button></div></td></div></tr>'
+            });
+            //id="btn_editar_pedido_'+ped.id_pedido+'"
+            $('#listadoAnulaciones').html(listadoAnulaciones);
+        }
+    });  
+}
+
+function aplicar_cambios_anulacion(id_pedido){
+    var fra_env, trimestre;
+    if ($("#fra_enviada_anulaciones_"+id_pedido).is(':checked')) fra_env = 'S'; else fra_env = 'N';
+    trimestre = $("#input_trimestre_"+id_pedido).val();
+    var urlAplicarAnulacion = url.concat('aplicarAnulacion.php');
+    $.ajax({
+        type: "POST",
+        url: urlAplicarAnulacion,
+        data: { id_pedido: id_pedido,
+                fra_env:  fra_env,
+                trimestre:  trimestre
+            },  
+        success: function(result)
+        {
+            cambiosAplicados();
+        }
+    }); 
+}
+
+function eliminarPedAnulacion(id_ped, idCli){
+    var urlEliminarPed = url.concat('eliminarPed.php');
+    $.post(urlEliminarPed,{"id_ped":id_ped}, function(resp){
+       if (resp == 1){
+           listar_pedidos_anulados();
+       }
+       else{
+           alert("Error al eliminar pedido");
+       }
+    });
+}
+
+
 
 
 
