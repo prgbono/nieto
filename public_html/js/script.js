@@ -29,6 +29,7 @@ function setEvents(){
     $("#addBBDD").on("click", addBBDD);
     $("#cancelar_addBBDD").on("click", hideBBDD);
     $("#addPerdida").on("click", addPerdida);
+    $("#insertar_perdida").on("click", insertar_perdida);
     $("#cancelar_addPerdida").on("click", hidePerdida);
     $("#addCoche").on("click", mostrarAddCoche);
     $("#addArticulo").on("click", mostrarAddArticulo);
@@ -906,6 +907,8 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col";
         submenu[7].className="col activo";
+        //hidePerdida();
+        listar_perdidas();
     };
 }
 
@@ -2035,7 +2038,7 @@ function listar_pedidos_anulados(){
         success:function(json){
             $.each(json.Anulaciones, function(i, ped){
                 var fra_enviada = ped.fra_env == 'S'? 'checked' : '';
-                listadoAnulaciones += '<tr><td>'+ped.id_pedido+'</td><td>'+ped.fecha+'</td><td>'+ped.id_fra+'</td>'+ped.id_pedido+'<td>Bentley 2000</td>'+ped.id_coche+'<td>'+ped.id_cliente+'</td><td>'+ped.total+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_anul_'+ped.id_pedido+'" onClick="editarAnulaciones('+ped.id_ppto+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(6,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></td><td><div style="text-align: center"><label><input type="checkbox" id="fra_enviada_anulaciones_'+ped.id_pedido+'" '+fra_enviada+'></label></div></td><td><div><input type="text" id="input_trimestre_'+ped.id_pedido+'" value="'+ped.trimestre+'"></div></td><td><div class="col-md-1"><button type="button" class="btn-primary btn-xs" onClick="aplicar_cambios_anulacion('+ped.id_pedido+')">APLICAR</button></div></td></div></tr>'
+                listadoAnulaciones += '<tr><td>'+ped.id_pedido+'</td><td>'+ped.fecha+'</td><td>'+ped.id_fra+'</td><td>'+ped.id_coche+'</td><td>'+ped.id_cliente+'</td><td>'+ped.total+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_anul_'+ped.id_pedido+'" onClick="editarAnulaciones('+ped.id_ppto+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(6,'+ped.id_pedido+','+ped.clienteId+')"><span class="glyphicon glyphicon-trash"></span></button></div></td><td><div style="text-align: center"><label><input type="checkbox" id="fra_enviada_anulaciones_'+ped.id_pedido+'" '+fra_enviada+'></label></div></td><td><div><input type="text" id="input_trimestre_'+ped.id_pedido+'" value="'+ped.trimestre+'"></div></td><td><div class="col-md-1"><button type="button" class="btn-primary btn-xs" onClick="aplicar_cambios_anulacion('+ped.id_pedido+')">APLICAR</button></div></td></div></tr>'
             });
             //id="btn_editar_pedido_'+ped.id_pedido+'"
             $('#listadoAnulaciones').html(listadoAnulaciones);
@@ -2071,6 +2074,55 @@ function eliminarPedAnulacion(id_ped, idCli){
        else{
            alert("Error al eliminar pedido");
        }
+    });
+}
+
+
+function listar_perdidas(){
+    console.log('listar_perdidas');
+    var urlListarPerdidas = url.concat('listarPerdidas.php');
+    var listadoPerdidas = '';
+    $.ajax({
+        url: urlListarPerdidas,
+        type: 'POST',
+        //data: {cliente: cliente},
+        dataType: 'json',
+        success:function(json){
+            console.log(json);
+            $.each(json.Perdidas, function(i, per){
+                listadoPerdidas += '<tr><td>'+per.id_pedido+'</td><td>'+per.concepto+'</td><td>'+per.coste+'</td><td>'+per.fecha+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_perdida_'+per.id_perdida+'" onClick="editarPerdida('+per.id_perdida+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(9,'+per.id_perdida+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>'
+            });
+            $('#listadoPerdidas').html(listadoPerdidas);
+        }
+    });  
+}
+
+function editarPerdida(id_perdida){
+    console.log('editarPerdida - id_perdida: ', id_perdida);
+}
+
+function insertar_perdida(){
+    console.log('insertar_perdida');
+    //var urlAgregarBBDD = url.concat('agregarBBDD.php');
+    var urlAgregarPerdida = url.concat('agregarPerdida.php');
+    $.ajax({
+        type: "POST",
+        url: urlAgregarPerdida,
+        //data: $("#formBBDD").serialize(),
+        data: $("#form_addPerdida").serialize(),
+        success: function(data)
+        {
+            console.log(data);
+            /*if(data==-1){
+                //listar_bbdd();
+                hideBBDD();
+                alert('Perdida insertada');
+                $('#form_addPerdida')[0].reset();
+            }
+            else {
+                alert('Pérdida insertada correctamente');
+            }*/
+        }
     });
 }
 

@@ -1706,27 +1706,23 @@
                     <div class="center-block">
                         <button id="addPerdida" name="addPerdida" class="btn btn-primary">Agregar</button>
                     </div> 
-                    <form class="form-horizontal form_addPerdida" role="form">
+                    <form class="form-horizontal form_addPerdida" role="form" id="form_addPerdida">
                         <div class="form-group">
-<!--                            <label class="control-label col-xs-1">Part Number</label>-->
                             <div class="col-md-2">
                                 <input type="text"  id="pedido" class="form-control" placeholder="Nº pedido">
                             </div>
-<!--                            <label class="control-label col-xs-1">Title</label>-->
                             <div class="col-md-6">
                                 <input type="textarea" id="concepto" class="form-control" placeholder="Concepto">
                             </div>
-<!--                            <label class="control-label col-xs-1">Título</label>-->
                             <div class="col-md-1">
                                 <input type="textarea" id="coste" class="form-control" placeholder="Coste">
                             </div>
-                            <!--  <label class="control-label col-xs-1">GBP</label>-->
                             <div class="col-md-2">
                                 <input type="text" id="fecha" class="form-control" placeholder="fecha">
                             </div>    
                             <div class="col-md-1">
                                 <div style="text-align: center" class="btn-group">
-                                    <button type="button" class="btn-success btn-xs" title="Agregar">
+                                    <button type="button" class="btn-success btn-xs" id="insertar_perdida" title="Agregar">
                                         <span class="glyphicon glyphicon-ok"></span>
                                     </button>
                                     <button type="button" class="btn-danger btn-xs" id="cancelar_addPerdida"  title="Cancelar">
@@ -1747,23 +1743,7 @@
                                     <th class="col-md-1">OPCIONES</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1667</td>
-                                    <td>LH FRONT A PILLAR MOULDING (RGHJKDR78)</td>
-                                    <td>52,11</td>
-                                    <td>11/11/15</td>
-                                    <td style="text-align: center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn-primary btn-xs" title="Editar">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                            <button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(9,'esto es ejemplo')">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="listadoPerdidas">
                             </tbody>
                         </table>
                         <table class="table table-condensed table-bordered table-striped header-fixed"></table>
@@ -1777,9 +1757,6 @@
             <div id="confirm3" title="Pedido modificado" style="display: none">
               <p><span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>Cambios aplicados</p>
             </div>
-            <!-- <div class="mail_enviado" title="Mail" style="display: none">
-                <p><span class="ui-icon ui-icon-info" style="float:left; margin:0 7px 20px 0;"></span>Correo enviado correctamente</p>
-            </div> -->
 
             <!-- Modal -->
             <div class="modal fade" id="mailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none">
@@ -1791,10 +1768,6 @@
                   </div>
                   <div class="modal-body">
                     <form>
-                      <!-- <div class="form-group">
-                        <label for="recipient-name" class="control-label">Dirección:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                      </div> -->
                       <div class="form-group">
                         <label for="message-text" class="control-label">Mensaje:</label>
                         <textarea class="form-control" id="message-text" name="message-text" style="height: 10em"></textarea>
