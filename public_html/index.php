@@ -1709,16 +1709,16 @@
                     <form class="form-horizontal form_addPerdida" role="form" id="form_addPerdida">
                         <div class="form-group">
                             <div class="col-md-2">
-                                <input type="text"  id="pedido" class="form-control" placeholder="Nº pedido">
+                                <input type="text"  id="pedido" name="pedido" class="form-control" placeholder="Nº pedido">
                             </div>
                             <div class="col-md-6">
-                                <input type="textarea" id="concepto" class="form-control" placeholder="Concepto">
+                                <input type="textarea" id="concepto" name="concepto" class="form-control" placeholder="Concepto">
                             </div>
                             <div class="col-md-1">
-                                <input type="textarea" id="coste" class="form-control" placeholder="Coste">
+                                <input type="textarea" id="coste" name="coste" class="form-control" placeholder="Coste">
                             </div>
                             <div class="col-md-2">
-                                <input type="text" id="fecha" class="form-control" placeholder="fecha">
+                                <input type="text" id="fecha" name="fecha" class="form-control" placeholder="fecha">
                             </div>    
                             <div class="col-md-1">
                                 <div style="text-align: center" class="btn-group">

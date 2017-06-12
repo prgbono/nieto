@@ -85,6 +85,8 @@ function setEvents(){
     $('#envioCP').numeric();
     $('#factCP').numeric();
     $("[id*=cambio]").val('0.65');  
+    $('#coste').numeric('.');
+    $('#pedido').numeric();
     $("#canarias_newPpto").change(function() {
         if(this.checked) {
             ivaOff();
@@ -216,6 +218,10 @@ function hideBBDD(){
     $(".form_addBBDD").hide();
 }
 function hidePerdida(){
+    $("#pedido").val(''); 
+    $("#concepto").val(''); 
+    $("#coste").val(''); 
+    $("#fecha").val(''); 
     $(".form_addPerdida").hide();
 }
 function mostrarAddCoche(){
@@ -907,7 +913,7 @@ function navegacion(){
         submenu[5].className="col";
         submenu[6].className="col";
         submenu[7].className="col activo";
-        //hidePerdida();
+        hidePerdida();
         listar_perdidas();
     };
 }
@@ -1502,6 +1508,7 @@ function confirmar(cod, id, idCli) {
                 break;
             case 9:
                 //Eliminar pérdida
+                eliminarPerdida(id);
                 console.log('Confirmar cod: ', cod);
                 break;
             case 10:
@@ -1886,6 +1893,7 @@ function datapickerSpanish(){
     });
     $(function () {
         $("#fecha_newPpto").datepicker();
+        $("#fecha").datepicker();
     }); 
 }   
 
@@ -2079,7 +2087,6 @@ function eliminarPedAnulacion(id_ped, idCli){
 
 
 function listar_perdidas(){
-    console.log('listar_perdidas');
     var urlListarPerdidas = url.concat('listarPerdidas.php');
     var listadoPerdidas = '';
     $.ajax({
@@ -2088,7 +2095,6 @@ function listar_perdidas(){
         //data: {cliente: cliente},
         dataType: 'json',
         success:function(json){
-            console.log(json);
             $.each(json.Perdidas, function(i, per){
                 listadoPerdidas += '<tr><td>'+per.id_pedido+'</td><td>'+per.concepto+'</td><td>'+per.coste+'</td><td>'+per.fecha+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_perdida_'+per.id_perdida+'" onClick="editarPerdida('+per.id_perdida+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(9,'+per.id_perdida+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>'
             });
@@ -2102,28 +2108,28 @@ function editarPerdida(id_perdida){
 }
 
 function insertar_perdida(){
-    console.log('insertar_perdida');
-    //var urlAgregarBBDD = url.concat('agregarBBDD.php');
     var urlAgregarPerdida = url.concat('agregarPerdida.php');
     $.ajax({
         type: "POST",
         url: urlAgregarPerdida,
-        //data: $("#formBBDD").serialize(),
         data: $("#form_addPerdida").serialize(),
         success: function(data)
         {
-            console.log(data);
-            /*if(data==-1){
-                //listar_bbdd();
-                hideBBDD();
-                alert('Perdida insertada');
-                $('#form_addPerdida')[0].reset();
-            }
-            else {
-                alert('Pérdida insertada correctamente');
-            }*/
+            listar_perdidas();
         }
     });
+}
+
+function eliminarPerdida(id_perdida){
+    var urlEliminarPerdida = url.concat('eliminarPerdida.php');
+    $.post(urlEliminarPerdida,{"id_perdida":id_perdida}, function(resp){
+       if (resp == 1){
+           listar_perdidas();
+       }
+       else{
+           alert("Error al eliminar");
+       }
+    });    
 }
 
 
