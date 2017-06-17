@@ -366,7 +366,7 @@
                                             <input type="text" name="ref[]" id="ref<?php echo $i;?>" class="form-control" placeholder="Ref" readonly>
                                         </div>
                                         <div class="col-xs-1">
-                                            <input type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio" readonly>
+                                            <input type="text" name="precio[]" id="precio<?php echo $i;?>" class="form-control" placeholder="Precio" onblur="calcularPVP(this.value, <?php echo $i;?>); calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();">
                                         </div>
                                         <div class="col-xs-1">
                                             <input type="text" name="uds[]" id="uds<?php echo $i;?>" onblur="calcularTotal(this.value, <?php echo $i;?>); calcularSubtotal();" class="form-control" placeholder="UDS">

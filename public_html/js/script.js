@@ -2104,20 +2104,53 @@ function listar_perdidas(){
 }
 
 function editarPerdida(id_perdida){
-    console.log('editarPerdida - id_perdida: ', id_perdida);
+    cargarPerdida = url.concat('cargarPerdida.php');
+    id_perdida = id_perdida;
+    $.ajax({
+        url: cargarPerdida,
+        type: 'POST',   
+        data: {id_perdida: id_perdida},
+        dataType: 'json',
+        success:function(json){
+            if ((typeof json.Perdida[0] !== 'undefined') && json.Perdida[0]){
+                $("#pedido").val(json.Perdida[0].id_pedido); 
+                $("#concepto").val(json.Perdida[0].concepto); 
+                $("#coste").val(json.Perdida[0].coste); 
+                $("#fecha").val(json.Perdida[0].fecha); 
+                $(".form_addPerdida").show();
+            }
+            /*console.log('editarPerdida - json: ', json);*/
+        }
+    }); 
 }
 
 function insertar_perdida(){
-    var urlAgregarPerdida = url.concat('agregarPerdida.php');
-    $.ajax({
-        type: "POST",
-        url: urlAgregarPerdida,
-        data: $("#form_addPerdida").serialize(),
-        success: function(data)
-        {
-            listar_perdidas();
-        }
-    });
+    if (validar_perdida()){
+        var urlAgregarPerdida = url.concat('agregarPerdida.php');
+        $.ajax({
+            type: "POST",
+            url: urlAgregarPerdida,
+            data: $("#form_addPerdida").serialize(),
+            success: function(data)
+            {
+                console.log('insertar_perdida :', data);
+                if(data==-1){
+                    console.log('actualización');
+                    hidePerdida();
+                    alert('Pérdida actualizada');
+                }
+                else {
+                    console.log('Inserci');
+                    alert('Pérdida insertada correctamente');
+                }
+                listar_perdidas();
+            }
+        }); 
+    }
+    else{
+        alert('Son necesarios todos los campos');
+        event.preventDefault();
+    }
 }
 
 function eliminarPerdida(id_perdida){
@@ -2130,6 +2163,16 @@ function eliminarPerdida(id_perdida){
            alert("Error al eliminar");
        }
     });    
+}
+
+function validar_perdida(){
+       /*Validación del formulario de pérdida*/
+    var ok = true;
+    if ($('#pedido').val()=='') {ok = false;}
+    if ($('#concepto').val()=='') {ok = false;}
+    if ($('#coste').val()=='') {ok = false;}
+    if ($('#fecha').val()=='') {ok = false;}
+    return (ok);
 }
 
 
