@@ -284,6 +284,7 @@
                             <input type="hidden" name="mailTextGenerarPedido" id="mailTextGenerarPedido">
                             <input type="hidden" name="vehCopiarPpto" id="vehCopiarPpto">
                             <input type="hidden" name="clienteCopiarPpto" id="clienteCopiarPpto">
+                            <input type="hidden" name="cliente_address" id="cliente_address">
 
                             
                             <div class="form-group">
@@ -1769,7 +1770,9 @@
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <label for="message-text" class="control-label">Mensaje:</label>
+                        <label for="mail-address" class="control-label">Dirección email:</label>
+                        <input name="mail" id="mail" class="form-control">
+                        <label for="message-text" class="control-label" style="margin-top:10px">Mensaje:</label>
                         <textarea class="form-control" id="message-text" name="message-text" style="height: 10em"></textarea>
                       </div>
                       <p>* Se adjuntará el documento PDF del presupuesto</p>

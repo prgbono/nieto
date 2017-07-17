@@ -25,6 +25,8 @@ $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 $totalTotal = str_replace(',','.',$totalTotal);
 $subtotal = str_replace(',','.',$subtotal);
 $fecha_newPpto = str_replace('-','/',$fecha_newPpto);
+$correo = $_POST['cliente_address'];
+
 
 
 if ($id_ppto){
@@ -91,12 +93,13 @@ mysqli_query($link, $query2);
 
 //Envío al cliente
 //Obtengo correo del cliente
-$cliente_seleccionado = isset($_POST['cliente_newPpto']) ? $_POST['cliente_newPpto'] : '';
-$id_cliente = !($_POST['id_cliente'] == '') ? $_POST['id_cliente'] : $cliente_seleccionado;
-$correo = "SELECT email FROM pruebas_clientes WHERE id_cliente = '$id_cliente'";
-$result = mysqli_query($link, $correo);
-$correo= mysqli_fetch_assoc($result);
-$correo=$correo['email']; 
+//$cliente_seleccionado = isset($_POST['cliente_newPpto']) ? $_POST['cliente_newPpto'] : '';
+//$id_cliente = !($_POST['id_cliente'] == '') ? $_POST['id_cliente'] : $cliente_seleccionado;
+//$correo = "SELECT email FROM pruebas_clientes WHERE id_cliente = '$id_cliente'";
+//$result = mysqli_query($link, $correo);
+//$correo= mysqli_fetch_assoc($result);
+//$correo=$correo['email']; 
+
 
 
 /*Enviar correo
@@ -213,7 +216,7 @@ $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->Host = "smtp.nietogranturismo.com"; 
 $mail->Username = "comercial@nietogranturismo.com";
-$mail->Password = "Ferrari1"; 
+$mail->Password = "Benialbo75"; 
 $mail->Port = 587; 
 $mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";

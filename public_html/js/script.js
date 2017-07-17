@@ -1088,8 +1088,22 @@ function imprimir_Ppto(){
 }
 
 function mostrarModal(){
+    console.log('mostrarModal - clienteID: ' ,$('#cliente_newPpto').val());
     var defaultText = 'Buenas.<br> Adjunto envío el presupuesto solicitado.<br><br>Un cordial saludo,<br>David<br>NietoGranTurismo';
-    /*$('#message-text').val(defaultText);*/
+    
+    var urlDatosCliente = url.concat('datosCliente.php');
+    $.ajax({
+        url: urlDatosCliente,
+        type: 'POST',
+        data: {cliente: $('#cliente_newPpto').val()},
+        dataType: 'json',
+        success:function(json){
+            console.log(json);
+            $('#cliente_address').val(json.email);        
+        }
+    });
+
+    
     $(tinymce.get('message-text').getBody()).html(defaultText);
     event.preventDefault();
 }
@@ -1098,6 +1112,8 @@ function enviar_Ppto(){
     $('#form_newPpto').attr('action', 'MAILS/enviarPpto.php');
     /*console.log('TINYMCE HTML: ',tinyMCE.get('message-text').getContent());*/
     $('#mailText').val(tinyMCE.get('message-text').getContent());
+    console.log('INPUT MAIL: ',$('#mail').val());
+    $('#cliente_address').val($('#mail').val());
     $('#form_newPpto').submit();
 }
 
