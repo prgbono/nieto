@@ -88,6 +88,8 @@ $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 $totalTotal = str_replace(',','.',$totalTotal);
 $subtotal = str_replace(',','.',$subtotal);
 $fecha_newPpto = str_replace('-','/',$fecha_newPpto);
+$correo = $_POST['proveedor_address'];
+
 
 if ($id_ppto){
     $mensaje = 'MOFIDICACIÓN';
@@ -207,7 +209,7 @@ $mail->FromName = "NietoGranTurismo";
 $mail->Timeout=30;
 
 //Indicamos cual es la dirección de destino del correo
-$mail->AddAddress('davidoski@hotmail.com');
+$mail->AddAddress($correo);
 //Copia/s oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
 

@@ -285,6 +285,7 @@
                             <input type="hidden" name="vehCopiarPpto" id="vehCopiarPpto">
                             <input type="hidden" name="clienteCopiarPpto" id="clienteCopiarPpto">
                             <input type="hidden" name="cliente_address" id="cliente_address">
+                            <input type="hidden" name="proveedor_address" id="proveedor_address">
 
                             
                             <div class="form-group">
@@ -1797,7 +1798,9 @@
                   <div class="modal-body">
                     <form>
                       <div class="form-group">
-                        <label for="message-texttextGenerarPedido" class="control-label">Mensaje:</label>
+                        <label for="mail-proveedor-address" class="control-label">Dirección email:</label>
+                        <input name="mail-proveedor" id="mail-proveedor" class="form-control">
+                        <label for="message-texttextGenerarPedido" class="control-label" style="margin-top:10px">Mensaje:</label>
                         <textarea class="form-control" id="message-textGenerarPedido" name="message-textGenerarPedido" style="height: 10em"></textarea>
                       </div>
                       <p>* Irá incluído en el correo la tabla de artículos</p>

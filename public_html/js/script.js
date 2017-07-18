@@ -1088,7 +1088,6 @@ function imprimir_Ppto(){
 }
 
 function mostrarModal(){
-    console.log('mostrarModal - clienteID: ' ,$('#cliente_newPpto').val());
     var defaultText = 'Buenas.<br> Adjunto envío el presupuesto solicitado.<br><br>Un cordial saludo,<br>David<br>NietoGranTurismo';
     
     var urlDatosCliente = url.concat('datosCliente.php');
@@ -1098,8 +1097,7 @@ function mostrarModal(){
         data: {cliente: $('#cliente_newPpto').val()},
         dataType: 'json',
         success:function(json){
-            console.log(json);
-            $('#cliente_address').val(json.email);        
+            $('#mail').val(json.email);        
         }
     });
 
@@ -1121,6 +1119,8 @@ function mostrarModalGenerarPedido(){
     var defaultText = 'Hello Peter.<br> I would like to ask you for a new order.';
     /*$('#message-text').val(defaultText);*/
     $(tinymce.get('message-textGenerarPedido').getBody()).html(defaultText);
+    $('#mail-proveedor').val('peter@flyingspares.co.uk');        
+
     event.preventDefault();
 }
 
@@ -1135,6 +1135,7 @@ function generarPedido(){
     }
     else{
         $('#mailTextGenerarPedido').val(tinyMCE.get('message-textGenerarPedido').getContent());
+        $('#proveedor_address').val($('#mail-proveedor').val());
         $('#form_newPpto').submit();
     }
 }
