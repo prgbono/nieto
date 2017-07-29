@@ -12,6 +12,7 @@ var contenedor;
 var posXinicial; //posición inicial al hacer touch
 var submenu = document.getElementsByClassName('col');
 var preArticulos = '';
+var id_pptoGlobal = '';
 
 function main(){
     navegacion();
@@ -109,7 +110,10 @@ function seleccionarPantalla(){
     console.log('URLSearch: ',window.location.search);
     console.log('URLSubstring: ',window.location.search.substring(3)); 
 */
-    var pan = window.location.search.substring(3);
+    var pan = window.location.search.substring(3,6);
+    id_pptoGlobal = window.location.search.substring(6);
+    console.log('pan: ',pan);
+    console.log('id_pptoGlobal: ',id_pptoGlobal);
     //TODO comprobar si puede coger otros valores pan {}
     /*if (window.location.search.substring(3) === 'cen') {
         pantalla = 3;*/
@@ -162,10 +166,21 @@ function seleccionarPantalla(){
                 $('html, body').animate({ scrollTop: 0 }, 'slow');
             break;
             case 'gua': //Viene de Guardar
-                /*Para cargar nuevamente el ppto habría que traer el id del mismo
-                contenedor.style.left = "-300%";
-                pantalla=4;*/
+                /*Para cargar nuevamente el ppto habría que traer el id del ppto recien guardado*/                
                 alert ('Presupuesto guardado');
+                contenedor.style.left = "-300%";
+                submenu[0].className="col";
+                submenu[1].className="col";
+                submenu[2].className="col";
+                submenu[3].className="col activo";
+                submenu[4].className="col";
+                submenu[5].className="col";
+                submenu[6].className="col";
+                submenu[7].className="col";
+                cargarPptoGua(id_pptoGlobal);
+                
+                pantalla=4;
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
             break;
             /*case 'imp': //Viene de Imprimir, tratar este caso???
                 console.log('DENTRO DEL CASE Impr');
@@ -1077,6 +1092,8 @@ function insertar_nuevoPpto(){
         alert ('Un presupuesto debe tener fecha, cliente, vehículo y al menos el primer artículo');
     }
     else{
+        /*id_pptoGlobal = $('#id_ppto').val();
+        console.log('id_pptoGlobal: ',id_pptoGlobal);*/
         $('#form_newPpto').submit();
     }
 }
@@ -1609,6 +1626,34 @@ function cargarPedido(id_ped){
 
 
 function cargarPpto(id_ppto){
+    urlCargarPpto = url.concat('listarPresupuestos.php');
+    id_ppto = id_ppto;
+    $('#id_ppto').val(id_ppto);
+    $.ajax({
+        url: urlCargarPpto,
+        type: 'POST',
+        data: {id_ppto: id_ppto},
+        dataType: 'json',
+        success:function(json){
+            $('#fecha_newPpto').val(json.Presupuestos[0].fecha);
+            getVehiculos(json.Presupuestos[0].clienteId);
+            $("#cliente_newPpto").val(json.Presupuestos[0].clienteId);    
+            $('#id_cliente').val(json.Presupuestos[0].clienteId);
+            $('#asunto_newPpto').val(json.Presupuestos[0].asunto);
+            $('#transporte_newPpto').val(json.Presupuestos[0].transporte);
+            if (json.Presupuestos[0].canarias==1)
+                $('#canarias_newPpto').prop("checked", "checked");
+            else
+                $('#canarias_newPpto').prop("checked", "");
+            $('#subtotal').val(json.Presupuestos[0].subtotal);
+            $('#iva_newPpto').val(json.Presupuestos[0].iva);
+            $('#totalTotal').val(json.Presupuestos[0].total);
+            cargarArticulos(id_ppto);
+        }
+    });
+}
+
+function cargarPptoGua(id_ppto){
     urlCargarPpto = url.concat('listarPresupuestos.php');
     id_ppto = id_ppto;
     $('#id_ppto').val(id_ppto);

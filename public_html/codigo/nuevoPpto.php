@@ -134,7 +134,8 @@ mysqli_query($link, $query2);
     //window.location='/nieto/public_html/index.php';
 
     //PRODUCCIÓN
-    window.location='http://admin.nietogranturismo.com/?p=gua';
+    window.location='http://admin.nietogranturismo.com/?p=gua'+<?php echo $id_ppto; ?>;
+    
 </script> 
 <?php
 

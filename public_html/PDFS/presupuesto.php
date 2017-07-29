@@ -74,6 +74,7 @@ $html='
         <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
         <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
         <div><span>FECHA </span>'.$fecha_newPpto.'</div>
+        <div><span>NÚM PPTO </span>'.$id_ppto.'</div>
       </div>
     </header>
     <main>
