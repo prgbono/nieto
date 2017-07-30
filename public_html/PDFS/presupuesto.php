@@ -71,10 +71,10 @@ $html='
         <h3>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</h3>
       </div>
       <div id="project">
-        <div><span>CLIENTE</span>'.utf8_encode($cliente_newPpto).'</div>
-        <div><span>VEHÍCULO</span>'.utf8_encode($vehiculo_newPpto).'</div>
-        <div><span>FECHA </span>'.$fecha_newPpto.'</div>
-        <div><span>NÚM PPTO </span>'.$id_ppto.'</div>
+        <div><span><b>CLIENTE</b></span><div class="aux">'.utf8_encode($cliente_newPpto).'</div></div>
+        <div><span><b>VEHÍCULO</b></span><div class="aux">'.utf8_encode($vehiculo_newPpto).'</div></div>
+        <div><span><b>FECHA</b></span><div class="aux">'.$fecha_newPpto.'</div></div>
+        <div><span><b>NÚM PPTO</b></span><div class="aux">'.$id_ppto.'</div></div>
       </div>
     </header>
     <main>
