@@ -4,7 +4,7 @@
 1. Guardar/Actualizar pedido en la BBDD
 2. Enviar correo al proveedor
 */
-
+header("Content-Type: text/html;charset=utf-8");
 header('Access-Control-Allow-Origin: *');
 require_once('../Librerias/class.phpmailer.php');
 //PARA PRODUCCIÓN

@@ -1,5 +1,6 @@
 <?php
 //require_once ('../dompdf/dompdf_config.inc.php');
+header("Content-Type: text/html;charset=utf-8");
 header('Access-Control-Allow-Origin: *');
 //PARA PRODUCCIÓN
 include ('../nietoBack/inc/conexion.php');
