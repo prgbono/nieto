@@ -1133,13 +1133,27 @@ function enviar_Ppto(){
 }
 
 function mostrarModalGenerarPedido(){
-    var defaultText = 'Hello Peter.<br> I would like to ask you for a new order.';
-    /*$('#message-text').val(defaultText);*/
-    $(tinymce.get('message-textGenerarPedido').getBody()).html(defaultText);
-    $('#mail-proveedor').val('peter@flyingspares.co.uk');        
 
+    //Ajax para cargar el valor por defecto del tiniMCE
+    
+    var urlSetDefaultPedidoText = 'http://admin.nietogranturismo.com/codigo/setDefaultPedidoText.php';
+    var defaultText = '';
+    $.ajax({
+        type: "POST",
+        url: urlSetDefaultPedidoText,
+        data: $("#form_newPpto").serialize(),
+        success: function(data)
+        {
+            defaultText = data;
+            $(tinymce.get('message-textGenerarPedido').getBody()).html('Hello Peter.<br> I would like to ask you for a new order.<br>'+defaultText);
+        }
+    }); 
+    $('#mail-proveedor').val('peter@flyingspares.co.uk');        
     event.preventDefault();
 }
+
+
+
 
 function generarPedido(){
     //Campos obligatorios para insertar pedido: los mismos que para ppto

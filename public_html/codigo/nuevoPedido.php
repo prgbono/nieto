@@ -228,8 +228,9 @@ foreach ($descripcion as $clave=>$valor)
 }
 
 
-$body = '<p>'.$mailTextGenerarPedido.'<br>This one would be for a '.$coche.', year: '.$anio.', and #: '.$bastidor.':</p>
-<table>
+$body = ($_POST['mailTextGenerarPedido']);
+/*$body = '<p>'.$mailTextGenerarPedido.'<br>This one would be for a '.$coche.', year: '.$anio.', and #: '.$bastidor.':</p>
+<table border="1">
     <thead>
       <tr>
         <th>Descripción / Description</th>
@@ -245,7 +246,7 @@ $body = '<p>'.$mailTextGenerarPedido.'<br>This one would be for a '.$coche.', ye
     Telf: '.$tlf1.'</p>
 <p>Thanks for your attention<br>
 David<br>
-NietoGranTurismo</p>';
+NietoGranTurismo</p>';*/
 
 
 //Asignamos asunto y cuerpo del mensaje
