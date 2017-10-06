@@ -484,12 +484,12 @@
                     </form>
                 </div>
                 <div class="page">
+                    <!-- Apartado Listado de Pedidos, desplegable de clientes. DAvid me dijo que sobraba estando arriba el buscador
                     <div>
                         <label class="control-label">Pedidos del cliente: </label>
                             <select id="cliSeleccionadoPed" onchange="listar_pedidos(this.value)">
                             </select>
-                        
-                    </div>
+                    </div>-->
 
                     <div id="listPed">
                         <!--Listado pedidos-->
