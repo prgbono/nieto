@@ -122,9 +122,14 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="center-block">
+                                <button class="btn btn-primary btn-sm left" id="addCoche">Añadir Coche</button>
+                            </div> 
+                            
 <!--                        form para el caso de añadir otro coche-->
-                            <div id="addCocheOculto"><div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" class="form-control" placeholder="Modelo"></div><div class="col-xs-3"><input type="text" class="form-control" placeholder="Bastidor"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Año"></div></div><div class="col-md-1 pull-right"><div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar coche" id="btn_addCoche"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancel_coche"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div>
+                            <div id="addCocheOculto"><div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" name="input_modeloNew" id="input_modeloNew" class="form-control" placeholder="Modelo"></div><div class="col-xs-3"><input type="text" name="input_basNew" id="input_basNew" class="form-control" placeholder="Bastidor"></div><div class="col-xs-1"><input type="text" name="anioNew" id="anioNew" class="form-control" placeholder="Año"></div></div><div class="col-md-1 pull-right"><div style="text-align: center" class="btn-group"><button type="button" class="btn-success btn-xs" title="Agregar coche" id="btn_addCoche"><span class="glyphicon glyphicon-ok"></span></button><button type="button" class="btn-danger btn-xs" id="btn_cancel_coche"  title="Cancelar"><span class="glyphicon glyphicon-remove"></span></button></div></div>
                             </div>    
+                            <br />
                             <div class="form-group">
                                 <label class="control-label col-xs-1">Variado</label>
                                 <div class="col-xs-11">

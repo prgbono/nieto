@@ -241,6 +241,7 @@ function hidePerdida(){
 }
 function mostrarAddCoche(){
     event.preventDefault();
+    $("#addCoche").hide();
     $("#addCocheOculto").show();
 }
 function mostrarAddArticulo(){
@@ -257,11 +258,29 @@ function mostrarAddArticuloAnul(){
 }
 function addCoche(){
     //Si se pulsa el tic de añadir coche
-    $("#coches").append('<div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" class="form-control" placeholder="Modelo"></div><div class="col-xs-3"><input type="text" class="form-control" placeholder="Bastidor"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Año"></div></div>');
-    $("#addCocheOculto").hide();
+    var urlAgregarCoche = url.concat('agregarCoche.php');
+    $.ajax({
+        type: "POST",
+        url: urlAgregarCoche,
+        data: { id_cliente: id_cliente,
+        input_modeloNew: $("#input_modeloNew").val(), 
+        input_basNew: $("#input_basNew").val(),
+        anioNew: $("#anioNew").val()},  
+        success: function(data)
+        {
+            $("#coches").append('<div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" class="form-control" value="'+$("#input_modeloNew").val()+'"></div><div class="col-xs-3"><input type="text" class="form-control" value="'+$("#input_basNew").val()+'"></div><div class="col-xs-1"><input type="text" class="form-control" value="'+$("#anioNew").val()+'"></div></div>');
+
+            $("#addCocheOculto").hide();
+            $("#addCoche").show();
+        }
+    }); 
 }
+
+
+
 function cancelAddCoche(){
     $("#addCocheOculto").hide();
+    $("#addCoche").show();
 }
 function addArticulo(){
     $("#articulos").append('<div class="col-xs-3"><input type="text" class="form-control" placeholder="Descripcion"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Ref"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="check"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="UDS"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Precio"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Cambio"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="PVP"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="DTO"></div><div class="col-xs-1"><input type="text" class="form-control" placeholder="Total"></div><div class="col-xs-1"><button type="button" class="btn-danger btn-sm" title="Eliminar" onClick="confirmar(3,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></div>');
@@ -465,7 +484,7 @@ function editarCliente (cliente){
         success:function(json){
             var cochesHtml = '';
             $.each(json.Coches, function(i, coche){
-                cochesHtml += '<div class="form-group"><label class="control-label col-xs-1">Coche principal</label><div class="col-xs-7"><input type="text" name="coche'+i+'" id="input_coche'+i+'" class="form-control" value="'+coche.modelo+'"></div><div class="col-xs-3"><input type="text" name="bas'+i+'" id="input_bas'+i+'" class="form-control" value="'+coche.bastidor+'"></div><div class="col-xs-1"><input type="text" name="anio'+i+'" id="input_anio'+i+'" class="form-control" value="'+coche.anio+'"></div></div>';
+                cochesHtml += '<div class="form-group"><label class="control-label col-xs-1">Coche</label><div class="col-xs-7"><input type="text" name="coche'+i+'" id="input_coche'+i+'" class="form-control" value="'+coche.modelo+'"></div><div class="col-xs-3"><input type="text" name="bas'+i+'" id="input_bas'+i+'" class="form-control" value="'+coche.bastidor+'"></div><div class="col-xs-1"><input type="text" name="anio'+i+'" id="input_anio'+i+'" class="form-control" value="'+coche.anio+'"></div></div>';
                 id_coches.push(coche.id_coche);
             });
             $('#coches').html(cochesHtml);
@@ -518,8 +537,8 @@ function autocomplet() {
                         success:function(json){
                             var tablaClientes = '';
                             $.each(json.Clientes, function(i, cliente){
-                                tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.modelo + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-primary btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
-                                });
+                                tablaClientes += '<tr><td>' + cliente.nombre + '</td><td>' + cliente.modelo + '</td><td>' + cliente.variado + '</td><td>' + cliente.tlf1 + '</td><td>' + cliente.email + '</td><td style="text-align: center"><div class="btn-group center-block"><button type="button" class="btn-info btn-sm btn_editar_cliente" onClick="editarCliente('+cliente.id_cliente+')" title="Editar"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-warning btn-sm btn_listadoPptosCliente" onClick="listadoPptos('+cliente.id_cliente+')" title="Listado presupuestos"><span class="glyphicon glyphicon-list-alt"></span></button><button type="button" class="btn-success btn-sm" id="btn_new_ppto" onClick="nuevoPpto('+cliente.id_cliente+')" title="Nuevo presupuesto"><span class="glyphicon glyphicon-plus"></span></button><button type="button" class="btn-primary btn-sm btn_listadoPedCliente" onClick="listadoPed('+cliente.id_cliente+')" title="Listado pedidos"><span class="glyphicon glyphicon-copy"></span></button><button type="button" class="btn-danger btn-sm pull-right" title="Eliminar" onClick="confirmar(1,'+cliente.id_cliente+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>';
+                                });    
                             $('#listadoClientes').html(tablaClientes);
                         }
                     });
