@@ -8,13 +8,14 @@ include ('../nietoBack/inc/conexion.php');
 extract($_POST); 
 
 $canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;
+$inter_newPpto = isset($_POST['inter_newPpto']) ? 'S' : 'N';
 $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 $totalTotal = str_replace(',','.',$totalTotal);
 $subtotal = str_replace(',','.',$subtotal);
 $fecha_newPpto = str_replace('-','/',$fecha_newPpto);
     
 /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
-$query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehCopiarPpto."', '".$clienteCopiarPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."')";
+$query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva, inter) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehCopiarPpto."', '".$clienteCopiarPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."', '".$inter_newPpto."')";
 //echo $query."\n";
 mysqli_query($link, $query);
 

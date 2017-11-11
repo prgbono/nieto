@@ -21,6 +21,7 @@ extract($_POST);
 }*/
 
 $canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;
+$inter_newPpto = isset($_POST['inter_newPpto']) ? 'S' : 'N';
 $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 $totalTotal = str_replace(',','.',$totalTotal);
 $subtotal = str_replace(',','.',$subtotal);

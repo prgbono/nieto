@@ -337,7 +337,6 @@ function nuevoPpto(cliente){
             data: {cliente: cliente},
             dataType: 'json',
             success:function(json){
-                console.log(json);
                 var now = new Date();
                 var today = now.getDate()  + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
                 $('#fecha_newPpto').val(today);
@@ -1678,6 +1677,10 @@ function cargarPpto(id_ppto){
                 $('#canarias_newPpto').prop("checked", "checked");
             else
                 $('#canarias_newPpto').prop("checked", "");
+            if (json.Presupuestos[0].inter=='S')
+                $('#inter_newPpto').prop("checked", "checked");
+            else
+                $('#inter_newPpto').prop("checked", "");
             $('#subtotal').val(json.Presupuestos[0].subtotal);
             $('#iva_newPpto').val(json.Presupuestos[0].iva);
             $('#totalTotal').val(json.Presupuestos[0].total);
@@ -1706,6 +1709,10 @@ function cargarPptoGua(id_ppto){
                 $('#canarias_newPpto').prop("checked", "checked");
             else
                 $('#canarias_newPpto').prop("checked", "");
+            if (json.Presupuestos[0].inter=='S')
+                $('#inter_newPpto').prop("checked", "checked");
+            else
+                $('#inter_newPpto').prop("checked", "");
             $('#subtotal').val(json.Presupuestos[0].subtotal);
             $('#iva_newPpto').val(json.Presupuestos[0].iva);
             $('#totalTotal').val(json.Presupuestos[0].total);

@@ -21,6 +21,7 @@ extract($_POST);
 
 /*GUARDAR PPTO (mismo código que código/nuevoPpto)*/
 $canarias_newPpto = isset($_POST['canarias_newPpto']) ? 1 : 0;
+$inter_newPpto = isset($_POST['inter_newPpto']) ? 'S' : 'N';
 $iva_newPpto = !($_POST['iva_newPpto'] == '') ? $_POST['iva_newPpto'] : 21;
 $totalTotal = str_replace(',','.',$totalTotal);
 $subtotal = str_replace(',','.',$subtotal);
@@ -35,7 +36,7 @@ if ($id_ppto){
     $query= "UPDATE pruebas_presupuestos SET fecha = STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), 
         id_coche = '".$vehiculo_newPpto."', id_cliente = '".$cliente_newPpto."', asunto = '$asunto_newPpto', 
         total = '$totalTotal', transporte = '$transporte_newPpto', canarias = '".$canarias_newPpto."', 
-        subtotal = '$subtotal', iva = '".$iva_newPpto."' WHERE id_ppto = '$id_ppto' ";
+        subtotal = '$subtotal', iva = '".$iva_newPpto."', inter = '".$inter_newPpto."' WHERE id_ppto = '$id_ppto' ";
     /*echo $query."\n";*/
     mysqli_query($link, $query);
     
@@ -51,7 +52,7 @@ else{
     
     /*1.-INSERTAR EN LA TABLA DE PRESUPUESTOS*/
     //Para localhost el formato debe ser '%d/%m/%Y' instead of '%d-%m-%Y'
-    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."')";
+    $query= "INSERT INTO pruebas_presupuestos (fecha, id_coche, id_cliente, asunto, total, transporte, canarias, subtotal, iva, inter) VALUES (STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$asunto_newPpto', '$totalTotal', '$transporte_newPpto', '".$canarias_newPpto."', '$subtotal', '".$iva_newPpto."', '".$inter_newPpto."')";
     //echo $query."\n";
     mysqli_query($link, $query);
 

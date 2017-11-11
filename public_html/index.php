@@ -444,6 +444,9 @@
                                         <label><input type="checkbox" name="canarias_newPpto" id="canarias_newPpto" type="checkbox">Canarias</label>
                                     </div>
                                     <div>
+                                        <label><input type="checkbox" name="inter_newPpto" id="inter_newPpto" type="checkbox">INTER</label>
+                                    </div>
+                                    <div>
                                         <input type="text" name="transporte_newPpto" class="form-control" id="transporte_newPpto" placeholder="PVP transporte" onblur="calcularSubtotal()">
                                     </div>
                                     
