@@ -99,7 +99,8 @@ if ($id_ppto){
         id_coche = '".$vehiculo_newPpto."', id_cliente = '".$cliente_newPpto."', asunto = '$asunto_newPpto', 
         total = '$totalTotal', transporte = '$transporte_newPpto', canarias = '".$canarias_newPpto."', 
         subtotal = '$subtotal', iva = '".$iva_newPpto."', inter = '".$inter_newPpto."' WHERE id_ppto = '$id_ppto' ";
-    /*echo $query."\n";*/
+    /*echo $query."\n\n\n";
+    echo "inter_newPpto: ".$inter_newPpto."\n";*/
     mysqli_query($link, $query);
     
     /* 2.- ELIMINAR TODOS LOS REGISTROS ASOCIADOS a ese id_ppto EN LA TABLA DE DETALLES */
@@ -151,7 +152,7 @@ mysqli_query($link, $query2);
 /*-INSERTAR EN LA TABLA DE PEDIDOS*/
 /*$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";*/
 
-$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', NOW(), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', '".$transporte_newPpto."', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";
+$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', NOW(), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', '".$inter_newPpto."', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";
 //echo $query;
 mysqli_query($link, $query);
 
@@ -200,7 +201,7 @@ $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->Host = "smtp.nietogranturismo.com"; 
 $mail->Username = "comercial@nietogranturismo.com";
-$mail->Password = "Benialbo75"; 
+$mail->Password = "Re18Vet1779"; 
 $mail->Port = 587; 
 
 $mail->From = "comercial@nietogranturismo.com";

@@ -217,7 +217,7 @@ $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->Host = "smtp.nietogranturismo.com"; 
 $mail->Username = "comercial@nietogranturismo.com";
-$mail->Password = "Benialbo75"; 
+$mail->Password = "Re18Vet1779"; 
 $mail->Port = 587; 
 $mail->From = "comercial@nietogranturismo.com";
 $mail->FromName = "NietoGranTurismo";
@@ -226,7 +226,7 @@ $mail->Timeout=30;
 $mail->AddAddress($correo);
 //Copia Oculta
 $mail->AddBCC('pacoriosgalan@gmail.com');
-$mail->AddBCC('davidoski@hotmail.com');
+//$mail->AddBCC('davidoski@hotmail.com');
 $mail->Subject = "Nieto GranTurismo. Presupuesto personalizado";
 
 $body = ($_POST['mailText'] != 'Buenas. Adjunto envío el presupuesto solicitado. Un cordial saludo, David NietoGranTurismo ') ? $_POST['mailText'] : '<p>Buenas<br>
