@@ -149,10 +149,9 @@ mysqli_query($link, $query2);
 /*FIN GUARDADO PPTO
 
 
-/*-INSERTAR EN LA TABLA DE PEDIDOS*/
-/*$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', STR_TO_DATE('$fecha_newPpto', '%d/%m/%Y'), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', 'N', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";*/
 
-$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', NOW(), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', '".$inter_newPpto."', 'N', 0, 0, 0, 0, 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";
+/*-INSERTAR EN LA TABLA DE PEDIDOS*/
+$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', NOW(), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', '".$inter_newPpto."', 'N', 0, 0', 0.65, '$subtotal', 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";
 //echo $query;
 mysqli_query($link, $query);
 

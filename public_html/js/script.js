@@ -103,13 +103,6 @@ function setEvents(){
 }
 
 function seleccionarPantalla(){
-    //contenedor = document.getElementById("contenedor");
-    //Esto obliga a hacer todos los window.location como el de copiar_en_nuevo!!
-
-    /*console.log('URL: ',window.location.href);  
-    console.log('URLSearch: ',window.location.search);
-    console.log('URLSubstring: ',window.location.search.substring(3)); 
-*/
     var pan = window.location.search.substring(3,6);
     id_pptoGlobal = window.location.search.substring(6);
     console.log('pan: ',pan);
@@ -1617,9 +1610,9 @@ function aplicar_cambios(id_pedido){
                 pagado:  pagado,
                 cambio:  cambio,
                 beneficio:  beneficio},
-                //anul:  anul},  
         success: function(result)
         {
+            $("#benef_"+id_pedido).val(parseFloat(result).toFixed(2));
             cambiosAplicados();
         }
     }); 
