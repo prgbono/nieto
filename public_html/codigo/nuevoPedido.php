@@ -200,7 +200,7 @@ $mail->IsSMTP();
 $mail->SMTPAuth = true;
 $mail->Host = "smtp.nietogranturismo.com"; 
 $mail->Username = "comercial@nietogranturismo.com";
-$mail->Password = "Re18Vet1779"; 
+$mail->Password = "Hej578n24ab3"; 
 $mail->Port = 587; 
 
 $mail->From = "comercial@nietogranturismo.com";

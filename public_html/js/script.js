@@ -2191,7 +2191,7 @@ function listar_perdidas(){
         dataType: 'json',
         success:function(json){
             $.each(json.Perdidas, function(i, per){
-                listadoPerdidas += '<tr><td>'+per.id_pedido+'</td><td>'+per.concepto+'</td><td>'+per.coste+'</td><td>'+per.fecha+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_perdida_'+per.id_perdida+'" onClick="editarPerdida('+per.id_perdida+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(9,'+per.id_perdida+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>'
+                listadoPerdidas += '<tr><td>'+per.id_pedido+'</td><td>'+per.concepto+'</td><td>'+per.coste+'€</td><td>'+per.fecha+'</td><td style="text-align: center"><div class="btn-group"><button type="button" class="btn-primary btn-xs" title="Editar" id="btn_editar_perdida_'+per.id_perdida+'" onClick="editarPerdida('+per.id_perdida+')"><span class="glyphicon glyphicon-pencil"></span></button><button type="button" class="btn-danger btn-xs" title="Eliminar" onClick="confirmar(9,'+per.id_perdida+')"><span class="glyphicon glyphicon-trash"></span></button></div></td></tr>'
             });
             $('#listadoPerdidas').html(listadoPerdidas);
         }
