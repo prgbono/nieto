@@ -107,7 +107,8 @@ table td {
 table th {
   padding: 5px 20px;
   color: #5D6975;
-  border-bottom: 1px solid #C1CED9;
+  /*border-bottom: 1px solid #C1CED9;*/
+  /*border: 1px solid #C1CED9;*/
   white-space: nowrap;        
   font-weight: normal;
   font-size: 1em;
@@ -164,3 +165,4 @@ footer {
   padding: 8px 0;
   text-align: center;
 }
+

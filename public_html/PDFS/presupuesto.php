@@ -18,6 +18,7 @@ if (!$cliente_newPpto==''){
   $fila= mysqli_fetch_assoc($result);
   $cliente_newPpto = $fila['nombre'];
   $vehiculo_newPpto = $fila['modelo'];
+  $vehiculo_bastidor = $fila['bastidor'];
 }
 
 
@@ -70,12 +71,25 @@ $html='
         <br />
         <h3>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</h3>
       </div>
+
       <div id="project">
-        <div><span><b>CLIENTE</b></span><div class="aux">'.utf8_encode($cliente_newPpto).'</div></div>
-        <div><span><b>VEHÍCULO</b></span><div class="aux">'.utf8_encode($vehiculo_newPpto).'</div></div>
-        <div><span><b>FECHA</b></span><div class="aux">'.$fecha_newPpto.'</div></div>
-        <div><span><b>NÚM PPTO</b></span><div class="aux">'.$id_ppto.'</div></div>
+        <table>
+          <tbody>
+            <tr>
+              <th style="text-align: left;"><span><b>CLIENTE</b></span><span class="aux">'.utf8_encode($cliente_newPpto).'</span></th>
+              <th style="text-align: left;"><span><b>Nº Presupuesto</b></span><span class="aux">'.$id_ppto.'</span></th>
+            </tr>
+            <tr>
+              <th style="text-align: left;"><span><b>VEHÍCULO</b></span><span class="aux">'.utf8_encode($vehiculo_newPpto).'</span></th>
+              <th style="text-align: left;"><span><b>FECHA</b></span><span class="aux">'.$fecha_newPpto.'</span></th>
+            </tr>
+            <tr>
+              <th style="text-align: left;"><span><b>BASTIDOR</b></span><span class="aux">'.utf8_encode($vehiculo_bastidor).'</span></th>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
     </header>
     <main>
       <table>
