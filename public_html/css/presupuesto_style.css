@@ -83,16 +83,20 @@ h1 {
   
 }
 
-
 #project div {
   white-space: nowrap;        
 }
 
 table {
+  border: 1px solid;
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   margin-bottom: 20px;
+}
+
+table thead {
+  border: 1px dotted;
 }
 
 table tr:nth-child(2n-1) td {
@@ -107,8 +111,8 @@ table td {
 table th {
   padding: 5px 20px;
   color: #5D6975;
-  /*border-bottom: 1px solid #C1CED9;*/
-  /*border: 1px solid #C1CED9;*/
+  /*border-bottom: 1px solid #C1CED9;
+  border: 1px solid #C1CED9;*/
   white-space: nowrap;        
   font-weight: normal;
   font-size: 1em;

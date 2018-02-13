@@ -59,7 +59,7 @@ $html='
   <head>
     <meta charset="utf-8">
     <title>Presupuesto NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com</title>
-    <link href="../css/presupuesto_style.css" rel="stylesheet" type="text/css"/>  
+    <link href="../css/presupuesto_style.css" rel="stylesheet" type="text/css"/>
   </head>
   <body>
   <div class="contenido">
@@ -85,6 +85,7 @@ $html='
             </tr>
             <tr>
               <th style="text-align: left;"><span><b>BASTIDOR</b></span><span class="aux">'.utf8_encode($vehiculo_bastidor).'</span></th>
+              <th style="text-align: left;"></th>
             </tr>
           </tbody>
         </table>
