@@ -69,22 +69,22 @@ $html='
       </div>
       <div align="center">
         <br />
-        <h3>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</h3>
+        <em>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</em>
       </div>
 
       <div id="project">
         <table>
           <tbody>
             <tr>
-              <th style="text-align: left;"><span><b>CLIENTE</b></span><span class="aux">'.utf8_encode($cliente_newPpto).'</span></th>
-              <th style="text-align: left;"><span><b>Nº Presupuesto</b></span><span class="aux">'.$id_ppto.'</span></th>
+              <th style="text-align: left;"><span><b>CLIENTE:</b></span><span class="aux">'.utf8_encode($cliente_newPpto).'</span></th>
+              <th style="text-align: left;"><span><b>Nº Presupuesto:</b></span><span class="aux">'.$id_ppto.'</span></th>
             </tr>
             <tr>
-              <th style="text-align: left;"><span><b>VEHÍCULO</b></span><span class="aux">'.utf8_encode($vehiculo_newPpto).'</span></th>
-              <th style="text-align: left;"><span><b>FECHA</b></span><span class="aux">'.$fecha_newPpto.'</span></th>
+              <th style="text-align: left;"><span><b>VEHÍCULO:</b></span><span class="aux">'.utf8_encode($vehiculo_newPpto).'</span></th>
+              <th style="text-align: left;"><span><b>FECHA:</b></span><span class="aux">'.$fecha_newPpto.'</span></th>
             </tr>
             <tr>
-              <th style="text-align: left;"><span><b>BASTIDOR</b></span><span class="aux">'.utf8_encode($vehiculo_bastidor).'</span></th>
+              <th style="text-align: left;"><span><b>BASTIDOR:</b></span><span class="aux">'.utf8_encode($vehiculo_bastidor).'</span></th>
               <th style="text-align: left;"></th>
             </tr>
           </tbody>

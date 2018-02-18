@@ -151,20 +151,9 @@ mysqli_query($link, $query2);
 
 
 /*-INSERTAR EN LA TABLA DE PEDIDOS*/
-$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', NOW(), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', '".$inter_newPpto."', 'N', 0, 0', 0.65, '$subtotal', 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";
+$query= "INSERT INTO pruebas_pedidos (id_ppto, fecha, id_fra, id_coche, id_cliente, total, fra_env, inter, recog, fianza, pagado, cambio, beneficio, anul, iva, subtotal, generado, asunto, transporte) VALUES ('".$id_ppto."', NOW(), '', '".$vehiculo_newPpto."', '".$cliente_newPpto."', '$totalTotal', 'N', '".$inter_newPpto."', 'N', 0, 0, 0.65, '$subtotal', 'N', '".$iva_newPpto."', '$subtotal', 'S', '".$asunto_newPpto."', '".$transporte_newPpto."')";
 //echo $query;
 mysqli_query($link, $query);
-
-/*//TODO:Comprobar que no se haya enviado ya este pedido
-$query= "SELECT * FROM pruebas_pedidos WHERE id_ppto='$id_ppto'";
-$result = mysqli_query($link, $query);
-if(mysqli_num_rows($result)==0){
-    //Primera vez que se envía este presupuesto. Guardar en pruebas_pedidos
-    
-}else{
-    //Presupuesto ya enviado. Advertirlo
-}*/
-
 
 //Obtengo las descripciones de los productos en inglés
 foreach ($ref as $clave=>$valor)
