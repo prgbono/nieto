@@ -88,7 +88,7 @@ h1 {
 }
 
 table {
-  border: 1px solid;
+  /*border: 1px solid;*/
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
@@ -126,7 +126,7 @@ table .desc {
 table td {
   padding: 20px;
   text-align: right;
-  font-size: 0.8em;
+  /*font-size: 0.8em;*/
 }
 
 table td.ref,
@@ -134,11 +134,11 @@ table td.desc {
   vertical-align: top;
 }
 
-table td.uds,
+/*table td.uds,
 table td.pvp,
 table td.importe {
   font-size: 0.8em;
-}
+}*/
 
 table td.grand {
   border-top: 1px solid #5D6975;;
@@ -150,8 +150,8 @@ table td.grand {
 }
 
 .bottom{
-  position: absolute;
-  bottom: 120px;
+  /*position: absolute*/;
+  
 }
 
 .bottom label{

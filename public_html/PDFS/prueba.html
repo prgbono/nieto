@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Presupuesto NIETO GRAN TURISMO. TLF - 654 777 777 - comercial@nietogranturismo.com</title>
+    <link href="../css/presupuesto_style.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+  <div class="contenido">
+    <header class="clearfix">
+      <div align="center">
+        <img src="../img/logoNGT.png" alt="NietoGranTurismo">
+      </div>
+      <div align="center">
+        <br />
+        <em>Teléfono 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com</em>
+      </div>
+
+      <div id="project">
+        <table>
+          <tbody>
+            <tr>
+              <th style="text-align: left;"><span><b>CLIENTE:</b></span><span class="aux">'.utf8_encode($cliente_newPpto).'</span></th>
+              <th style="text-align: left;"><span><b>Nº Presupuesto:</b></span><span class="aux">'.$id_ppto.'</span></th>
+            </tr>
+            <tr>
+              <th style="text-align: left;"><span><b>VEHÍCULO:</b></span><span class="aux">'.utf8_encode($vehiculo_newPpto).'</span></th>
+              <th style="text-align: left;"><span><b>FECHA:</b></span><span class="aux">'.$fecha_newPpto.'</span></th>
+            </tr>
+            <tr>
+              <th style="text-align: left;"><span><b>BASTIDOR:</b></span><span class="aux">'.utf8_encode($vehiculo_bastidor).'</span></th>
+              <th style="text-align: left;"></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </header>
+    <main>
+      <table style="margin-bottom:0">
+        <thead>
+          <tr>
+            <th class="desc" style="width:50%">DESCRIPCIÓN</th>
+            <th class="ref">REFERENCIA</th>
+            <th>UDS</th>
+            <th>PVP</th>
+            <th>IMPORTE</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td class="desc" style="width:50%">Embalaje y transporte</td>
+            <td class="ref"></td>
+            <td class="uds"></td>
+            <td class="pvp"></td>
+            <td class="importe">'.$transporte_newPpto.'</td>
+            </tr>
+
+        </tbody>
+      </table>
+
+      <table>
+        <tbody>
+          <tr>
+            <td class="desc">
+              ComentariosAnother Table Body:'.utf8_encode($asunto_newPpto).'
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+
+      <br />
+      <br />
+      <div class="bottom">
+        <label>SUBTOTAL   '.$subtotal.'€</label>
+        <label>IVA   '.$iva_newPpto.'%</label>
+        <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
+      </div>
+    </main>
+    <footer>
+      <i><p>
+      Nieto GranTurismo - Rolls Royce & Bentley - Piezas y recambios <br>
+      David Nieto Hernandez, CIF:45653917K C/Costa de la luz N.5 9.A, 41005 Sevilla<br>
+      Telefono: 954 091 856 / 656 631 488, email: comercial@nietogranturismo.com, www.nietogranturismo.com <br>
+      Datos bancarios.- Caja de Ingenieros: ES95 3025 0007 79 1433213370</p></i>
+    </footer>
+  </div>
+  </body>
+</html>;
+
+

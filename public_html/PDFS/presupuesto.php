@@ -24,6 +24,8 @@ if (!$cliente_newPpto==''){
 
 //For de los artículos
 $articulos = '';
+$comentarios = '';
+$totales = '';
 foreach ($descripcion as $clave=>$valor)
 {
   if (!$descripcion[$clave]==''){
@@ -45,12 +47,37 @@ foreach ($descripcion as $clave=>$valor)
     }
   }
 }
+
 $articulos = $articulos .'<tr><td class="desc" style="width:50%">Embalaje y transporte</td>
   <td class="ref"></td>
   <td class="uds"></td>
   <td class="pvp"></td>
   <td class="importe">'.$transporte_newPpto.'</td>
   </tr>';
+
+$comentarios = '<table style="border-bottom: 1px solid; border-right: 1px solid; border-left: 1px solid;">
+        <tbody>
+          <tr>
+            <td class="desc">
+              <strong>Comentarios:</strong><br />'.utf8_encode($asunto_newPpto).'
+            </td>
+          </tr>
+        </tbody>
+      </table>';
+
+$totales = '<table style="border:1px solid black; text-align: right">
+        <tbody>
+          <tr>
+            <td>
+              <div class="bottom">
+                <label>SUBTOTAL   '.$subtotal.'€</label>
+                <label>IVA   '.$iva_newPpto.'%</label>
+                <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>';
 
 $file_location = $_SERVER['DOCUMENT_ROOT']."/presupuestos/".$id_ppto.".pdf";
 
@@ -93,7 +120,7 @@ $html='
 
     </header>
     <main>
-      <table>
+      <table style="margin-bottom:0; border-top: 1px solid; border-right: 1px solid; border-left: 1px solid;">
         <thead>
           <tr>
             <th class="desc" style="width:50%">DESCRIPCIÓN</th>
@@ -105,18 +132,13 @@ $html='
         </thead>
         <tbody>'.$articulos.'
         </tbody>
-      </table>
-      <br />
-      <br />
-      <div id="notices">
-        <div>Comentarios:</div>
-        <div class="notice">'.utf8_encode($asunto_newPpto).'</div>
-      </div>
-      <div class="bottom">
-        <label>SUBTOTAL   '.$subtotal.'€</label>
-        <label>IVA   '.$iva_newPpto.'%</label>
-        <label><strong>TOTAL   '.$totalTotal.'€</strong></label>
-      </div>
+      </table>';
+      
+      if (!utf8_encode($asunto_newPpto)=='') {
+        $html = $html . $comentarios;
+      }
+      $html = $html . $totales .'
+
     </main>
     <footer>
       <i><p>
